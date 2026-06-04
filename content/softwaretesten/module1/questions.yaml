@@ -1,0 +1,44 @@
+questions:
+
+  - id: softwaretesten.m01.q01
+    type: mcq
+    prompt: Wat is het belangrijkste doel van softwaretesten?
+
+    options:
+      - id: a
+        text: Bewijzen dat software foutloos is
+      - id: b
+        text: Onderzoeken of software werkt zoals verwacht
+      - id: c
+        text: Software sneller maken
+
+    answer: b
+
+    hint: Denk aan gedrag en kwaliteit.
+
+    feedback:
+      correct: Goed gezien.
+      incorrect: Nog niet helemaal.
+
+    explanation: Testen helpt kwaliteit zichtbaar maken.
+
+  - id: softwaretesten.m01.q02
+    type: truefalse
+    prompt: Testen kan bewijzen dat software helemaal foutloos is.
+
+    answer: false
+
+    explanation: Testen kan fouten aantonen, niet foutloosheid bewijzen.
+
+  - id: softwaretesten.m01.q03
+    type: open
+    prompt: Noem één voorbeeld van iets dat je als tester zou controleren.
+
+    sample_answer: Bijvoorbeeld of een knop werkt.
+
+    keywords:
+      - knop
+      - formulier
+      - foutmelding
+
+    explanation: Kijk naar gedrag dat belangrijk is voor gebruikers.

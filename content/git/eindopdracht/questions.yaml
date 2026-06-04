@@ -1,0 +1,41 @@
+questions:
+
+  - id: git.eindopdracht.q01
+    type: open
+    prompt: Reflecteer op je eindopdracht. Wat ging er soepel? Waar liep je tegenaan?
+    sample_answer: De commit-messages schrijven ging soepel omdat ik nu begrijp wat er in moet staan. Ik liep vast bij het pushen omdat ik vergeten was een branch aan te maken — ik stond nog op main. Dat heb ik opgelost door alsnog een branch te maken en over te schakelen.
+    keywords:
+      - branch
+      - commit
+      - push
+      - pull request
+      - leermoment
+
+  - id: git.eindopdracht.q02
+    type: open
+    prompt: Noem één situatie uit jouw eigen werk of opleiding waar de Git-workflow die je hebt geleerd direct toepasbaar is.
+    sample_answer: Bij het bijhouden van testscripts voor een project — nu kan ik per testrun een branch maken, aanpassingen committen met een duidelijke beschrijving, en via een pull request laten controleren voordat het in de hoofdversie terechtkomt.
+    keywords:
+      - testscripts
+      - samenwerken
+      - bugrapporten
+      - versiegeschiedenis
+
+  - id: git.eindopdracht.q03
+    type: mcq
+    prompt: Wat is de kern van een professionele Git-workflow?
+    options:
+      - id: a
+        text: Zo min mogelijk branches aanmaken om het overzichtelijk te houden
+      - id: b
+        text: Alles direct op main committen voor snelheid
+      - id: c
+        text: Werken op branches, samenvoegen via pull requests, communiceren via beschrijvingen en issues
+      - id: d
+        text: Elke dag pushen, ongeacht de kwaliteit van de commits
+    answer: c
+    hint: Denk aan de hele workflow die je hebt doorlopen.
+    feedback:
+      correct: Precies. De workflow is meer dan commando's — het is een manier van samenwerken.
+      incorrect: Een professionele workflow gaat over structuur, communicatie en kwaliteitscontrole.
+    explanation: Een professionele Git-workflow draait om isolatie (branches), communicatie (PR-beschrijvingen, issues) en kwaliteitscontrole (reviews). De commando's zijn het gereedschap, niet het doel.

@@ -1,0 +1,30 @@
+id: git.m04
+track_id: git
+slug: module4
+
+title: Het Git Spel
+description: Git oefenen zonder computer — met kaartjes en rollen begrijp je wat commits en branches écht zijn.
+
+order: 4
+level: beginner
+status: active
+version: 1.0.0
+estimated_minutes: 45
+
+learning_objectives:
+  - Het commit-mechanisme fysiek ervaren zonder commando's
+  - Begrijpen wat er gebeurt bij een branch en een merge
+  - De rol van een merge-conflict kunnen uitleggen vanuit eigen ervaring
+
+prerequisites:
+  - module3
+
+tags:
+  - git
+  - spel
+  - oefening
+  - branches
+  - zonder-computer
+
+next_module: module5
+template_type: lesson

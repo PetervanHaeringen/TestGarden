@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}{{ bev.id }} — TestGarden{% endblock %}
+
+{% block content %}
+<div class="container py-4" style="max-width: 820px;">
+
+  <nav class="breadcrumb mb-3">
+    <a href="{{ url_for('bevindingen.overzicht') }}">Bevindingen</a> →
+    <span class="current">{{ bev.id }}</span>
+  </nav>
+
+  {# ── Header ── #}
+  <div class="bev-form-header mb-4">
+    <div class="bev-id-badge bev-prio-{{ bev.get('prioriteit','gemiddeld') }}-badge">
+      {{ bev.id }}
+    </div>
+    <div>
+      <h1 class="mb-1">{{ bev.get('omschrijving','') }}</h1>
+      <div class="d-flex gap-3 align-items-center flex-wrap">
+        <span class="bev-status-badge status-{{ bev.get('status','open') }}">
+          {{ bev.get('status','open') }}
+        </span>
+        <span class="bev-prio-badge prio-{{ bev.get('prioriteit','gemiddeld') }}">
+          {{ bev.get('prioriteit','gemiddeld') }}
+        </span>
+        <span class="text-muted small">
+          {{ bev.get('tester','') }} · {{ bev.get('datum','') }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  {# ── Koppeling testscript ── #}
+  {% if bev.get('testscript') %}
+  <div class="ts-meta-blok mb-4">
+    <strong>Testscript:</strong> {{ bev.testscript }}
+    {% if bev.get('testset') %}· {{ bev.testset }}{% endif %}
+    {% if bev.get('stap') %}· stap {{ bev.stap }}{% endif %}
+  </div>
+  {% endif %}
+
+  {# ── Velden ── #}
+  <div class="bev-detail-grid">
+
+    {% if bev.get('stappen') %}
+    <div class="bev-detail-veld">
+      <div class="bev-detail-label">Stappen ter reproductie</div>
+      <div class="bev-detail-waarde">{{ bev.stappen }}</div>
+    </div>
+    {% endif %}
+
+    {% if bev.get('verwacht') %}
+    <div class="bev-detail-veld">
+      <div class="bev-detail-label">Verwacht resultaat</div>
+      <div class="bev-detail-waarde">{{ bev.verwacht }}</div>
+    </div>
+    {% endif %}
+
+    {% if bev.get('daadwerkelijk') %}
+    <div class="bev-detail-veld bev-detail-fout">
+      <div class="bev-detail-label">Daadwerkelijk resultaat</div>
+      <div class="bev-detail-waarde">{{ bev.daadwerkelijk }}</div>
+    </div>
+    {% endif %}
+
+  </div>
+
+  {# ── Screenshots ── #}
+  {% if bev.get('screenshots') %}
+  <div class="mt-4">
+    <div class="bev-detail-label mb-2">Screenshots</div>
+    <div class="screenshot-preview-grid">
+      {% for pad in bev.screenshots %}
+      <div class="screenshot-preview-item">
+        <a href="{{ screenshot_url(pad) }}" target="_blank">
+          <img src="{{ screenshot_url(pad) }}" alt="{{ pad }}">
+        </a>
+        <span class="screenshot-naam">{{ pad.split('/')[-1] }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {# ── Terug ── #}
+  <div class="mt-4">
+    <a href="{{ url_for('bevindingen.overzicht') }}" class="btn btn-secondary">
+      ← Terug naar overzicht
+    </a>
+    {% if bev.get('testscript') %}
+    {% set delen = bev.testscript.split('/') %}
+    {% if delen|length == 2 %}
+    <a href="{{ url_for('scripts.script_detail', map_naam=delen[0], bestand=delen[1], ts=bev.get('testset','alle')) }}"
+       class="btn btn-secondary">
+      Naar testscript
+    </a>
+    {% endif %}
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

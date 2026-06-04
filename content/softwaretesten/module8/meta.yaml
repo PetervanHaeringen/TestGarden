@@ -1,0 +1,37 @@
+id: softwaretesten.m08
+track_id: softwaretesten
+slug: module8
+module_slug: testen_m8
+
+title: Automatisering & AI Testing
+description: Introductie tot testautomatisering, AI-assisted testing en het testen van AI-systemen.
+
+order: 8
+level: intermediate
+status: active
+version: 0.2.0
+estimated_minutes: 45
+
+learning_objectives:
+  - Begrijpen wat testautomatisering is
+  - Basisprincipes van AI-assisted testing begrijpen
+  - Verschil herkennen tussen deterministische en probabilistische systemen
+  - Basisrisico’s van AI-systemen herkennen
+  - Bias, drift en hallucinations begrijpen
+  - Kritisch omgaan met AI-output
+
+prerequisites:
+  - softwaretesten.m07
+
+tags:
+  - softwaretesten
+  - automatisering
+  - ai-testing
+  - ai-assisted-testing
+  - playwright
+  - llm
+  - testing
+
+legacy_slug: testen_m8
+next_module: module9
+template_type: lesson

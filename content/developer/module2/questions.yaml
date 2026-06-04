@@ -1,0 +1,75 @@
+questions:
+
+  - id: developer.m02.q01
+    type: mcq
+    prompt: Wat was het bijzondere inzicht van Ada Lovelace over de Analytical Engine?
+    options:
+      - id: a
+        text: Dat de machine sneller kon rekenen dan mensen
+      - id: b
+        text: Dat de machine symbolen verwerkt, niet alleen getallen — en daarmee veel meer kan dan rekenen
+      - id: c
+        text: Dat de machine zichzelf kon programmeren
+      - id: d
+        text: Dat de machine muziek kon afspelen
+    answer: b
+    hint: Ze schreef dat de machine ook muziek zou kunnen componeren — als je muziek omzet in symbolen.
+    feedback:
+      correct: Precies. Dat inzicht — de machine werkt met symbolen — is de basis van alle moderne computers.
+      incorrect: Het ging niet alleen om snelheid of muziek. Het ging om het idee dat symbolen verwerken meer is dan rekenen.
+    explanation: Lovelace begreep dat de Analytical Engine niet gebonden was aan getallen. Alles wat in symbolen uit te drukken is — muziek, tekst, logica — zou de machine kunnen verwerken. Dat is precies hoe moderne computers werken.
+
+  - id: developer.m02.q02
+    type: mcq
+    prompt: Wat bewees Alan Turing met zijn denkbeeldige Turingmachine?
+    options:
+      - id: a
+        text: Dat machines altijd sneller zijn dan mensen
+      - id: b
+        text: Dat elke berekening door een machine kan worden uitgevoerd
+      - id: c
+        text: Dat er berekeningen bestaan die nooit door een machine kunnen worden opgelost
+      - id: d
+        text: Dat computers bewustzijn kunnen ontwikkelen
+    answer: c
+    hint: Turing bewees iets over de grenzen van berekenbaarheid.
+    feedback:
+      correct: Goed. Turing bewees dat er fundamentele grenzen zijn aan wat machines kunnen berekenen.
+      incorrect: Turing bewees juist het omgekeerde van wat de meeste mensen verwachten — er zijn dingen die machines nooit kunnen berekenen.
+    explanation: De Turingmachine was een theoretisch model waarmee Turing kon aantonen dat bepaalde problemen onoplosbaar zijn voor elke machine, hoe krachtig ook. Dit heet het Haltingprobleem.
+
+  - id: developer.m02.q03
+    type: truefalse
+    prompt: Ada Lovelace schreef het eerste algoritme ooit ontworpen voor een machine.
+    answer: true
+    explanation: In haar notities bij het artikel over de Analytical Engine beschreef Lovelace een stap-voor-stap plan om Bernoulli-getallen te berekenen. Dit wordt algemeen beschouwd als het eerste algoritme geschreven voor een machine.
+
+  - id: developer.m02.q04
+    type: mcq
+    prompt: Wat is de Turingtest?
+    options:
+      - id: a
+        text: Een wiskundig bewijs dat machines niet kunnen denken
+      - id: b
+        text: Een test waarbij een mens via tekst moet beoordelen of hij met een mens of machine praat
+      - id: c
+        text: Een snelheidstest voor computers
+      - id: d
+        text: Een methode om code te testen op fouten
+    answer: b
+    hint: Turing stelde de vraag":" kan een machine denken?
+    feedback:
+      correct: Klopt. Als een mens het verschil niet kan zien, heeft de machine volgens Turing "geslaagd" voor intelligentie.
+      incorrect: De Turingtest gaat over de vraag of een machine intelligent gedrag kan tonen dat niet te onderscheiden is van menselijk gedrag.
+    explanation: De Turingtest stelt dat als een mens via tekstgesprek niet kan onderscheiden of hij met een mens of machine praat, de machine als intelligent beschouwd kan worden. Het is nog steeds een van de centrale discussies in de AI-wereld.
+
+  - id: developer.m02.q05
+    type: open
+    prompt: Babbage bouwde zijn machine nooit af. Lovelace stierf jong. Turing werd vervolgd. Toch vormen zij de basis van alles wat wij nu doen. Wat zegt dat jou over hoe wetenschap en technologie zich ontwikkelen?
+    sample_answer: Grote ideeën hebben tijd nodig. Soms zijn de tools er nog niet, soms is de samenleving er nog niet klaar voor. Maar het idee blijft — en een volgende generatie bouwt erop verder. Dat laat zien dat bijdragen aan iets groters dan jezelf waarde heeft, ook als je het resultaat zelf niet ziet.
+    keywords:
+      - idee
+      - tijd
+      - generaties
+      - bijdrage
+      - voortgang

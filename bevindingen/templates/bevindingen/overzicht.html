@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Bevindingen — TestGarden{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+      <h1>🐛 Bevindingen</h1>
+      <p class="text-muted">{{ bevindingen|length }} bevinding{{ 'en' if bevindingen|length != 1 else '' }} gevonden</p>
+    </div>
+    <a href="{{ url_for('bevindingen.rapport') }}" class="btn btn-secondary">
+      📄 Rapport genereren
+    </a>
+  </div>
+
+  {% if not bevindingen %}
+  <div class="bev-leeg">
+    <p>Nog geen bevindingen. Ze verschijnen hier zodra testers fouten vastleggen.</p>
+  </div>
+  {% else %}
+
+  <div class="bev-lijst">
+    {% for b in bevindingen %}
+    <a href="{{ url_for('bevindingen.detail', bev_id=b.id) }}"
+       class="bev-rij bev-rij-{{ b.get('prioriteit','gemiddeld') }}">
+
+      <div class="bev-rij-id">
+        <span class="bev-id-badge bev-id-klein">{{ b.id }}</span>
+        <span class="bev-prio-dot prio-{{ b.get('prioriteit','gemiddeld') }}"></span>
+      </div>
+
+      <div class="bev-rij-inhoud">
+        <div class="bev-rij-titel">{{ b.get('omschrijving','') }}</div>
+        <div class="bev-rij-meta">
+          {% if b.get('testset') %}
+          <span>{{ b.testset }}</span>
+          {% if b.get('stap') %}<span>· stap {{ b.stap }}</span>{% endif %}
+          · {% endif %}
+          <span>{{ b.get('tester','') }}</span>
+          · <span>{{ b.get('datum','') }}</span>
+          {% if b.get('screenshots') %}
+          · <span>📎 {{ b.screenshots|length }}</span>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="bev-rij-status">
+        <span class="bev-status-badge status-{{ b.get('status','open') }}">
+          {{ b.get('status','open') }}
+        </span>
+      </div>
+
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

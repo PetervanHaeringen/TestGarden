@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Vertaaloverzicht</h1>
+
+<form method="GET" class="mb-3">
+    <label for="lang">Doeltaal</label>
+    <select name="lang" id="lang" onchange="this.form.submit()">
+        <option value="en" {% if selected_lang == "en" %}selected{% endif %}>English</option>
+        <option value="zh" {% if selected_lang == "zh" %}selected{% endif %}>中文</option>
+        <option value="es" {% if selected_lang == "es" %}selected{% endif %}>Español</option>
+        <option value="ar" {% if selected_lang == "ar" %}selected{% endif %}>عربي</option>
+        <option value="ru" {% if selected_lang == "ru" %}selected{% endif %}>Русский</option>
+    </select>
+</form>
+
+<div class="card">
+    <table style="width:100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Key</th>
+                <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Nederlands</th>
+                <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">{{ selected_lang|upper }}</th>
+                
+                <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Status</th>
+                <th style="text-align:left; border-bottom:1px solid #ccc; padding:8px;">Gebruikt in</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                <td style="padding:8px; vertical-align: top;"><code>{{ row.key }}</code></td>
+                <td style="padding:8px; vertical-align: top;">{{ row.nl }}</td>
+                <td style="padding:8px; vertical-align: top;">
+    <form method="POST" action="{{ url_for('teacher.update_translation') }}">
+        <input type="hidden" name="key" value="{{ row.key }}">
+        <input type="hidden" name="lang" value="{{ selected_lang }}">
+
+        <input type="text" name="text" value="{{ row.target }}" style="width: 100%;">
+
+        <button type="submit">💾</button>
+    </form>
+</td>
+                <td style="padding:8px; vertical-align: top;">
+                    {% if row.status == "translated" %}
+                        ✅ vertaald
+                    {% elif row.status == "same_as_source" %}
+                        🟡 gelijk aan bron
+                    {% else %}
+                        ❌ ontbreekt
+                    {% endif %}
+                </td>
+                <td style="padding:8px; vertical-align: top;">{{ row.used_in }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

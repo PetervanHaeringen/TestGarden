@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% block title %}Mijn Dashboard – TestGarden{% endblock %}
+
+{% block content %}
+<div class="module-container">
+
+    <h1>
+        {% if theme_key == "plant" %}🌿 Mijn Tuin
+        {% elif theme_key == "animal" %}🦊 Mijn Kudde
+        {% elif theme_key == "game" %}⚔️ Mijn Voortgang
+        {% else %}📊 Mijn Voortgang
+        {% endif %}
+    </h1>
+
+    <p class="intro">Welkom terug, <strong>{{ user.username }}</strong>.</p>
+
+    <!-- ── THEMA KIEZEN ── -->
+    <div style="margin-bottom: 1.5rem;">
+        <p style="font-size: 0.9rem; color: var(--text-soft); margin-bottom: 0.5rem;">Kies jouw stijl:</p>
+        <form method="POST" action="{{ url_for('users.dashboard_set_theme') }}" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            {% for key, t in themes.items() %}
+            <button type="submit" name="theme" value="{{ key }}"
+                style="padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border-subtle);
+                       background: {% if theme_key == key %}var(--accent-soft){% else %}var(--card-bg){% endif %};
+                       color: var(--text); cursor: pointer; font-size: 0.85rem;
+                       font-weight: {% if theme_key == key %}600{% else %}400{% endif %};">
+                {{ t.label }}
+            </button>
+            {% endfor %}
+        </form>
+    </div>
+
+    <!-- ── STATISTIEKEN ── -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+        <div class="example-box" style="text-align: center;">
+            <div style="font-size: 2rem; font-weight: 600; color: var(--accent);">{{ done_count }} / {{ total }}</div>
+            <div style="font-size: 0.85rem; color: var(--text-soft);">modules afgerond</div>
+        </div>
+        <div class="example-box" style="text-align: center;">
+            <div style="font-size: 2rem; font-weight: 600; color: var(--accent);">{{ total_correct }} / {{ total_questions }}</div>
+            <div style="font-size: 0.85rem; color: var(--text-soft);">vragen goed</div>
+        </div>
+        <div class="example-box" style="text-align: center;">
+            <div style="font-size: 2rem; font-weight: 600; color: var(--accent);">{{ overall_pct }}%</div>
+            <div style="font-size: 0.85rem; color: var(--text-soft);">totale score</div>
+        </div>
+    </div>
+
+    <!-- ── VOORTGANGSBALK ── -->
+    <div style="margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-soft); margin-bottom: 4px;">
+            <span>Totale voortgang</span>
+            <span>{{ done_count }} van {{ total }} modules</span>
+        </div>
+        <div style="background: var(--bg-alt); height: 12px; border-radius: 6px; overflow: hidden;">
+            <div style="height: 100%; width: {{ ((done_count / total * 100) | int) if total > 0 else 0 }}%; background: var(--success-color); border-radius: 6px; transition: width 0.4s ease;"></div>
+        </div>
+    </div>
+
+    <!-- ── THEMA: KAAL / PLAIN ── -->
+    {% if theme_key == "plain" %}
+    <div>
+        {% for step in steps %}
+        <div style="display: flex; align-items: center; gap: 1rem; padding: 10px 0; border-bottom: 1px solid var(--border-subtle);
+                    {% if step.locked %}opacity: 0.4;{% endif %}">
+            <div style="width: 24px; text-align: center; color: var(--text-soft); font-size: 0.85rem;">{{ step.nr }}</div>
+            <div style="flex: 1; font-size: 0.95rem;">
+                {% if step.locked %}
+                    🔒 {{ step.name }}
+                {% else %}
+                    <a href="{{ step.url }}" style="color: var(--text); text-decoration: none;">{{ step.name }}</a>
+                {% endif %}
+            </div>
+            <div style="width: 120px; background: var(--bg-alt); height: 6px; border-radius: 3px; overflow: hidden;">
+                <div style="height: 100%; width: {{ step.pct }}%; background: {% if step.status == 'done' %}var(--success-color){% elif step.status == 'doing' %}var(--warning-color){% else %}transparent{% endif %}; border-radius: 3px;"></div>
+            </div>
+            <div style="width: 36px; font-size: 0.85rem; color: var(--text-soft); text-align: right;">{{ step.pct }}%</div>
+            <div style="width: 80px; text-align: right; font-size: 0.8rem;
+                padding: 2px 8px; border-radius: 10px;
+                background: {% if step.status == 'done' %}#d4edda{% elif step.status == 'doing' %}#fff3cd{% else %}var(--bg-alt){% endif %};
+                color: {% if step.status == 'done' %}#155724{% elif step.status == 'doing' %}#856404{% else %}var(--text-soft){% endif %};">
+                {% if step.status == 'done' %}afgerond
+                {% elif step.status == 'doing' %}bezig
+                {% else %}—{% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- ── THEMA: GRID (plant / animal / game) ── -->
+    {% else %}
+    <div class="grid" style="grid-template-columns: repeat(3, 1fr);">
+        {% for step in steps %}
+        {% set icon = theme.icons[2] if step.status == 'done' else theme.icons[1] if step.status == 'doing' else theme.icons[0] %}
+        {% set label = theme.labels[2] if step.status == 'done' else theme.labels[1] if step.status == 'doing' else theme.labels[0] %}
+        <div class="tile" style="text-align: center; cursor: {% if step.locked %}default{% else %}pointer{% endif %};
+                opacity: {% if step.locked %}0.4{% else %}1{% endif %};
+                border: {% if step.status == 'doing' %}2px solid var(--warning-color){% elif step.status == 'done' %}2px solid var(--success-color){% else %}1px solid var(--border-subtle){% endif %};"
+             {% if not step.locked %}onclick="window.location='{{ step.url }}'"{% endif %}>
+            <div style="font-size: 2.2rem; margin-bottom: 0.4rem;">{% if step.locked %}🔒{% else %}{{ icon }}{% endif %}</div>
+            <div style="font-size: 0.75rem; color: var(--text-soft);">Module {{ step.nr }}</div>
+            <div style="font-size: 0.9rem; font-weight: 600; margin: 0.2rem 0;">
+                {% if step.locked %}
+                    {{ step.name }}
+                {% else %}
+                    <a href="{{ step.url }}" style="color: var(--text); text-decoration: none;">{{ step.name }}</a>
+                {% endif %}
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-soft); margin-bottom: 0.5rem;">{{ label }}</div>
+            {% if step.pct > 0 %}
+            <div style="background: var(--bg-alt); height: 4px; border-radius: 2px; overflow: hidden;">
+                <div style="height: 100%; width: {{ step.pct }}%;
+                    background: {% if step.status == 'done' %}var(--success-color){% else %}var(--warning-color){% endif %};
+                    border-radius: 2px;"></div>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- ── GAME EXTRA: XP EN LEVEL ── -->
+    {% if theme_key == "game" %}
+    <div class="example-box" style="margin-top: 1.5rem;">
+        {% set xp = total_correct * 50 %}
+        {% set level = (done_count + 1) %}
+        {% set xp_next = level * 150 %}
+        {% set xp_pct = [((xp % xp_next) / xp_next * 100) | int, 100] | min %}
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span style="font-weight: 600;">Level {{ level }} — 
+                {% if done_count == 0 %}Beginner Tester
+                {% elif done_count <= 2 %}Junior Tester
+                {% elif done_count <= 5 %}Medior Tester
+                {% elif done_count <= 8 %}Senior Tester
+                {% else %}Master Tester{% endif %}
+            </span>
+            <span style="font-size: 0.85rem; color: var(--text-soft);">{{ xp }} XP</span>
+        </div>
+        <div style="background: var(--bg-alt); height: 10px; border-radius: 5px; overflow: hidden;">
+            <div style="height: 100%; width: {{ xp_pct }}%; background: var(--accent); border-radius: 5px;"></div>
+        </div>
+        <div style="font-size: 0.8rem; color: var(--text-soft); margin-top: 4px;">Nog {{ xp_next - (xp % xp_next) }} XP naar level {{ level + 1 }}</div>
+    </div>
+    {% endif %}
+
+    <!-- ── NAVIGATIE ── -->
+    <nav class="module-navigation" style="margin-top: 2rem;">
+        <a href="{{ url_for('core.index') }}">← Terug naar home</a>
+        {% set next_step = namespace(found=false, name="", url="") %}
+        {% for step in steps %}
+            {% if not next_step.found and step.status == 'doing' and not step.locked %}
+                {% set next_step.found = true %}
+                {% set next_step.name = step.name %}
+                {% set next_step.url = step.url %}
+            {% endif %}
+        {% endfor %}
+        {% if not next_step.found %}
+            {% for step in steps %}
+                {% if not next_step.found and step.status == 'not' and not step.locked %}
+                    {% set next_step.found = true %}
+                    {% set next_step.name = step.name %}
+                    {% set next_step.url = step.url %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if next_step.found %}
+        <a class="next-module" href="{{ next_step.url }}">Ga verder: {{ next_step.name }} →</a>
+        {% else %}
+        <span style="color: var(--success-color); font-weight: 600;">🎉 Alle modules afgerond!</span>
+        {% endif %}
+    </nav>
+
+</div>
+{% endblock %}

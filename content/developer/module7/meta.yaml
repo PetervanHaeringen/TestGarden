@@ -1,0 +1,30 @@
+id: developer.m07
+track_id: developer
+slug: module7
+
+title: Fouten maken en lezen
+description: Foutmeldingen zijn informatie, geen mislukking. Leer debuggen als denkproces.
+
+order: 7
+level: beginner
+status: active
+version: 1.0.0
+estimated_minutes: 45
+
+learning_objectives:
+  - Veelvoorkomende foutmeldingen herkennen en begrijpen
+  - Een systematische aanpak hanteren voor het oplossen van fouten
+  - Debuggen als hypothese-gedreven denkproces toepassen
+  - Kapotte programma's repareren
+
+prerequisites:
+  - module6
+
+tags:
+  - debuggen
+  - fouten
+  - foutmeldingen
+  - probleemoplossing
+
+next_module: module8
+template_type: lesson

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Modules toewijzen — Overzicht{% endblock %}
+
+{% block content %}
+<h1>📚 Modules toewijzen</h1>
+<p>Kies een cursist om modules aan toe te wijzen of te bewerken.</p>
+
+<table style="width:100%; border-collapse: collapse; margin-top: 1rem;">
+  <thead>
+    <tr>
+      <th style="text-align:left; border-bottom:2px solid #ccc; padding:8px;">Cursist</th>
+      <th style="text-align:left; border-bottom:2px solid #ccc; padding:8px;">Rol</th>
+      <th style="text-align:left; border-bottom:2px solid #ccc; padding:8px;">Zichtbaarheid</th>
+      <th style="text-align:left; border-bottom:2px solid #ccc; padding:8px;">Toegewezen modules</th>
+      <th style="text-align:left; border-bottom:2px solid #ccc; padding:8px;">Actie</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for student in students %}
+    <tr>
+      <td style="padding:8px; border-bottom:1px solid #eee;">{{ student.username }}</td>
+      <td style="padding:8px; border-bottom:1px solid #eee;">{{ student.role }}</td>
+      <td style="padding:8px; border-bottom:1px solid #eee;">{{ student.module_visibility }}</td>
+      <td style="padding:8px; border-bottom:1px solid #eee;">{{ toewijzingen[student.id] }}</td>
+      <td style="padding:8px; border-bottom:1px solid #eee;">
+        <a href="{{ url_for('teacher.toewijzen_student', user_id=student.id) }}">✏️ Bewerken</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

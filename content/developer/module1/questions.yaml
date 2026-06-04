@@ -1,0 +1,82 @@
+questions:
+
+  - id: developer.m01.q01
+    type: mcq
+    prompt: Wat laat het pindakaas-experiment zien?
+    options:
+      - id: a
+        text: Dat vaders slechte luisteraars zijn
+      - id: b
+        text: Dat een computer doet wat je zegt, niet wat je bedoelt
+      - id: c
+        text: Dat instructies altijd vaag zijn
+      - id: d
+        text: Dat programmeren moeilijk is
+    answer: b
+    hint: Wat deed de vader precies — en waarom was dat logisch?
+    feedback:
+      correct: Precies. De kloof tussen bedoeling en instructie is de kern van programmeren.
+      incorrect: Het gaat niet om de vader — het gaat om wat er letterlijk stond versus wat er bedoeld werd.
+    explanation: De vader deed precies wat er stond. Dat is wat computers ook doen. De uitdaging is om instructies zo te schrijven dat er geen kloof is tussen bedoeling en uitvoering.
+
+  - id: developer.m01.q02
+    type: mcq
+    prompt: Welke van deze voorbeelden is GEEN algoritme?
+    options:
+      - id: a
+        text: Een recept voor pannenkoeken
+      - id: b
+        text: Een gevoel van blijdschap
+      - id: c
+        text: De stappen om een pincode in te voeren
+      - id: d
+        text: Instructies voor het vouwen van een vliegtuigje
+    answer: b
+    hint: Een algoritme heeft een begin, een einde en ondubbelzinnige stappen.
+    feedback:
+      correct: Goed. Een gevoel heeft geen stappen, geen begin en geen einde — het is geen algoritme.
+      incorrect: Denk aan de vier eigenschappen van een algoritme — welke ontbreekt hier?
+    explanation: Een algoritme is een reeks ondubbelzinnige stappen met een begin en een einde. Een gevoel is geen reeks stappen en kan niet worden herhaald of uitgevoerd door een machine.
+
+  - id: developer.m01.q03
+    type: truefalse
+    prompt: Een goede developer kent alle programmeertalen.
+    answer: false
+    explanation: Programmeertalen zijn spelling — het algoritme is de gedachte. Goed denken in stappen, gevallen en invoer/uitvoer is belangrijker dan het kennen van veel talen. De taal kun je leren; het denken is de basis.
+
+  - id: developer.m01.q04
+    type: open
+    prompt: Schrijf een algoritme voor iets wat jij elke dag doet — in minimaal 5 stappen. Denk aan; is elke stap ondubbelzinnig? Zou een robot het kunnen volgen?
+    sample_answer: |
+      Algoritme: tanden poetsen
+      1. Loop naar de badkamer.
+      2. Pak de tandenborstel van de houder.
+      3. Doe een hoeveelheid tandpasta ter grootte van een erwt op de borstel.
+      4. Poets alle tanden gedurende 2 minuten — boven, onder, voor en achter.
+      5. Spoel de mond met water.
+      6. Spoel de tandenborstel af en zet hem terug.
+    keywords:
+      - stappen
+      - ondubbelzinnig
+      - begin
+      - einde
+      - herhaalbaar
+
+  - id: developer.m01.q05
+    type: mcq
+    prompt: Wat bedoelen we met "de kloof tussen bedoeling en instructie"?
+    options:
+      - id: a
+        text: Het verschil tussen een goede en een slechte programmeur
+      - id: b
+        text: Het verschil tussen wat je wil dat er gebeurt en wat je daadwerkelijk hebt opgeschreven
+      - id: c
+        text: Het verschil tussen twee programmeertalen
+      - id: d
+        text: De tijd die het kost om een programma te schrijven
+    answer: b
+    hint: Denk aan het pindakaas-experiment — wat wilde het kind, en wat stond er?
+    feedback:
+      correct: Ja. Die kloof overbruggen is precies wat programmeren is.
+      incorrect: De kloof gaat over de ruimte tussen bedoeling en de precieze formulering van een instructie.
+    explanation: De kloof tussen bedoeling en instructie is de reden waarom programmeren moeilijk is. Je moet zo precies schrijven dat een machine — die niets aanvult — toch het juiste doet.

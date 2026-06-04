@@ -1,0 +1,75 @@
+questions:
+
+  - id: git.m07.q01
+    type: mcq
+    prompt: Wanneer ontstaat een merge conflict?
+    options:
+      - id: a
+        text: Als twee developers tegelijk in de terminal werken
+      - id: b
+        text: Als een branch wordt verwijderd voor de merge
+      - id: c
+        text: Als twee branches dezelfde regel(s) op een verschillende manier hebben gewijzigd
+      - id: d
+        text: Als je internet uitvalt tijdens een push
+    answer: c
+    hint: Het gaat niet om timing maar om inhoud — dezelfde plek, andere keuze.
+    feedback:
+      correct: Klopt. Git kan alleen automatisch samenvoegen als wijzigingen elkaar niet overlappen.
+      incorrect: Een conflict gaat over overlappende wijzigingen in dezelfde regels, niet over timing.
+    explanation: Git voert een merge automatisch uit als de wijzigingen op andere plekken zitten. Zodra twee branches dezelfde regels anders hebben aangepast, kan Git niet zelf kiezen en vraagt het jou om te beslissen.
+
+  - id: git.m07.q02
+    type: mcq
+    prompt: Je opent een bestand na een merge conflict en ziet `<<<<<<< HEAD`. Wat betekent dat?
+    options:
+      - id: a
+        text: Het bestand is beschadigd en moet opnieuw worden gedownload
+      - id: b
+        text: Dit is het begin van jouw versie van de conflicterende regels
+      - id: c
+        text: Git heeft automatisch de beste versie gekozen
+      - id: d
+        text: De branch is klaar om te mergen
+    answer: b
+    hint: HEAD is altijd jouw huidige positie.
+    feedback:
+      correct: Precies. Tussen <<<<<<< HEAD en ======= staat jouw versie van de conflicterende regels.
+      incorrect: De markeringen laten de twee versies naast elkaar zien — jij kiest welke blijft.
+    explanation: De conflictmarkeringen verdelen het bestand in twee secties. HEAD is wat jij op je huidige branch hebt. De andere sectie is van de branch die je probeert te mergen. Je lost het op door één sectie te kiezen (of te combineren) en alle markeringen te verwijderen.
+
+  - id: git.m07.q03
+    type: truefalse
+    prompt: Na het handmatig oplossen van een conflict moet je `git add` uitvoeren op het opgeloste bestand voordat je kunt committen.
+    answer: true
+    explanation: Git weet niet automatisch dat je het conflict hebt opgelost. Je moet het bestand stagen met git add om Git te vertellen dat de conflicten zijn opgelost. Daarna commit je de merge.
+
+  - id: git.m07.q04
+    type: mcq
+    prompt: Wat is het verschil tussen een tag en een branch in Git?
+    options:
+      - id: a
+        text: Een tag is tijdelijk, een branch is permanent
+      - id: b
+        text: Een tag wijst naar een vaste commit en beweegt niet; een branch beweegt mee met nieuwe commits
+      - id: c
+        text: Tags bestaan alleen op GitHub, branches alleen lokaal
+      - id: d
+        text: Er is geen verschil — beide zijn namen voor commits
+    answer: b
+    hint: Een branch schuift op als je commit. Doet een tag dat ook?
+    feedback:
+      correct: Goed. Een tag is een vaste markering — een branch is een bewegend label.
+      incorrect: Denk aan wat er met main gebeurt als je een commit maakt op main.
+    explanation: Een branch pointer beweegt mee met elke nieuwe commit. Een tag is een vaste markering die altijd naar dezelfde commit blijft wijzen — ideaal voor versienummers.
+
+  - id: git.m07.q05
+    type: open
+    prompt: Je bent reviewer van een pull request. Beschrijf hoe je als tester kijkt naar de wijzigingen — waar let je specifiek op?
+    sample_answer: Als tester let ik op of de wijziging doet wat de beschrijving belooft, of er randgevallen zijn die niet zijn meegenomen, of de commit messages duidelijk zijn, of er testbestanden zijn bijgevoegd of bijgewerkt, en of de wijziging onbedoelde gevolgen kan hebben op andere onderdelen.
+    keywords:
+      - randgevallen
+      - commit message
+      - tests
+      - risico
+      - beschrijving

@@ -1,0 +1,34 @@
+id: softwaretesten.m05
+track_id: softwaretesten
+slug: module5
+module_slug: testen_m5
+
+title: Exploratory Testing
+description: Introductie tot exploratory testing, session-based testing en ontdekkend testen.
+
+order: 5
+level: beginner
+status: active
+version: 0.1.0
+estimated_minutes: 40
+
+learning_objectives:
+  - Begrijpen wat exploratory testing is
+  - Het verschil uitleggen tussen scripted en exploratory testing
+  - Werken met charters en sessies
+  - Een exploratory session uitvoeren
+  - Een session report schrijven
+
+prerequisites:
+  - softwaretesten.m04
+
+tags:
+  - softwaretesten
+  - exploratory-testing
+  - session-based-testing
+  - exploratory
+  - testen
+
+legacy_slug: testen_m5
+next_module: module6
+template_type: lesson

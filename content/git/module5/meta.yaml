@@ -1,0 +1,31 @@
+id: git.m05
+track_id: git
+slug: module5
+
+title: Lokaal werken
+description: Git in de terminal — init, clone, add, commit, status, log en diff op de oefenrepository.
+
+order: 5
+level: beginner
+status: active
+version: 1.0.0
+estimated_minutes: 45
+
+learning_objectives:
+  - Git installeren en configureren
+  - Een repository clonen naar de eigen computer
+  - De werkstroom van werken-stagen-committen begrijpen en uitvoeren
+  - De status en geschiedenis van een repo bekijken
+
+prerequisites:
+  - module4
+
+tags:
+  - git
+  - terminal
+  - commit
+  - clone
+  - lokaal
+
+next_module: module6
+template_type: lesson

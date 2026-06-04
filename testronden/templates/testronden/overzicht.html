@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/testronden.css') }}">
+
+<!-- Laad-overlay -->
+<div class="tr-laad-overlay" id="laadOverlay">
+    <div class="tr-laad-spinner"></div>
+    <div class="tr-laad-tekst" id="laadTekst">Even geduld...</div>
+</div>
+
+{% endblock %}
+{% block title %}Testronden — TestGarden{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+      <h1>🔄 Testronden</h1>
+      <p class="text-muted">Elke ronde is gekoppeld aan een versie of release.</p>
+    </div>
+    <a href="{{ url_for('testronden.nieuw') }}" class="btn btn-primary">
+      + Nieuwe testronde
+    </a>
+  </div>
+
+  {% if not rondes %}
+  <div class="bev-leeg">
+    <p>Nog geen testronden. Maak een nieuwe ronde aan om te starten.</p>
+  </div>
+  {% else %}
+  <div class="list-group">
+    {% for r in rondes %}
+    {% set t_totaal = namespace(goed=0, fout=0, open=0) %}
+    <a href="{{ url_for('testronden.detail', ronde_id=r.id) }}"
+       class="list-group-item list-group-item-action py-3">
+      <div class="d-flex justify-content-between align-items-center mb-1">
+        <div class="d-flex align-items-center gap-3">
+          <span class="bev-id-badge">{{ r.id }}</span>
+          <strong>{{ r.naam }}</strong>
+          <span class="bev-prio-badge prio-{% if r.type == 'regressie' %}hoog{% elif r.type == 'training' %}laag{% else %}gemiddeld{% endif %}">
+            {{ r.type }}
+          </span>
+        </div>
+        <span class="bev-status-badge status-{% if r.status == 'actief' %}in_behandeling{% else %}opgelost{% endif %}">
+          {{ r.status }}
+        </span>
+      </div>
+      <div class="text-muted small">
+        Versie {{ r.versie }} &nbsp;·&nbsp;
+        {{ r.datum_start }}
+        {% if r.datum_einde %} → {{ r.datum_einde }}{% endif %}
+        &nbsp;·&nbsp; {{ r.modules|length }} modules
+        &nbsp;·&nbsp; aangemaakt door {{ r.aangemaakt_door }}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

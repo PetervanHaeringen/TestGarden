@@ -1,0 +1,80 @@
+questions:
+
+  - id: git.m08.q01
+    type: mcq
+    prompt: Wat is het voordeel van testscripts in Git bijhouden?
+    options:
+      - id: a
+        text: Testscripts worden automatisch uitgevoerd bij elke commit
+      - id: b
+        text: Je hebt volledige geschiedenis, kunt terugkeren naar eerdere versies en kunt samenwerken via pull requests
+      - id: c
+        text: Git stuurt automatisch bugrapportages naar de developer
+      - id: d
+        text: Testscripts kunnen dan worden omgezet naar code
+    answer: b
+    hint: Denk aan wat Git sowieso biedt voor elk bestand — ook testscripts.
+    feedback:
+      correct: Goed. Alles wat Git biedt voor code, biedt het ook voor testscripts.
+      incorrect: Git behandelt testscripts als gewone bestanden — met alle voordelen die daarbij horen.
+    explanation: Testscripts in Git opslaan geeft je volledige versiegeschiedenis, de mogelijkheid terug te gaan bij fouten, traceerbaarheid van wie wat heeft veranderd, en de mogelijkheid om wijzigingen te reviewen via pull requests.
+
+  - id: git.m08.q02
+    type: mcq
+    prompt: Wat doet `Closes #58` in een commit-message?
+    options:
+      - id: a
+        text: Het verwijdert issue 58 permanent
+      - id: b
+        text: Het zorgt dat issue 58 automatisch wordt gesloten zodra de PR wordt gemerged
+      - id: c
+        text: Het opent een nieuw issue met nummer 58
+      - id: d
+        text: Het stuurt een melding naar de maker van issue 58
+    answer: b
+    hint: Wat gebeurt er pas bij de merge?
+    feedback:
+      correct: Correct. GitHub herkent dit patroon en sluit het issue automatisch bij de merge.
+      incorrect: Het issue wordt pas gesloten bij de merge, niet bij de commit zelf.
+    explanation: GitHub herkent sleutelwoorden als Closes, Fixes en Resolves gevolgd door een issue-nummer. Zodra de bijbehorende PR gemerged wordt in de hoofdbranch, sluit GitHub het issue automatisch.
+
+  - id: git.m08.q03
+    type: truefalse
+    prompt: Een milestone op GitHub groepeert issues die bij een bepaalde sprint of versie horen.
+    answer: true
+    explanation: Een milestone is een container voor gerelateerde issues. Als tester gebruik je milestones om bij te houden welke bugs en testpunten klaar moeten zijn voor een bepaalde release of sprint.
+
+  - id: git.m08.q04
+    type: open
+    prompt: Schrijf een voorbeeld-issue voor een bug die je hebt gevonden":" een knop reageert niet op mobiel. Gebruik de structuur uit de les (omschrijving, stappen, verwacht, werkelijk, omgeving).
+    sample_answer: |
+      Omschrijving: De "Verstuur"-knop op het contactformulier reageert niet op mobiele apparaten.
+      Stappen: 1. Open de pagina op een smartphone. 2. Vul het formulier in. 3. Tik op "Verstuur".
+      Verwacht: Het formulier wordt verstuurd en een bevestiging verschijnt.
+      Werkelijk: Er gebeurt niets. Geen foutmelding, geen bevestiging.
+      Omgeving: Safari op iOS 17, iPhone 13.
+    keywords:
+      - stappen
+      - verwacht
+      - werkelijk
+      - omgeving
+      - reproduceren
+
+  - id: git.m08.q05
+    type: mcq
+    prompt: Welk label gebruik je het best voor een bug die al eerder is gemeld?
+    options:
+      - id: a
+        text: enhancement
+      - id: b
+        text: question
+      - id: c
+        text: duplicate
+      - id: d
+        text: won't fix
+    answer: c
+    hint: Duplicate heeft een letterlijke betekenis.
+    feedback:
+      correct: Klopt. Duplicate geeft aan dat het issue al bestaat en sluit het nieuwe.
+      incorrect: Duplicate is het label voor issues die al eerder zijn gemeld.
+    explanation: Het label duplicate geeft aan dat dit issue al ergens anders bestaat. Je verwijst dan naar het originele issue en sluit het nieuwe. Dit houdt de issue-lijst overzichtelijk.

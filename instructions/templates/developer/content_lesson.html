@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}{{ lesson.meta.title }}{% endblock %}
+
+{% block content %}
+<div class="module-container">
+
+    <nav class="breadcrumb">
+        <a href="{{ url_for('instructions.developer_content_overview') }}">developer</a>
+        <span>/</span>
+        <span>{{ lesson.meta.title }}</span>
+    </nav>
+
+    <h1>{{ lesson.meta.title }}</h1>
+
+    {% if lesson.meta.description %}
+        <p class="intro">{{ lesson.meta.description }}</p>
+    {% endif %}
+
+    <div class="lesson-content">
+        {{ html_content | safe }}
+    </div>
+
+    {% if lesson.questions %}
+    <section class="questions-section">
+    <p class="progress-indicator">
+        Voortgang: {{ correct_count }} / {{ total_questions }} goed
+    </p>
+
+        <h2>Vragen</h2>
+
+        {% for q in lesson.questions %}
+        <form method="POST" action="{{ url_for('instructions.submit_content_answer') }}">
+        <div class="question-card" id="{{ q.id }}">
+
+            {% set saved = answer_map.get(q.id) %}
+
+            <input type="hidden" name="module_slug" value="{{ lesson.module_slug }}">
+            <input type="hidden" name="module_folder" value="{{ lesson.meta.slug }}">
+            <input type="hidden" name="question_id" value="{{ q.id }}">
+            <input type="hidden" name="track" value="developer">
+
+            <p><strong>{{ loop.index }}. {{ q.prompt }}</strong></p>
+
+            {% if q.type == "mcq" %}
+
+                {% for option in q.options %}
+                <label class="question-option">
+                    <input
+                        type="radio"
+                        name="{{ q.id }}"
+                        value="{{ option.id }}"
+                    >
+                    <span>{{ option.text }}</span>
+                </label>
+                {% endfor %}
+
+            {% elif q.type == "truefalse" %}
+
+                <label class="question-option">
+                    <input type="radio" name="{{ q.id }}" value="true">
+                    <span>Waar</span>
+                </label>
+
+                <label class="question-option">
+                    <input type="radio" name="{{ q.id }}" value="false">
+                    <span>Niet waar</span>
+                </label>
+
+            {% elif q.type == "open" %}
+
+                <textarea
+                    name="{{ q.id }}"
+                    rows="4"
+                    class="open-question-input"
+                    placeholder="Typ hier je antwoord..."
+                >{% if saved and saved.answer_text %}{{ saved.answer_text }}{% endif %}</textarea>
+
+                <button type="submit" class="check-button">
+                    Antwoord opslaan
+                </button>
+
+                <button
+                    type="button"
+                    class="check-button"
+                    onclick="showOpenAnswer('answer{{ loop.index }}')">
+                    Toon voorbeeldantwoord
+                </button>
+
+                <div
+                    id="answer{{ loop.index }}"
+                    class="answer-box"
+                    style="display:none;">
+
+                    {% if q.sample_answer %}
+                        <p><strong>Voorbeeldantwoord:</strong> {{ q.sample_answer }}</p>
+                    {% endif %}
+
+                    {% if q.explanation %}
+                        <p>{{ q.explanation }}</p>
+                    {% endif %}
+                </div>
+                {% if saved %}
+                    <div class="feedback-box">
+                        📝 Antwoord opgeslagen – wacht op beoordeling
+                    </div>
+                {% endif %}
+
+            {% endif %}
+
+            {% if q.type != "open" %}
+
+            <button type="submit" class="check-button">
+                Controleer antwoord
+            </button>
+
+            <div class="feedback-box">
+                {% if saved %}
+                    {% if saved.is_correct %}
+                        ✅ Goed antwoord opgeslagen
+                    {% else %}
+                        ❌ Nog niet goed opgeslagen
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+
+        </div>
+        </form>
+        {% endfor %}
+
+    </section>
+    {% endif %}
+
+</div>
+
+<script>
+function showOpenAnswer(id) {
+    const box = document.getElementById(id);
+
+    if (box.style.display === "none") {
+        box.style.display = "block";
+    } else {
+        box.style.display = "none";
+    }
+}
+</script>
+
+<div class="lesson-nav" style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+    <div>
+        {% if is_assigned %}
+            <a href="{{ url_for('users.dashboard') }}" class="nav-btn">
+                ← Mijn Tuin
+            </a>
+        {% else %}
+            <a href="{{ url_for('instructions.developer_content_overview') }}" class="nav-btn">
+                ← Terug naar overzicht
+            </a>
+        {% endif %}
+    </div>
+    <div>
+        {% if next_module %}
+            <a href="{{ url_for('instructions.developer_content_module', module_name=next_module.folder) }}" class="nav-btn nav-next">
+                Volgende module →
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

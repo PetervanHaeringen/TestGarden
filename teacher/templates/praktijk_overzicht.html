@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Praktijkbeoordeling — Overzicht{% endblock %}
+
+{% block content %}
+<h1>📋 Praktijkbeoordeling</h1>
+<p>Kies een cursist om opdrachten te beoordelen en het beoordelingsformulier in te vullen.</p>
+
+<table style="width:100%; border-collapse:collapse; margin-top:1.5rem;">
+  <thead>
+    <tr>
+      <th style="text-align:left; border-bottom:2px solid #ccc; padding:10px;">Cursist</th>
+      <th style="text-align:left; border-bottom:2px solid #ccc; padding:10px;">Voldane opdrachten</th>
+      <th style="text-align:left; border-bottom:2px solid #ccc; padding:10px;">Voortgang</th>
+      <th style="text-align:left; border-bottom:2px solid #ccc; padding:10px;">Actie</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for rij in overzicht %}
+    <tr>
+      <td style="padding:10px; border-bottom:1px solid #eee;">
+        {{ rij.student.username }}
+      </td>
+      <td style="padding:10px; border-bottom:1px solid #eee;">
+        {{ rij.voldaan }} / {{ rij.totaal }}
+      </td>
+      <td style="padding:10px; border-bottom:1px solid #eee;">
+        <div style="background:#eee; border-radius:4px; height:8px; width:160px;">
+          <div style="background:var(--success-color); height:8px; border-radius:4px;
+                      width:{{ ((rij.voldaan / rij.totaal * 100) | int) if rij.totaal > 0 else 0 }}%;"></div>
+        </div>
+      </td>
+      <td style="padding:10px; border-bottom:1px solid #eee;">
+        <a href="{{ url_for('teacher.praktijk_student', user_id=rij.student.id) }}">
+          📝 Beoordelen
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

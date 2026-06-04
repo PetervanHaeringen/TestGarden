@@ -1,0 +1,32 @@
+id: git.m08
+track_id: git
+slug: module8
+
+title: Git voor testers
+description: GitHub Issues, labels, milestones en het beheren van testscripts in een versiebeheersysteem.
+
+order: 8
+level: intermediate
+status: active
+version: 1.0.0
+estimated_minutes: 40
+
+learning_objectives:
+  - Issues aanmaken en beheren als tester
+  - Labels en milestones gebruiken voor overzicht
+  - Testscripts en bugrapporten in Git bijhouden
+  - De testworkflow koppelen aan de Git-workflow
+
+prerequisites:
+  - module7
+
+tags:
+  - git
+  - github
+  - issues
+  - testscripts
+  - bugrapportage
+  - workflow
+
+next_module: eindopdracht
+template_type: lesson

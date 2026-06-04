@@ -1,0 +1,35 @@
+id: softwaretesten.m06
+track_id: softwaretesten
+slug: module6
+module_slug: testen_m6
+
+title: Bug Reporting
+description: Introductie tot bugreporting, severity, priority en reproduceerbare bugreports schrijven.
+
+order: 6
+level: beginner
+status: active
+version: 0.1.0
+estimated_minutes: 35
+
+learning_objectives:
+  - Begrijpen wat een bug is
+  - Goede bugreports schrijven
+  - Verschil uitleggen tussen severity en priority
+  - Reproduceerbare stappen beschrijven
+  - Een professioneel bugreport opstellen
+
+prerequisites:
+  - softwaretesten.m05
+
+tags:
+  - softwaretesten
+  - bugreporting
+  - bugs
+  - severity
+  - priority
+  - testen
+
+legacy_slug: testen_m6
+next_module: module7
+template_type: lesson

@@ -1,0 +1,80 @@
+questions:
+
+  - id: developer.m05.q01
+    type: mcq
+    prompt: Wat gebeurt er als je in een loop vergeet de teller te verhogen?
+    options:
+      - id: a
+        text: Het programma geeft een foutmelding en stopt
+      - id: b
+        text: Het programma slaat de loop over
+      - id: c
+        text: Het programma blijft eeuwig herhalen — een oneindige loop
+      - id: d
+        text: De teller verhoogt zichzelf automatisch
+    answer: c
+    hint: Wat controleerde de Processor in het sorteerspel elke ronde?
+    feedback:
+      correct: Precies. Als de stopconditie nooit waar wordt, stopt het programma nooit.
+      incorrect: Denk aan wat er in het spel gebeurde toen we de teller niet verhoogden.
+    explanation: Een loop stopt als de conditie niet meer geldt. Als de variabele die de conditie bepaalt nooit verandert, blijft de conditie altijd geldig en herhaalt de loop eeuwig. Dit is een oneindige loop — een veelgemaakte bug.
+
+  - id: developer.m05.q02
+    type: mcq
+    prompt: In het spel hield de "Geheugen"-speler kaartjes vast met waarden. Wat vertegenwoordigen die kaartjes in een programma?
+    options:
+      - id: a
+        text: Functies
+      - id: b
+        text: Variabelen
+      - id: c
+        text: Loops
+      - id: d
+        text: Uitvoer
+    answer: b
+    hint: Een variabele is een naam die een waarde vasthoudt.
+    feedback:
+      correct: Goed. Een variabele is een naam die een waarde opslaat — precies zoals het kaartje "x = 5".
+      incorrect: De kaartjes hielden waarden vast onder een naam — dat is wat variabelen doen.
+    explanation: Een variabele is een naam die verwijst naar een waarde in het geheugen van de computer. Net zoals de Geheugen-speler een kaartje vasthoudt met "x = 5", slaat een variabele een waarde op onder een naam.
+
+  - id: developer.m05.q03
+    type: open
+    prompt: Beschrijf in je eigen woorden hoe Bubble Sort werkt. Wanneer weet je dat het klaar is?
+    sample_answer: Bubble Sort gaat steeds van links naar rechts door de rij. Bij elk paar naast elkaar kijkt het of ze in de juiste volgorde staan. Zo niet, worden ze omgewisseld. Dit herhaalt zich totdat er in een volledige doorloop niets meer is gewisseld — dan staat alles op de goede plek.
+    keywords:
+      - paren
+      - wisselen
+      - herhalen
+      - doorloop
+      - niets verandert
+
+  - id: developer.m05.q04
+    type: mcq
+    prompt: Wat is het verschil tussen een `if`-conditie en een `while`-loop?
+    options:
+      - id: a
+        text: Een `if` herhaalt zich; een `while` voert iets één keer uit
+      - id: b
+        text: Een `if` voert iets één keer uit als de conditie geldt; een `while` herhaalt zolang de conditie geldt
+      - id: c
+        text: Er is geen verschil — beide zijn hetzelfde
+      - id: d
+        text: Een `while` werkt alleen met getallen
+    answer: b
+    hint: Denk aan het verschil in het spel":" de conditie bij de sorteeroefening versus de keuze "groot of klein".
+    feedback:
+      correct: Goed. `if` beslist eenmalig; `while` blijft herhalen.
+      incorrect: Denk aan hoe de Processor omging met de conditie in spel 2 versus spel 3.
+    explanation: Een `if`-conditie wordt eenmalig gecontroleerd en de bijbehorende code wordt eenmalig uitgevoerd als die geldt. Een `while`-loop controleert de conditie na elke herhaling opnieuw en blijft uitvoeren zolang de conditie geldt.
+
+  - id: developer.m05.q05
+    type: open
+    prompt: Wat vond je het meest verrassende of verhelderend aan het uitspelen van een algoritme zonder computer? Wat begrijp je nu beter?
+    sample_answer: Het meest verhelderend was de oneindige loop — als je vergeet de teller te verhogen gebeurt er niets "mis" vanuit het gezichtspunt van het programma, het doet gewoon wat er staat. Dat laat zien hoe letterlijk een computer werkt.
+    keywords:
+      - letterlijk
+      - stappen
+      - fout
+      - loop
+      - processor

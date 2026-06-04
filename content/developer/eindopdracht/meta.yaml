@@ -1,0 +1,29 @@
+id: developer.eindopdracht
+track_id: developer
+slug: eindopdracht
+
+title: Eindopdracht — Jouw eerste programma
+description: Zelfgekozen probleem, zelfgekozen taal. Bouw iets wat voor jou betekenis heeft en presenteer het.
+
+order: 9
+level: beginner
+status: active
+version: 1.0.0
+estimated_minutes: 90
+
+learning_objectives:
+  - Een zelfgekozen probleem oplossen met code
+  - Bewuste keuzes maken over taal, structuur en aanpak
+  - Het programma kunnen presenteren en uitleggen
+  - Reflecteren op het leerproces
+
+prerequisites:
+  - module8
+
+tags:
+  - eindopdracht
+  - project
+  - presentatie
+  - reflectie
+
+template_type: lesson

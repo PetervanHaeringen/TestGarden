@@ -1,0 +1,36 @@
+id: softwaretesten
+title: Softwaretesten
+description: Basisleerlijn softwaretesten
+status: active
+icon: 🧪
+
+modules:
+  - order: 1
+    system: template
+    slug: testen_m1
+    title: Wat is testen?
+
+  - order: 2
+    system: template
+    slug: testen_m2
+    title: Testsoorten
+
+  - order: 3
+    system: template
+    slug: testen_m3
+    title: Testplan maken
+
+  - order: 4
+    system: content
+    slug: softwaretesten.m04
+    title: Testtechnieken
+
+  - order: 5
+    system: content
+    slug: softwaretesten.m05
+    title: Exploratory Testing
+
+  - order: 6
+    system: content
+    slug: softwaretesten.m06
+    title: Bug Reporting

@@ -1,0 +1,31 @@
+id: developer.m04
+track_id: developer
+slug: module4
+
+title: Talen vergeleken
+description: Hetzelfde probleem in Python, JavaScript en pseudocode — hoe kies je een taal en hoe lees je onbekende code?
+
+order: 4
+level: beginner
+status: active
+version: 1.0.0
+estimated_minutes: 35
+
+learning_objectives:
+  - Hetzelfde algoritme herkennen in verschillende programmeertalen
+  - De globale verschillen kennen tussen Python, JavaScript en andere gangbare talen
+  - Onbekende code kunnen lezen en de hoofdlijn begrijpen
+  - Een beredeneerde voorkeur kunnen uitspreken voor een taal bij een gegeven probleem
+
+prerequisites:
+  - module3
+
+tags:
+  - python
+  - javascript
+  - talen
+  - vergelijking
+  - lezen
+
+next_module: module5
+template_type: lesson

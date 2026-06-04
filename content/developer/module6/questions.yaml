@@ -1,0 +1,79 @@
+questions:
+
+  - id: developer.m06.q01
+    type: mcq
+    prompt: Wat doet het sleutelwoord 'return' in een functie?
+    options:
+      - id: a
+        text: Het beëindigt het hele programma
+      - id: b
+        text: Het stuurt een waarde terug naar de plek waar de functie werd aangeroepen
+      - id: c
+        text: Het drukt een waarde af in de console
+      - id: d
+        text: Het maakt een nieuwe variabele aan
+    answer: b
+    hint: "Wat deed de functie 'kwadraat' met het resultaat van de berekening?"
+    feedback:
+      correct: "Precies. 'return' geeft een waarde terug zodat je die kunt opslaan of verder gebruiken."
+      incorrect: "'return' is niet hetzelfde als 'console.log'. Het geeft een waarde terug, niet af."
+    explanation: "'return' beëindigt de functie en stuurt een waarde terug naar de aanroepende code. Die waarde kun je opslaan in een variabele of direct gebruiken in een berekening."
+
+  - id: developer.m06.q02
+    type: mcq
+    prompt: Wat is het verschil tussen een 'for'-loop en een 'while'-loop?
+    options:
+      - id: a
+        text: Een 'for'-loop is sneller dan een 'while'-loop
+      - id: b
+        text: Een 'for'-loop gebruik je als je het aantal herhalingen weet; een 'while'-loop als dat van een conditie afhangt
+      - id: c
+        text: Een 'while'-loop kan alleen met getallen werken
+      - id: d
+        text: Er is geen verschil — ze zijn uitwisselbaar
+    answer: b
+    hint: "Wanneer gebruik je elk type in het spel van module 5?"
+    feedback:
+      correct: "Goed. De keuze hangt af van of je het aantal herhalingen van tevoren weet."
+      incorrect: "Beide loops herhalen code, maar ze verschillen in hoe de stopconditie is georganiseerd."
+    explanation: "Een 'for'-loop is handig als je van tevoren weet hoeveel keer je iets wil herhalen. Een 'while'-loop gebruik je als het aantal herhalingen afhangt van iets wat tijdens het programma verandert — zoals gebruikersinvoer of een berekend resultaat."
+
+  - id: developer.m06.q03
+    type: truefalse
+    prompt: Een functie definiëren is hetzelfde als een functie aanroepen.
+    answer: false
+    explanation: "Een functie definiëren is hem een naam geven en de code erin schrijven — met 'function naam() { ... }'. Een functie aanroepen is hem uitvoeren — met 'naam()'. Je kunt een functie definiëren zonder hem ooit aan te roepen, en je kunt hem meerdere keren aanroepen na één definitie."
+
+  - id: developer.m06.q04
+    type: open
+    prompt: "Schrijf in pseudocode (gewone taal, geen echte code) een functie die het grootste van twee getallen teruggeeft. Wat zijn de stappen?"
+    sample_answer: |
+      Functie grootste(getal1, getal2):
+          Als getal1 groter is dan getal2:
+              geef getal1 terug
+          Anders:
+              geef getal2 terug
+    keywords:
+      - vergelijk
+      - groter
+      - teruggeven
+      - conditie
+
+  - id: developer.m06.q05
+    type: mcq
+    prompt: "Wat drukt de volgende code af?\n\n``'javascript\nlet x = 10;\nif (x > 5) {\n    console.log(\"A\");\n} else {\n    console.log(\"B\");\n}\n'`'"
+    options:
+      - id: a
+        text: B
+      - id: b
+        text: A en B
+      - id: c
+        text: A
+      - id: d
+        text: Niets — er zit een fout in
+    answer: c
+    hint: "Is 10 groter dan 5?"
+    feedback:
+      correct: "Goed. 10 > 5 is waar, dus de eerste tak wordt uitgevoerd."
+      incorrect: "Doorloop de conditie stap voor stap — is 10 groter dan 5?"
+    explanation: "De conditie 'x > 5' is waar (10 is groter dan 5), dus de 'if'-tak wordt uitgevoerd en \"A\" wordt afgedrukt. De 'else`-tak wordt overgeslagen."

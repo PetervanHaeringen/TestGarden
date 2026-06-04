@@ -1,0 +1,30 @@
+id: developer.m02
+track_id: developer
+slug: module2
+
+title: Van Lovelace tot Turing
+description: Wie dachten als eersten aan programmeerbare machines? Het verhaal van de mensen achter het idee.
+
+order: 2
+level: beginner
+status: active
+version: 1.0.0
+estimated_minutes: 30
+
+learning_objectives:
+  - De sleutelfiguren in de geschiedenis van programmeren kennen
+  - Begrijpen hoe het idee van een programmeerbare machine ontstond
+  - De verbinding zien tussen wiskunde, logica en programmeren
+
+prerequisites:
+  - module1
+
+tags:
+  - geschiedenis
+  - Lovelace
+  - Turing
+  - Babbage
+  - programmeren
+
+next_module: module3
+template_type: lesson

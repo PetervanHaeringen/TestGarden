@@ -1,0 +1,32 @@
+id: softwaretesten.m02
+track_id: softwaretesten
+slug: module2
+module_slug: testen_m2
+
+title: Testlevels & Smoke Testing
+description: Introductie tot testlevels, testtypes en smoke testing.
+
+order: 2
+level: beginner
+status: active
+version: 0.1.0
+estimated_minutes: 25
+
+learning_objectives:
+  - Begrijpen wat testlevels zijn
+  - Uitleggen wat het verschil is tussen unit-, integratie-, systeem- en acceptatietesten
+  - Uitleggen wat een smoke test is
+  - Een eenvoudige smoke test checklist maken
+
+prerequisites:
+  - softwaretesten.m01
+
+tags:
+  - softwaretesten
+  - testlevels
+  - smoke-testing
+  - functioneel-testen
+
+legacy_slug: testen_m2
+next_module: module3
+template_type: lesson

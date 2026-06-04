@@ -1,0 +1,50 @@
+{
+  "language.en": {
+    "text": "إنجليزي"
+  },
+  "language.label": {
+    "text": "لغة"
+  },
+  "language.nl": {
+    "text": "هولندي"
+  },
+  "language.zh": {
+    "text": "الصينية"
+  },
+  "tools.statuscode.button": {
+    "text": "فحص"
+  },
+  "tools.statuscode.google": {
+    "text": "كيف تتعامل جوجل مع هذا الأمر"
+  },
+  "tools.statuscode.group": {
+    "text": "مجموعة"
+  },
+  "tools.statuscode.group_explanation": {
+    "text": "مجموعة الشرح"
+  },
+  "tools.statuscode.meaning": {
+    "text": "معنى"
+  },
+  "tools.statuscode.placeholder": {
+    "text": "على سبيل المثال 404"
+  },
+  "tools.statuscode.testing": {
+    "text": "ما الذي تختبره باستخدام هذا؟"
+  },
+  "tools.statuscode.title": {
+    "text": "فاحص رمز الحالة"
+  },
+  "language.es": {
+    "text": "Español",
+    "used_in": "tools/statuscode.html, base.html"
+  },
+  "language.ar": {
+    "text": "العربية",
+    "used_in": "tools/statuscode.html, base.html"
+  },
+  "language.ru": {
+    "text": "Русский",
+    "used_in": "tools/statuscode.html, base.html"
+  }
+}

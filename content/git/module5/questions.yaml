@@ -1,0 +1,75 @@
+questions:
+
+  - id: git.m05.q01
+    type: mcq
+    prompt: Wat doet `git add .`?
+    options:
+      - id: a
+        text: Het maakt een commit van alle bestanden
+      - id: b
+        text: Het voegt alle gewijzigde bestanden toe aan de staging area
+      - id: c
+        text: Het downloadt de nieuwste versie van GitHub
+      - id: d
+        text: Het verwijdert alle ongetrackte bestanden
+    answer: b
+    hint: Na git add ben je nog niet klaar — er volgt nog een stap.
+    feedback:
+      correct: Klopt. Stagen is de tussenstap tussen wijzigen en committen.
+      incorrect: git add maakt geen commit — het bereidt bestanden voor op een commit.
+    explanation: git add plaatst bestanden in de staging area. Pas daarna maak je een commit met git commit. De twee stappen zijn bewust gescheiden zodat je kunt kiezen wat je meeneemt in een commit.
+
+  - id: git.m05.q02
+    type: mcq
+    prompt: Welk commando gebruik je om te zien welke bestanden gewijzigd zijn maar nog niet gestaged?
+    options:
+      - id: a
+        text: git log
+      - id: b
+        text: git diff --staged
+      - id: c
+        text: git status
+      - id: d
+        text: git show
+    answer: c
+    hint: Dit commando gebruik je als kompas — het laat de huidige staat zien.
+    feedback:
+      correct: Goed. git status is je meest gebruikte informatiecommando.
+      incorrect: git status laat zien welke bestanden gewijzigd, gestaged of untracked zijn.
+    explanation: git status geeft een overzicht van de staat van je working directory en staging area. Het is het commando dat je altijd kunt inzetten als je niet meer weet waar je staat.
+
+  - id: git.m05.q03
+    type: truefalse
+    prompt: Een commit-message als "Update" of "Fix stuff" is voldoende voor professioneel gebruik.
+    answer: false
+    explanation: Een goede commit-message beschrijft wat er veranderd is en waarom. Vage berichten zoals "Update" of "Fix stuff" zijn nutteloos als je later de geschiedenis doorzoekt. Gebruik korte maar beschrijvende berichten zoals "Voeg loginvalidatie toe" of "Fix kapotte link in README".
+
+  - id: git.m05.q04
+    type: mcq
+    prompt: Wat is het doel van `git log --oneline --graph --all`?
+    options:
+      - id: a
+        text: Alle bestanden in de repository tonen
+      - id: b
+        text: Een visueel overzicht tonen van de commit-graaf inclusief alle branches
+      - id: c
+        text: De laatste commit ongedaan maken
+      - id: d
+        text: Alle wijzigingen naar GitHub sturen
+    answer: b
+    hint: --graph tekent lijntjes. --all laat alle branches zien.
+    feedback:
+      correct: Precies. Dit is een van de meest nuttige commando's om de structuur van een repo te begrijpen.
+      incorrect: Denk aan wat --graph doet":" het tekent de vertakkingen zichtbaar in de terminal.
+    explanation: git log --oneline --graph --all toont een ASCII-tekening van de commit-graaf met alle branches. Erg handig om te zien hoe branches zich verhouden zonder een grafische tool.
+
+  - id: git.m05.q05
+    type: open
+    prompt: Beschrijf in je eigen woorden de drie stadia die een bestand doorloopt voordat het onderdeel is van een commit.
+    sample_answer: Een bestand begint in de working directory — dat is je normale map. Na git add gaat het naar de staging area, waar Git het klaarzet voor de volgende commit. Na git commit is de momentopname opgeslagen in de repository en maakt het bestand officieel deel uit van de geschiedenis.
+    keywords:
+      - working directory
+      - staging area
+      - repository
+      - add
+      - commit

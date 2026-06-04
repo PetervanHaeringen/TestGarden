@@ -1,0 +1,50 @@
+{
+  "language.en": {
+    "text": "英語"
+  },
+  "language.label": {
+    "text": "語言"
+  },
+  "language.nl": {
+    "text": "荷蘭語"
+  },
+  "language.zh": {
+    "text": "中國人"
+  },
+  "tools.statuscode.button": {
+    "text": "查看"
+  },
+  "tools.statuscode.google": {
+    "text": "谷歌是如何處理這個問題的"
+  },
+  "tools.statuscode.group": {
+    "text": "團體"
+  },
+  "tools.statuscode.group_explanation": {
+    "text": "講解組"
+  },
+  "tools.statuscode.meaning": {
+    "text": "意義"
+  },
+  "tools.statuscode.placeholder": {
+    "text": "例如 404"
+  },
+  "tools.statuscode.testing": {
+    "text": "你用這個測試什麼？"
+  },
+  "tools.statuscode.title": {
+    "text": "狀態代碼檢查器"
+  },
+  "language.es": {
+    "text": "Español",
+    "used_in": "tools/statuscode.html, base.html"
+  },
+  "language.ar": {
+    "text": "العربية",
+    "used_in": "tools/statuscode.html, base.html"
+  },
+  "language.ru": {
+    "text": "Русский",
+    "used_in": "tools/statuscode.html, base.html"
+  }
+}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Leerpad Git & GitHub{% endblock %}
+
+{% block content %}
+<div class="module-container">
+
+    <h1>🌱 Leerpad – Git & GitHub</h1>
+
+    <p class="intro">
+        Kies een stap om de module te openen.
+        Zo bewandel je het pad van beginnend tester naar professioneel softwaretester.
+    </p>
+
+    <div class="module-grid">
+
+        {% for m in modules %}
+        <div class="module-card">
+
+            <div class="step-label">
+                STAP {{ m.order }}
+            </div>
+
+            <h3>{{ m.title }}</h3>
+
+            <p class="status">
+                📘 Niveau: {{ m.level }}
+            </p>
+
+            <a href="{{ url_for('instructions.git_content_module', module_name=m.folder) }}"
+               class="module-button">
+               Open module
+            </a>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+{% endblock %}

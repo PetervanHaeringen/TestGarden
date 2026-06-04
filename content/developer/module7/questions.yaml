@@ -1,0 +1,75 @@
+questions:
+
+  - id: developer.m07.q01
+    type: mcq
+    prompt: Wat is het verschil tussen een syntaxfout en een logische fout?
+    options:
+      - id: a
+        text: Een syntaxfout is erger dan een logische fout
+      - id: b
+        text: Een syntaxfout voorkomt dat het programma start; een logische fout geeft geen foutmelding maar doet het verkeerde
+      - id: c
+        text: Een logische fout is altijd in de console zichtbaar
+      - id: d
+        text: Er is geen verschil — beide stoppen het programma
+    answer: b
+    hint: Welke fout is makkelijker te vinden — eentje die een melding geeft, of eentje die dat niet doet?
+    feedback:
+      correct: Precies. Logische fouten zijn het lastigst omdat de computer je niet waarschuwt.
+      incorrect: Denk aan wat er gebeurt bij elk type fout — krijg je een melding of niet?
+    explanation: Een syntaxfout wordt gevonden voordat het programma start — de taal begrijpt de code niet. Een logische fout treedt op tijdens of na uitvoering, zonder foutmelding. Het programma doet iets, maar niet wat jij bedoelde.
+
+  - id: developer.m07.q02
+    type: mcq
+    prompt: "Je ziet deze fout in de console: `Uncaught ReferenceError: score is not defined`. Wat is de meest waarschijnlijke oorzaak?"
+    options:
+      - id: a
+        text: De variabele `score` is een string in plaats van een getal
+      - id: b
+        text: De variabele `score` is nooit aangemaakt met `let` of is verkeerd gespeld
+      - id: c
+        text: De functie `score` bestaat niet
+      - id: d
+        text: Er ontbreekt een puntkomma
+    answer: b
+    hint: "`is not defined` betekent letterlijk dat de variabele niet bestaat voor de interpreter."
+    feedback:
+      correct: Goed. De interpreter kan `score` niet vinden — controleer de naam en de declaratie.
+      incorrect: "`is not defined` betekent dat de variabele niet bekend is — niet dat hij het verkeerde type heeft."
+    explanation: "Een `ReferenceError: X is not defined` betekent dat de interpreter de variabele X niet kan vinden. Oorzaken zijn een typefout in de naam, vergeten `let` te schrijven, of de variabele gebruiken buiten de scope waar hij is aangemaakt."
+
+  - id: developer.m07.q03
+    type: open
+    prompt: "Kijk naar dit kapotte programma:\n\n```javascript\nfunction optellen(a, b) {\n    return a - b;\n}\nconsole.log(optellen(5, 3)); // verwacht 8\n```\n\nWat is de fout? Hoe herstel je hem?"
+    sample_answer: De fout is een logische fout — de functie heet `optellen` maar gebruikt de min-operator `-` in plaats van `+`. Er is geen foutmelding, maar het resultaat klopt niet. De oplossing is `return a - b` veranderen in `return a + b`.
+    keywords:
+      - logische fout
+      - min
+      - plus
+      - geen foutmelding
+      - herstel
+
+  - id: developer.m07.q04
+    type: mcq
+    prompt: Wat is de meest nuttige eerste stap bij het debuggen van een probleem?
+    options:
+      - id: a
+        text: Alle code opnieuw schrijven
+      - id: b
+        text: Het probleem betrouwbaar kunnen reproduceren
+      - id: c
+        text: De fout googelen
+      - id: d
+        text: Een collega vragen
+    answer: b
+    hint: Als je niet weet wanneer het fout gaat, kun je ook niet weten wanneer het is opgelost.
+    feedback:
+      correct: Precies. Reproduceren is de basis — je kunt niets oplossen wat je niet betrouwbaar kunt laten optreden.
+      incorrect: Googelen en collega's raadplegen zijn nuttig, maar pas nadat je het probleem begrijpt. Begin met reproduceren.
+    explanation: Als je een probleem niet betrouwbaar kunt reproduceren, weet je ook niet of je oplossing werkt. Het reproduceren van het probleem — het elke keer laten optreden — is altijd de eerste stap bij debuggen.
+
+  - id: developer.m07.q05
+    type: truefalse
+    prompt: Een programma zonder foutmeldingen werkt altijd correct.
+    answer: false
+    explanation: Logische fouten produceren geen foutmeldingen maar geven wel verkeerde resultaten. Een programma kan zonder enige melding draaien en toch het verkeerde doen — zoals de functie die `a + b` berekent als `a - b`. Altijd testen met bekende invoer en verwachte uitvoer.

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Docent Dashboard – Softwaretesten</h1>
+
+<div class="module-grid">
+  {% for m in modules %}
+    <div class="module-tile">
+      <h2>{{ m.title }}</h2>
+
+      {% if m.available %}
+        <p>✔ afgerond: {{ m.done }}</p>
+        <p>🟡 bezig: {{ m.progress }}</p>
+        <p>⚪ niet gestart: {{ m.not_started }}</p>
+      {% else %}
+        <p>🌱 Nog niet ingericht</p>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

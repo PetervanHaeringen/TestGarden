@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Testscripts — TestGarden{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+  <div class="page-header mb-4">
+    <h1>📋 Testscripts</h1>
+    <p class="text-muted">Regressiescripts opgeslagen in GitHub. Klik op een testset om direct te starten.</p>
+  </div>
+
+  {# Laad-indicator — verdwijnt zodra pagina klaar is #}
+  <div id="laad-indicator" style="text-align:center;padding:40px;color:var(--text-muted,#7a8099)">
+    <div class="tr-laad-spinner" style="margin:0 auto 16px;border-top-color:var(--accent-color,#c94e0f)"></div>
+    <div>Testscripts ophalen uit GitHub...</div>
+  </div>
+  <div id="ts-inhoud" style="display:none">
+
+  <div class="ts-overzicht-lijst">
+    {% for mod in modules %}
+    <div class="ts-overzicht-rij">
+
+      {# TC label #}
+      <div class="ts-overzicht-tc">
+        {% if mod.bestand %}
+        <a href="{{ url_for('scripts.script_detail', map_naam=mod.map, bestand=mod.bestand) }}"
+           class="ts-overzicht-tc-link">
+          {{ mod.label }}
+        </a>
+        {% else %}
+        <span class="ts-overzicht-tc-link">{{ mod.label }}</span>
+        {% endif %}
+      </div>
+
+      {# Testset snelkoppelingen #}
+      <div class="ts-overzicht-sets">
+        {% if mod.testsets %}
+          {% for ts in mod.testsets %}
+          <a href="{{ url_for('scripts.script_detail', map_naam=mod.map, bestand=mod.bestand, ts=ts.id) }}"
+             class="ts-overzicht-set-link">
+            <span class="ts-overzicht-set-id">{{ ts.id }}</span>
+            <span class="ts-overzicht-set-naam">{{ ts.naam }}</span>
+          </a>
+          {% endfor %}
+        {% else %}
+          <span class="text-muted small">Geen testsets gevonden</span>
+        {% endif %}
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+  </div>{# einde ts-inhoud #}
+
+<script>
+  // Verberg indicator en toon inhoud zodra pagina geladen is
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('laad-indicator').style.display = 'none';
+    document.getElementById('ts-inhoud').style.display = 'block';
+  });
+
+  // Toon laad-indicator bij klikken op een link
+  document.addEventListener('click', function(e) {
+    const link = e.target.closest('a');
+    if (link && link.href && !link.href.startsWith('#')) {
+      document.getElementById('laad-indicator').style.display = 'block';
+      document.getElementById('ts-inhoud').style.display = 'none';
+      document.getElementById('laad-indicator').querySelector('div:last-child').textContent = 'Testscript laden...';
+    }
+  });
+</script>
+</div>
+{% endblock %}

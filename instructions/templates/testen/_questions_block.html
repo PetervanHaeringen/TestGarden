@@ -1,0 +1,60 @@
+<hr>
+
+<h2>Voortgang</h2>
+<div style="border:1px solid #999; width: 100%; height: 18px; border-radius: 10px; overflow: hidden;">
+  <div style="height: 18px; width: {{ progress.percent }}%; background: #4caf50;"></div>
+</div>
+<p>{{ progress.correct }} / {{ progress.total }} goed ({{ progress.percent }}%)</p>
+
+<hr>
+<h2 id="vragen">Vragen</h2>
+
+{% for q in questions %}
+  <div id="q_{{ q.id }}"
+       style="padding: 12px; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 12px;">
+    <p><strong>Vraag {{ loop.index }}.</strong> {{ q.prompt }}</p>
+
+    <form method="POST" action="{{ url_for('instructions.testen_answer', module_slug=module_slug, question_id=q.id) }}">
+      {% if q.type == 'mcq' %}
+        {% for opt in q.options %}
+          <label class="question-option">
+            <input type="radio" name="answer" value="{{ loop.index0 }}" required>
+            <span>{{ opt }}</span>
+          </label>
+        {% endfor %}
+
+      {% elif q.type == 'truefalse' %}
+        <label class="question-option">
+          <input type="radio" name="answer" value="true" required>
+          <span>Waar</span>
+        </label>
+        <label class="question-option">
+          <input type="radio" name="answer" value="false" required>
+            <span>Onwaar</span>
+          </label>
+
+      {% elif q.type == 'short' %}
+        <input type="text" name="answer" style="width: 100%; padding: 8px;" required>
+      {% endif %}
+
+      <button type="submit" style="margin-top:10px;">Antwoord</button>
+    </form>
+
+    {% set a = answer_map.get(q.id) if answer_map is defined else None %}
+    {% if a %}
+      <p>
+        Status:
+        {% if a.is_correct %}
+          ✅ goed (pogingen: {{ a.attempts }})
+        {% else %}
+          ❌ nog niet goed (pogingen: {{ a.attempts }})
+        {% endif %}
+      </p>
+    {% endif %}
+
+    <details style="margin-top: 8px;">
+      <summary>Uitleg (na proberen)</summary>
+      <p>{{ q.explanation }}</p>
+    </details>
+  </div>
+{% endfor %}

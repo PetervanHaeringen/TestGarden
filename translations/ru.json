@@ -1,0 +1,50 @@
+{
+  "language.en": {
+    "text": "Английский"
+  },
+  "language.label": {
+    "text": "Язык"
+  },
+  "language.nl": {
+    "text": "Голландский"
+  },
+  "language.zh": {
+    "text": "китайский"
+  },
+  "tools.statuscode.button": {
+    "text": "Проверять"
+  },
+  "tools.statuscode.google": {
+    "text": "Как Google с этим справится"
+  },
+  "tools.statuscode.group": {
+    "text": "Группа"
+  },
+  "tools.statuscode.group_explanation": {
+    "text": "Группа пояснений"
+  },
+  "tools.statuscode.meaning": {
+    "text": "Значение"
+  },
+  "tools.statuscode.placeholder": {
+    "text": "Например, 404"
+  },
+  "tools.statuscode.testing": {
+    "text": "Что вы проверяете с помощью этого?"
+  },
+  "tools.statuscode.title": {
+    "text": "Проверка кода состояния"
+  },
+  "language.es": {
+    "text": "Español",
+    "used_in": "tools/statuscode.html, base.html"
+  },
+  "language.ar": {
+    "text": "العربية",
+    "used_in": "tools/statuscode.html, base.html"
+  },
+  "language.ru": {
+    "text": "Русский",
+    "used_in": "tools/statuscode.html, base.html"
+  }
+}

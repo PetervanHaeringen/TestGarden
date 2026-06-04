@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Leerlijnen – TestGarden{% endblock %}
+
+{% block content %}
+<div class="module-container">
+
+    <h1>🌿 Leerlijnen</h1>
+
+    <p class="intro">
+        Overzicht van de beschikbare leerpaden in TestGarden.
+    </p>
+
+    {% for track in tracks %}
+        <div class="tile" style="margin-bottom: 1rem;">
+            <h2>{{ track.icon }} {{ track.title }}</h2>
+
+            <p>{{ track.description }}</p>
+
+            <p>
+                <strong>Status:</strong> {{ track.status }}
+            </p>
+
+            <p>
+                <strong>Aantal modules:</strong> {{ track.modules | length }}
+            </p>
+
+            <ul>
+                {% for module in track.modules %}
+                    <li>
+                        {{ module.order }} —
+                        {{ module.title }}
+                        <small>({{ module.system }} / {{ module.slug }})</small>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <p>Er zijn nog geen leerlijnen gevonden.</p>
+    {% endfor %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,84 @@
+questions:
+
+  - id: developer.m04.q01
+    type: mcq
+    prompt: Wat is het grootste verschil in syntaxis tussen Python en JavaScript bij het schrijven van blokken code?
+    options:
+      - id: a
+        text: Python gebruikt accolades {}; JavaScript gebruikt inspringing
+      - id: b
+        text: Python gebruikt inspringing; JavaScript gebruikt accolades {}
+      - id: c
+        text: Python gebruikt puntkomma's; JavaScript niet
+      - id: d
+        text: Er is geen verschil — beide talen zijn identiek
+    answer: b
+    hint: Kijk naar hoe de if/else-blokken zijn afgebakend in de voorbeelden.
+    feedback:
+      correct: Precies. In Python is witruimte (inspringing) betekenisvol. In JavaScript gebruik je accolades.
+      incorrect: Kijk nog eens naar de codevoorbeelden — hoe weet Python waar een blok begint en eindigt?
+    explanation: Python gebruikt inspringing (witruimte) om blokken af te bakenen. Vergeet je in te springen, dan geeft Python een fout. JavaScript gebruikt accolades — inspringing is dan alleen voor leesbaarheid, niet voor de werking.
+
+  - id: developer.m04.q02
+    type: mcq
+    prompt: Je wil een interactieve website bouwen. Welke taal is het meest voor de hand liggend?
+    options:
+      - id: a
+        text: Python
+      - id: b
+        text: C++
+      - id: c
+        text: JavaScript
+      - id: d
+        text: SQL
+    answer: c
+    hint: Welke taal draait in de browser?
+    feedback:
+      correct: Goed. JavaScript is de enige taal die browsers native begrijpen voor interactiviteit.
+      incorrect: Voor interactieve websites in de browser is JavaScript de standaard — het is de enige taal die browsers native uitvoeren.
+    explanation: JavaScript is de taal van de browser. Als je wil dat een webpagina reageert op klikken, invoer verwerkt of animaties toont, heb je JavaScript nodig. Andere talen kunnen op de server draaien maar niet direct in de browser.
+
+  - id: developer.m04.q03
+    type: truefalse
+    prompt: De keuze van programmeertaal bepaalt welke problemen je kunt oplossen.
+    answer: false
+    explanation: In theorie kun je elk probleem in elke (complete) programmeertaal oplossen. De keuze van taal bepaalt hoe makkelijk, snel of leesbaar die oplossing is — niet of het mogelijk is. Elke taal heeft sterktes en zwaktes, maar de fundamentele mogelijkheden zijn vergelijkbaar.
+
+  - id: developer.m04.q04
+    type: open
+    prompt: Bekijk dit stukje onbekende code (Swift — voor iOS-apps). Wat denk je dat het doet, ook al ken je Swift niet?
+
+      ```swift
+      let temperatuur = 22
+      if temperatuur > 25 {
+          print("Warm")
+      } else {
+          print("Koel")
+      }
+      ```
+    sample_answer: Het programma slaat de waarde 22 op als temperatuur. Dan controleert het of de temperatuur groter is dan 25. Zo ja, drukt het "Warm" af. Zo niet, drukt het "Koel" af. In dit geval wordt "Koel" afgedrukt omdat 22 niet groter is dan 25.
+    keywords:
+      - temperatuur
+      - groter dan
+      - warm
+      - koel
+      - herkennen
+
+  - id: developer.m04.q05
+    type: mcq
+    prompt: Waar open je de JavaScript-console in een browser?
+    options:
+      - id: a
+        text: Via het menu Bestand → Nieuw venster
+      - id: b
+        text: Door F12 te drukken en naar het tabblad Console te gaan
+      - id: c
+        text: Door een apart programma te installeren
+      - id: d
+        text: Via de adresbalk van de browser
+    answer: b
+    hint: De ontwikkelaarstools zitten ingebouwd in elke moderne browser.
+    feedback:
+      correct: Precies. F12 opent de ontwikkelaarstools — en de console is één van de tabbladen.
+      incorrect: Elke moderne browser heeft ingebouwde ontwikkelaarstools die je opent met F12.
+    explanation: Door F12 te drukken open je de ingebouwde ontwikkelaarstools van de browser. In het tabblad Console kun je JavaScript direct typen en uitvoeren — zonder installatie of configuratie.

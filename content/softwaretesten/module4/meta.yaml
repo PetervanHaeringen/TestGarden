@@ -1,0 +1,36 @@
+id: softwaretesten.m04
+track_id: softwaretesten
+slug: module4
+module_slug: testen_m4
+
+title: Testtechnieken
+description: Introductie tot belangrijke testtechnieken zoals EP, BVA, Decision Tables en State Transition Testing.
+
+order: 4
+level: beginner
+status: active
+version: 0.1.0
+estimated_minutes: 35
+
+learning_objectives:
+  - Begrijpen waarom testtechnieken belangrijk zijn
+  - Equivalence Partitioning toepassen
+  - Boundary Value Analysis toepassen
+  - Decision Tables begrijpen
+  - State Transition Testing herkennen
+  - Zelf testcases ontwerpen
+
+prerequisites:
+  - softwaretesten.m03
+
+tags:
+  - softwaretesten
+  - testtechnieken
+  - EP
+  - BVA
+  - decision-tables
+  - state-transition-testing
+
+legacy_slug: testen_m4
+next_module: module5
+template_type: lesson

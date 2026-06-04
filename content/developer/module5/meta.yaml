@@ -1,0 +1,32 @@
+id: developer.m05
+track_id: developer
+slug: module5
+
+title: Programmeren zonder computer
+description: Algoritmen uitspelen met kaartjes en rollen — voelen hoe een computer denkt voordat je gaat typen.
+
+order: 5
+level: beginner
+status: active
+version: 1.0.0
+estimated_minutes: 45
+
+learning_objectives:
+  - Een algoritme fysiek uitvoeren en daarmee internaliseren
+  - Het verschil ervaren tussen invoer, verwerking en uitvoer
+  - Condities en loops begrijpen vanuit eigen lichamelijke ervaring
+  - Fouten in een algoritme herkennen door het uit te spelen
+
+prerequisites:
+  - module4
+
+tags:
+  - algoritme
+  - spel
+  - zonder-computer
+  - sorteren
+  - condities
+  - loops
+
+next_module: module6
+template_type: lesson

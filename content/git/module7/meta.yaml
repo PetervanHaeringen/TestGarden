@@ -1,0 +1,31 @@
+id: git.m07
+track_id: git
+slug: module7
+
+title: Conflicten & kwaliteit
+description: Merge conflicts oplossen, code reviews geven en ontvangen, en werken met tags en releases.
+
+order: 7
+level: intermediate
+status: active
+version: 1.0.0
+estimated_minutes: 40
+
+learning_objectives:
+  - Begrijpen hoe en waarom een merge conflict ontstaat
+  - Een merge conflict kunnen oplossen in een bestand
+  - Een constructieve code review kunnen geven en ontvangen
+  - Weten wat tags en releases zijn en wanneer je ze gebruikt
+
+prerequisites:
+  - module6
+
+tags:
+  - git
+  - merge-conflict
+  - code-review
+  - tags
+  - kwaliteit
+
+next_module: module8
+template_type: lesson

@@ -1,0 +1,70 @@
+questions:
+
+  - id: developer.m08.q01
+    type: open
+    prompt: Welk project heb je gekozen en waarom? Wat sprak je aan in dat project?
+    sample_answer: Ik heb het raad-het-getal spel gekozen omdat ik direct kon zien of het werkte. Het voelde als een echt spel en niet alleen oefencode. Het was ook duidelijk wat er moest gebeuren.
+    keywords:
+      - keuze
+      - motivatie
+      - werkend
+      - aansprekend
+
+  - id: developer.m08.q02
+    type: open
+    prompt: Beschrijf één probleem dat je tegenkwam tijdens het bouwen en hoe je het hebt opgelost.
+    sample_answer: Bij de calculator vergat ik `Number()` te gebruiken bij de invoer, waardoor 5 + 3 de uitkomst "53" gaf in plaats van 8. JavaScript voegde de strings samen in plaats van de getallen op te tellen. Door Number() toe te voegen werd de invoer omgezet naar een echt getal.
+    keywords:
+      - probleem
+      - oplossing
+      - fout
+      - debuggen
+
+  - id: developer.m08.q03
+    type: mcq
+    prompt: Je quiz werkt, maar geeft altijd dezelfde volgorde van vragen. Je wil dit willekeurig maken. Welke JavaScript-functie heb je daarvoor nodig?
+    options:
+      - id: a
+        text: Math.random()
+      - id: b
+        text: console.random()
+      - id: c
+        text: shuffle()
+      - id: d
+        text: Math.sort()
+    answer: a
+    hint: De les noemde deze functie bij de uitbreidingstips voor de quiz.
+    feedback:
+      correct: Goed. Math.random() geeft een willekeurig getal tussen 0 en 1 dat je kunt gebruiken om een willekeurige vraag te kiezen.
+      incorrect: JavaScript heeft een ingebouwde Math-bibliotheek voor wiskundige functies — inclusief willekeurige getallen.
+    explanation: "Math.random() geeft een willekeurig kommagetal tussen 0 (inclusief) en 1 (exclusief). Combineer het met Math.floor() en de lengte van je vragenlijst om een willekeurige index te kiezen: `Math.floor(Math.random() * vragen.length)`"
+
+  - id: developer.m08.q04
+    type: open
+    prompt: Leg je programma uit alsof je het uitlegt aan iemand die nog nooit heeft geprogrammeerd. Wat doet het, stap voor stap?
+    sample_answer: Mijn programma is een quiz. Eerst sla ik de score op als 0. Dan stel ik één voor één drie vragen via een popup. Voor elke vraag check ik of het antwoord van de gebruiker overeenkomt met het juiste antwoord. Als het klopt, verhoog ik de score met 1 en geef ik een bevestiging. Aan het einde laat ik zien hoeveel vragen er goed waren.
+    keywords:
+      - stap voor stap
+      - uitleggen
+      - invoer
+      - verwerking
+      - uitvoer
+
+  - id: developer.m08.q05
+    type: mcq
+    prompt: Wat is de beste volgorde voor het uitbreiden van een werkend programma?
+    options:
+      - id: a
+        text: Alle uitbreidingen tegelijk toevoegen voor efficiëntie
+      - id: b
+        text: Eerst alles herschrijven, dan uitbreiden
+      - id: c
+        text: Één uitbreiding tegelijk toevoegen en na elke stap testen
+      - id: d
+        text: Uitbreidingen toevoegen zonder te testen totdat alles af is
+    answer: c
+    hint: Wat maakt het makkelijker om fouten te vinden?
+    feedback:
+      correct: Precies. Kleine stappen met tests tussendoor houden de code beheersbaar.
+      incorrect: Hoe meer je verandert zonder te testen, hoe moeilijker het wordt om te bepalen waar een nieuwe fout vandaan komt.
+    explanation: Door één uitbreiding tegelijk toe te voegen en na elke stap te testen, weet je precies welke verandering een probleem veroorzaakte. Als je alles tegelijk toevoegt en er gaat iets fout, weet je niet waar je moet zoeken.

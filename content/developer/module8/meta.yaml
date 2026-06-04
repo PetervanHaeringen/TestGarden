@@ -1,0 +1,31 @@
+id: developer.m08
+track_id: developer
+slug: module8
+
+title: Iets echts bouwen
+description: Een klein programma dat iets doet wat jij wil — keuze uit quiz, calculator, tekstverwerker of mini-spel.
+
+order: 8
+level: beginner
+status: active
+version: 1.0.0
+estimated_minutes: 60
+
+learning_objectives:
+  - Een volledig programma van begin tot einde bouwen
+  - Keuzes maken over structuur, invoer en uitvoer
+  - Testen en verbeteren op basis van eigen gebruik
+  - Het programma kunnen uitleggen aan iemand anders
+
+prerequisites:
+  - module7
+
+tags:
+  - project
+  - javascript
+  - bouwen
+  - quiz
+  - calculator
+
+next_module: eindopdracht
+template_type: lesson

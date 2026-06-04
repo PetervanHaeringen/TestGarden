@@ -1,0 +1,38 @@
+id: softwaretesten.m09
+track_id: softwaretesten
+slug: module9
+module_slug: testen_m9
+
+title: Eindproject
+description: Integreer alle vaardigheden uit de leerlijn in een volledig professioneel testtraject.
+
+order: 9
+level: intermediate
+status: active
+version: 0.2.0
+estimated_minutes: 180
+
+learning_objectives:
+  - Een volledig testtraject uitvoeren
+  - Testtechnieken combineren
+  - Professionele bugreports schrijven
+  - Exploratory testing toepassen
+  - API-tests uitvoeren
+  - Reflecteren op kwaliteit, risico en samenwerking
+  - Bevindingen professioneel presenteren
+
+prerequisites:
+  - softwaretesten.m08
+
+tags:
+  - softwaretesten
+  - eindproject
+  - testtraject
+  - exploratory-testing
+  - api-testing
+  - bugreporting
+  - presentatie
+
+legacy_slug: testen_m9
+next_module: null
+template_type: lesson

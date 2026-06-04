@@ -1,0 +1,31 @@
+id: git.m06
+track_id: git
+slug: module6
+
+title: Branches & samenwerken
+description: Branches maken en wisselen, pushen en pullen, en je eerste pull request openen op GitHub.
+
+order: 6
+level: intermediate
+status: active
+version: 1.0.0
+estimated_minutes: 50
+
+learning_objectives:
+  - Een branch aanmaken en ernaar wisselen
+  - Wijzigingen pushen naar GitHub
+  - Een pull request aanmaken en beschrijven
+  - Wijzigingen van anderen ophalen met pull en fetch
+
+prerequisites:
+  - module5
+
+tags:
+  - git
+  - branches
+  - github
+  - pull-request
+  - samenwerken
+
+next_module: module7
+template_type: lesson

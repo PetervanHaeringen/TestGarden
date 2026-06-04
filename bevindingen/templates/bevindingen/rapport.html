@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block title %}Testrapport — TestGarden{% endblock %}
+
+{% block content %}
+<div class="container py-4" style="max-width: 900px;">
+
+  <div class="d-flex align-items-start justify-content-between mb-4 flex-wrap gap-3">
+    <div>
+      <h1>📄 Testrapport</h1>
+      <p class="text-muted">
+        Gegenereerd op {{ datum }}
+        {% if filter_ronde %} &nbsp;·&nbsp; Testronde: <strong>{{ filter_ronde }}</strong>{% endif %}
+        &nbsp;·&nbsp; {{ bevindingen|length }} bevinding{{ 'en' if bevindingen|length != 1 else '' }}
+      </p>
+    </div>
+    <button onclick="window.print()" class="btn btn-secondary">🖨️ Afdrukken / PDF</button>
+  </div>
+
+  {# ── Filter op testronde ── #}
+  <div class="rapport-filter mb-4">
+    <label class="bev-label">Filter op testronde:</label>
+    <div class="d-flex gap-2 flex-wrap mt-1">
+      <a href="{{ url_for('bevindingen.rapport') }}"
+         class="ts-tab {% if not filter_ronde %}actief{% endif %}">
+        Alle testronden
+      </a>
+      {% for ronde in testronden %}
+      <a href="{{ url_for('bevindingen.rapport', ronde=ronde.id) }}"
+         class="ts-tab {% if filter_ronde == ronde.id %}actief{% endif %}">
+        {{ ronde.id }} — {{ ronde.naam }}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  {# ── Samenvatting ── #}
+  {% set totaal_g = bevindingen | selectattr('prioriteit', 'equalto', 'kritiek') | list | length %}
+  {% set totaal_h = bevindingen | selectattr('prioriteit', 'equalto', 'hoog') | list | length %}
+  {% set totaal_m = bevindingen | selectattr('prioriteit', 'equalto', 'gemiddeld') | list | length %}
+  {% set totaal_l = bevindingen | selectattr('prioriteit', 'equalto', 'laag') | list | length %}
+
+  <div class="rapport-samenvatting mb-5">
+    <h2 class="h5 mb-3">Samenvatting</h2>
+    <div class="rapport-tellers">
+      <div class="rapport-teller rapport-teller-kritiek">
+        <div class="rapport-teller-nr">{{ per_prioriteit.kritiek|length }}</div>
+        <div class="rapport-teller-label">🔴 Kritiek</div>
+      </div>
+      <div class="rapport-teller rapport-teller-hoog">
+        <div class="rapport-teller-nr">{{ per_prioriteit.hoog|length }}</div>
+        <div class="rapport-teller-label">🟠 Hoog</div>
+      </div>
+      <div class="rapport-teller rapport-teller-opmerking">
+        <div class="rapport-teller-nr">{{ per_prioriteit.gemiddeld|length }}</div>
+        <div class="rapport-teller-label">🟡 Gemiddeld</div>
+      </div>
+      <div class="rapport-teller rapport-teller-open">
+        <div class="rapport-teller-nr">{{ per_prioriteit.laag|length }}</div>
+        <div class="rapport-teller-label">🟢 Laag</div>
+      </div>
+    </div>
+  </div>
+
+  {# ── Alle bevindingen — platte lijst met kleurbol ── #}
+  {% if bevindingen %}
+  <h2 class="h5 mb-3">Alle bevindingen</h2>
+  <div class="rapport-bevinding-lijst mb-5">
+    {% for b in bevindingen | sort(attribute='prioriteit') %}
+    {% set prio = b.get('prioriteit', 'gemiddeld') %}
+    {% set bol = {'kritiek': '🔴', 'hoog': '🟠', 'gemiddeld': '🟡', 'laag': '🟢'} %}
+    <div class="rapport-bevinding">
+
+      <div class="rapport-bev-header">
+        <span class="rapport-prio-bol">{{ bol.get(prio, '⚪') }}</span>
+        <span class="bev-id-badge bev-id-klein">{{ b.id }}</span>
+        <strong>{{ b.get('omschrijving','') }}</strong>
+        <span class="bev-status-badge status-{{ b.get('status','open') }} ms-auto">
+          {{ b.get('status','open') }}
+        </span>
+      </div>
+
+      <div class="rapport-bev-meta">
+        {% if b.get('testronde') %}<span>{{ b.testronde }}</span> · {% endif %}
+        {% if b.get('testscript') %}
+          <span>{{ b.testscript }}</span>
+          {% if b.get('testset') %} · {{ b.testset }}{% endif %}
+          {% if b.get('stap') %} · stap {{ b.stap }}{% endif %}
+          ·
+        {% endif %}
+        {{ b.get('tester','') }} · {{ b.get('datum','') }}
+      </div>
+
+      <div class="rapport-bev-grid">
+        {% if b.get('stappen') %}
+        <div>
+          <div class="bev-detail-label">Stappen</div>
+          <div class="rapport-bev-tekst">{{ b.stappen }}</div>
+        </div>
+        {% endif %}
+        {% if b.get('verwacht') %}
+        <div>
+          <div class="bev-detail-label">Verwacht</div>
+          <div class="rapport-bev-tekst">{{ b.verwacht }}</div>
+        </div>
+        {% endif %}
+        {% if b.get('daadwerkelijk') %}
+        <div>
+          <div class="bev-detail-label">Daadwerkelijk</div>
+          <div class="rapport-bev-tekst rapport-bev-fout">{{ b.daadwerkelijk }}</div>
+        </div>
+        {% endif %}
+      </div>
+
+      {% if b.get('screenshots') %}
+      <div class="rapport-screenshots">
+        {% for pad in b.screenshots %}
+        <img src="{{ screenshot_url(pad) }}" alt="{{ pad }}" class="rapport-screenshot">
+        {% endfor %}
+      </div>
+      {% endif %}
+
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="bev-leeg">
+    <p>Geen bevindingen gevonden{% if filter_ronde %} voor testronde {{ filter_ronde }}{% endif %}.</p>
+  </div>
+  {% endif %}
+
+</div>
+
+<style>
+.rapport-filter { background: var(--card-bg, #f7f8fc); padding: 12px 16px; border-radius: 8px; }
+.rapport-prio-bol { font-size: 16px; flex-shrink: 0; }
+.rapport-bevinding-lijst { display: flex; flex-direction: column; gap: 12px; }
+.rapport-module-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px; background: var(--card-bg, #f7f8fc);
+  border-radius: 8px; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;
+}
+.rapport-teller-kritiek  { background: #fde8e8; }
+.rapport-teller-hoog     { background: #fef0e0; }
+.rapport-teller-opmerking { background: #fefbcd; }
+.rapport-teller-open     { background: #f0f1f5; }
+@media print {
+  .navbar, .footer, .breadcrumb, button, .rapport-filter { display: none !important; }
+  .rapport-bevinding { break-inside: avoid; }
+}
+</style>
+{% endblock %}

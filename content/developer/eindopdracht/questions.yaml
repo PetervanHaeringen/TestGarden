@@ -1,0 +1,55 @@
+questions:
+
+  - id: developer.eindopdracht.q01
+    type: open
+    prompt: Beschrijf je programma in drie zinnen — voor iemand die niet kan programmeren. Wat doet het, hoe gebruik je het, en waarom heb je dit gekozen?
+    sample_answer: Mijn programma is een quiz over sterrenkunde. Je krijgt vijf vragen en na elke vraag zie je of je het goed had. Ik heb dit gekozen omdat ik geïnteresseerd ben in ruimte en het leuk leek om een quiz te maken die ik ook echt kan gebruiken.
+    keywords:
+      - beschrijving
+      - gebruiker
+      - keuze
+      - doel
+
+  - id: developer.eindopdracht.q02
+    type: open
+    prompt: Welke taal heb je gekozen en waarom? Wat waren de voor- en nadelen van die keuze?
+    sample_answer: Ik heb JavaScript gekozen omdat ik het direct in de browser kon testen zonder iets te installeren. Het nadeel was dat de foutmeldingen soms moeilijk te lezen waren. Maar de directe terugkoppeling was erg handig.
+    keywords:
+      - taal
+      - keuze
+      - voordeel
+      - nadeel
+      - reden
+
+  - id: developer.eindopdracht.q03
+    type: open
+    prompt: Wat was het moeilijkste moment tijdens het bouwen? Hoe heb je dat opgelost?
+    sample_answer: Het moeilijkste was om de score bij te houden over meerdere vragen. Ik begreep niet waarom de score steeds op 0 terugviel. Uiteindelijk ontdekte ik dat ik de variabele binnenin de functie aanmaakte, waardoor hij elke keer opnieuw begon. Door hem buiten de functie te plaatsen werkte het.
+    keywords:
+      - probleem
+      - oplossing
+      - scope
+      - debuggen
+      - leermoment
+
+  - id: developer.eindopdracht.q04
+    type: open
+    prompt: Wat zou je anders doen als je het opnieuw mocht beginnen? Wat heb je geleerd over hoe je een programma aanpakt?
+    sample_answer: Ik zou eerder beginnen met een kleine werkende versie en dan uitbreiden. Nu wilde ik meteen alles in één keer bouwen en dat maakte het moeilijker om fouten te vinden. Ik heb geleerd dat kleine stappen met veel testen beter werkt dan grote stappen zonder te testen.
+    keywords:
+      - reflectie
+      - aanpak
+      - kleine stappen
+      - testen
+      - leren
+
+  - id: developer.eindopdracht.q05
+    type: open
+    prompt: Je hebt nu de basis van programmeren geleerd. Wat wil je als volgende stap leren — en waarom?
+    sample_answer: Ik wil leren hoe ik een webpagina kan maken die er mooi uitziet, dus HTML en CSS. En daarna wil ik begrijpen hoe een database werkt, zodat ik informatie kan opslaan. Ik merk dat ik steeds meer wil weten hoe websites van binnen werken.
+    keywords:
+      - volgende stap
+      - motivatie
+      - richting
+      - doel
+      - nieuwsgierigheid

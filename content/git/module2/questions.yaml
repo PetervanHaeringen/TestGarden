@@ -1,0 +1,75 @@
+questions:
+
+  - id: git.m02.q01
+    type: mcq
+    prompt: Wat is de .git-folder?
+    options:
+      - id: a
+        text: Een back-upmap die automatisch naar GitHub wordt gestuurd
+      - id: b
+        text: De verborgen map waar Git alle objecten en geschiedenis van het project bewaart
+      - id: c
+        text: Een configuratiebestand voor je teksteditor
+      - id: d
+        text: Een tijdelijke map die Git aanmaakt bij elke commit
+    answer: b
+    hint: Verwijder deze map en je project heeft geen Git-geschiedenis meer.
+    feedback:
+      correct: Correct. De .git-folder IS het geheugen van je repository.
+      incorrect: De .git-folder is de kern van je repository — alles wat Git weet staat daarin.
+    explanation: De .git-folder bevat alle objecten, commits, branches en instellingen. Zonder die map is het gewoon een normale map zonder versiegeschiedenis.
+
+  - id: git.m02.q02
+    type: mcq
+    prompt: Waarom gebruikt Git hashes voor elk object?
+    options:
+      - id: a
+        text: Om de bestanden te versleutelen zodat niemand ze kan lezen
+      - id: b
+        text: Om objecten een unieke naam te geven en wijzigingen te detecteren
+      - id: c
+        text: Om de bestandsnamen te verkorten zodat ze minder ruimte innemen
+      - id: d
+        text: Omdat GitHub dit verplicht stelt
+    answer: b
+    hint: Wat gebeurt er met de hash als je één letter verandert?
+    feedback:
+      correct: Goed. Een hash verandert volledig bij de kleinste wijziging — dat maakt fraudedetectie eenvoudig.
+      incorrect: Hashes zijn geen versleuteling. Ze zijn unieke vingerafdrukken van de inhoud.
+    explanation: Een hash is een unieke code berekend op basis van de inhoud. Als de inhoud verandert, verandert de hash volledig. Zo kan Git altijd controleren of iets onveranderd is.
+
+  - id: git.m02.q03
+    type: truefalse
+    prompt: Git bewaart bij elke commit alleen de verschillen (diffs) ten opzichte van de vorige versie.
+    answer: false
+    explanation: Git bewaart snapshots — volledige momentopnamen. Voor bestanden die niet zijn veranderd, bewaart het een verwijzing naar de bestaande versie. Dat is efficiënter dan pure diffs maar completer dan alleen het verschil.
+
+  - id: git.m02.q04
+    type: mcq
+    prompt: Wat is HEAD in Git?
+    options:
+      - id: a
+        text: De naam van de hoofdbranch (altijd 'main')
+      - id: b
+        text: De eerste commit in de repository
+      - id: c
+        text: Een verwijzing naar de commit of branch waar je nu op staat
+      - id: d
+        text: De gebruiker die het project heeft aangemaakt
+    answer: c
+    hint: HEAD geeft aan waar "jij" nu bent in de commit-graaf.
+    feedback:
+      correct: Precies. HEAD is je huidige positie in de geschiedenis.
+      incorrect: HEAD is geen vaste plek — het beweegt mee als je werkt.
+    explanation: HEAD is een pointer die aangeeft waar je nu staat. Normaal wijst hij naar de top van een branch. Als je naar een oude commit gaat, bevindt HEAD zich in een "detached" staat.
+
+  - id: git.m02.q05
+    type: open
+    prompt: Leg in je eigen woorden uit wat het verschil is tussen een blob, een tree en een commit in Git.
+    sample_answer: Een blob is de inhoud van één bestand. Een tree is een map — hij bevat verwijzingen naar blobs en andere trees. Een commit is een momentopname van het hele project op een bepaald moment, inclusief een verwijzing naar een tree, de auteur, het tijdstip en de vorige commit.
+    keywords:
+      - blob
+      - tree
+      - commit
+      - inhoud
+      - map

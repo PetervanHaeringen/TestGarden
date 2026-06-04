@@ -1,0 +1,93 @@
+<svg width="100%" viewBox="0 0 680 260" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>De kloof tussen bedoeling en instructie</title>
+<desc>Links staat wat de mens bedoelt: doe pindakaas op het brood. Rechts staat wat de machine leest: letterlijk, zonder context. Daartussen een kloof.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+  <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+<style>
+:root { --t: #3d3d3a; --s: #73726c; --b: #d3d1c7; --bg: #f1efe8; }
+@media (prefers-color-scheme: dark) { :root { --t: #c2c0b6; --s: #888780; --b: #5f5e5a; --bg: #2c2c2a; } }
+.th { font: 600 14px sans-serif; fill: var(--t); }
+.ts { font: 400 12px sans-serif; fill: var(--s); }
+.tm { font: 400 11px sans-serif; fill: var(--s); font-style: italic; }
+.c-teal rect  { fill: #e1f5ee; stroke: #0f6e56; }
+.c-teal .th   { fill: #085041; }
+.c-teal .ts   { fill: #0f6e56; }
+.c-coral rect { fill: #faece7; stroke: #993c1d; }
+.c-coral .th  { fill: #4a1b0c; }
+.c-coral .ts  { fill: #993c1d; }
+.c-gray rect  { fill: #f1efe8; stroke: #5f5e5a; }
+.c-gray .th   { fill: #2c2c2a; }
+.c-gray .ts   { fill: #5f5e5a; }
+.c-amber rect { fill: #faeeda; stroke: #854f0b; }
+.c-amber .th  { fill: #412402; }
+@media (prefers-color-scheme: dark) {
+  .c-teal rect  { fill: #085041; stroke: #5dcaa5; }
+  .c-teal .th   { fill: #9fe1cb; }
+  .c-teal .ts   { fill: #5dcaa5; }
+  .c-coral rect { fill: #4a1b0c; stroke: #f0997b; }
+  .c-coral .th  { fill: #f5c4b3; }
+  .c-coral .ts  { fill: #f0997b; }
+  .c-gray rect  { fill: #2c2c2a; stroke: #b4b2a9; }
+  .c-gray .th   { fill: #d3d1c7; }
+  .c-gray .ts   { fill: #b4b2a9; }
+  .c-amber rect { fill: #412402; stroke: #ef9f27; }
+  .c-amber .th  { fill: #fac775; }
+}
+</style>
+</defs>
+
+<!-- Mens: bedoeling -->
+<text class="th" x="130" y="28" text-anchor="middle">Wat je bedoelt</text>
+
+<g class="c-teal">
+  <rect x="30" y="44" width="200" height="44" rx="8" stroke-width="0.5"/>
+  <text class="th" x="130" y="62" text-anchor="middle" dominant-baseline="central">Doe pindakaas op het brood</text>
+</g>
+
+<!-- uitgeschreven bedoeling -->
+<g class="c-teal">
+  <rect x="30" y="104" width="200" height="24" rx="5" stroke-width="0.5"/>
+  <text class="ts" x="130" y="116" text-anchor="middle" dominant-baseline="central">→ open het potje</text>
+</g>
+<g class="c-teal">
+  <rect x="30" y="134" width="200" height="24" rx="5" stroke-width="0.5"/>
+  <text class="ts" x="130" y="146" text-anchor="middle" dominant-baseline="central">→ pak een mes</text>
+</g>
+<g class="c-teal">
+  <rect x="30" y="164" width="200" height="24" rx="5" stroke-width="0.5"/>
+  <text class="ts" x="130" y="176" text-anchor="middle" dominant-baseline="central">→ schep en strijk uit</text>
+</g>
+
+<text class="tm" x="130" y="210" text-anchor="middle">mens vult dit zelf in</text>
+
+<!-- Kloof -->
+<line x1="340" y1="30" x2="340" y2="230" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="6 4"/>
+<text class="th" x="340" y="248" text-anchor="middle" style="fill: var(--b);">kloof</text>
+
+<!-- Machine: instructie -->
+<text class="th" x="550" y="28" text-anchor="middle">Wat de machine leest</text>
+
+<g class="c-coral">
+  <rect x="450" y="44" width="200" height="44" rx="8" stroke-width="0.5"/>
+  <text class="th" x="550" y="62" text-anchor="middle" dominant-baseline="central">Doe pindakaas op het brood</text>
+</g>
+
+<!-- letterlijke uitvoering -->
+<g class="c-gray">
+  <rect x="450" y="104" width="200" height="24" rx="5" stroke-width="0.5"/>
+  <text class="ts" x="550" y="116" text-anchor="middle" dominant-baseline="central">→ pak potje pindakaas</text>
+</g>
+<g class="c-gray">
+  <rect x="450" y="134" width="200" height="24" rx="5" stroke-width="0.5"/>
+  <text class="ts" x="550" y="146" text-anchor="middle" dominant-baseline="central">→ zet het op het brood</text>
+</g>
+<g class="c-coral">
+  <rect x="450" y="164" width="200" height="24" rx="5" stroke-width="0.5"/>
+  <text class="ts" x="550" y="176" text-anchor="middle" dominant-baseline="central">→ klaar. (potje dicht)</text>
+</g>
+
+<text class="tm" x="550" y="210" text-anchor="middle">machine doet precies wat er staat</text>
+
+</svg>

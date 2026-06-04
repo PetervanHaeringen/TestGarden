@@ -1,0 +1,27 @@
+questions:
+  - id: softwaretesten.m04.q01
+    type: mcq
+    prompt: "Welke techniek verdeelt invoer in groepen met vergelijkbaar gedrag?"
+    options:
+      - id: a
+        text: "Boundary Value Analysis"
+      - id: b
+        text: "Decision Tables"
+      - id: c
+        text: "Equivalence Partitioning"
+      - id: d
+        text: "State Transition Testing"
+    answer: c
+    explanation: "Equivalence Partitioning verdeelt invoer in partities die hetzelfde gedrag zouden moeten geven."
+
+  - id: softwaretesten.m04.q02
+    type: truefalse
+    prompt: "Boundary Value Analysis richt zich vooral op grenswaarden."
+    answer: true
+    explanation: "BVA test minima, maxima en waarden net buiten de grenzen."
+
+  - id: softwaretesten.m04.q03
+    type: open
+    prompt: "Waarom zijn grenswaarden belangrijk om te testen?"
+    sample_answer: "Omdat veel fouten ontstaan bij minimale, maximale of net ongeldige invoerwaarden."
+    explanation: "Veel programmeerfouten ontstaan rondom grenzen van invoer."

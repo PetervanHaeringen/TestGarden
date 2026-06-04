@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+{% block title %}Praktijkbeoordeling — {{ student.username }}{% endblock %}
+
+{% block content %}
+<h1>📋 Praktijkbeoordeling — {{ student.username }}</h1>
+<p><a href="{{ url_for('teacher.praktijk_overzicht') }}">← Terug naar overzicht</a></p>
+
+{# ============================================================ #}
+{# SECTIE 1: OPDRACHTEN AFVINKEN                               #}
+{# De docent markeert welke opdrachten voldaan zijn.           #}
+{# Per opdracht is er ruimte voor een korte observatie.        #}
+{# ============================================================ #}
+
+<section style="margin:2rem 0;">
+  <h2>Stap 1 — Opdrachten beoordelen</h2>
+  <p style="color:#666; font-size:0.9rem;">
+    Vink de opdrachten af die de cursist voldoende heeft uitgevoerd.
+    Je observatie is optioneel maar waardevol voor het eindgesprek.
+  </p>
+
+  <form method="POST">
+    <input type="hidden" name="actie" value="opdrachten">
+
+    {% for opdracht in opdrachten %}
+    {% set oid = opdracht.ticket_id %}
+    {% set beoordeling = bestaande.get(oid) %}
+    {% set is_voldaan = oid in voldane_ids %}
+
+    <div style="margin:1rem 0; padding:1rem; border-radius:6px;
+                border:1px solid {% if is_voldaan %}#a8d5a2{% else %}#ddd{% endif %};
+                background:{% if is_voldaan %}#f0f8f0{% else %}#fafafa{% endif %};">
+
+      <label style="display:flex; align-items:flex-start; gap:0.75rem; cursor:pointer;">
+        <input type="checkbox" name="voldaan" value="{{ oid }}"
+               {% if is_voldaan %}checked{% endif %}
+               style="margin-top:3px; width:16px; height:16px;">
+        <div>
+          <strong>{{ opdracht.titel }}</strong>
+          <span style="font-size:0.8rem; color:#888; margin-left:0.5rem;">{{ oid }}</span>
+          {% if opdracht.leerpunt is defined %}
+          <div style="font-size:0.85rem; color:#666; margin-top:0.25rem;">
+            💡 {{ opdracht.leerpunt }}
+          </div>
+          {% endif %}
+        </div>
+      </label>
+
+      <div style="margin-top:0.5rem; margin-left:1.75rem;">
+        <input type="text" name="notitie_{{ oid }}"
+               value="{{ beoordeling.notitie if beoordeling and beoordeling.notitie else '' }}"
+               placeholder="Observatie (optioneel)..."
+               style="width:100%; max-width:500px; padding:4px 8px;
+                      border:1px solid #ddd; border-radius:4px; font-size:0.85rem;">
+      </div>
+
+      {% if beoordeling and beoordeling.beoordeeld_op %}
+      <div style="font-size:0.75rem; color:#aaa; margin-top:0.25rem; margin-left:1.75rem;">
+        Beoordeeld op {{ beoordeling.beoordeeld_op.strftime('%d-%m-%Y') }}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+
+    <button type="submit" style="margin-top:1rem; padding:0.6rem 1.4rem; cursor:pointer;">
+      💾 Opdrachten opslaan
+    </button>
+  </form>
+</section>
+
+{# ============================================================ #}
+{# SECTIE 2: COMPETENTIEDEKKING                                #}
+{# Automatisch berekend op basis van voldane opdrachten.       #}
+{# Geeft de docent een overzicht zonder extra invoer.          #}
+{# ============================================================ #}
+
+<section style="margin:2rem 0; padding:1.5rem;
+                background:#f8f8f8; border-radius:8px;
+                border-left:4px solid var(--accent);">
+  <h2>Stap 2 — Competentiedekking (automatisch)</h2>
+  <p style="color:#666; font-size:0.9rem;">
+    Op basis van de voldane opdrachten zijn de volgende gedragingen en
+    vaardigheden aangetoond. Dit is de onderbouwing voor het eindoordeel.
+  </p>
+
+  {% if dekking %}
+    {% for code, inhoud in dekking.items() | sort %}
+    <div style="margin:1.25rem 0;">
+      <strong style="font-size:1rem;">{{ code }}</strong>
+
+      {% if inhoud.gedragingen %}
+      <div style="margin-top:0.5rem;">
+        <span style="font-size:0.8rem; font-weight:600; color:#555;">Gedragingen aangetoond:</span>
+        <ul style="margin:0.25rem 0 0 1.25rem; font-size:0.85rem; color:#333;">
+          {% for g in inhoud.gedragingen | sort %}
+          <li>✓ {{ g }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      {% if inhoud.vaardigheden %}
+      <div style="margin-top:0.5rem;">
+        <span style="font-size:0.8rem; font-weight:600; color:#555;">Vaardigheden aangetoond:</span>
+        <ul style="margin:0.25rem 0 0 1.25rem; font-size:0.85rem; color:#333;">
+          {% for v in inhoud.vaardigheden | sort %}
+          <li>✓ {{ v }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  {% else %}
+    <p style="color:#aaa; font-style:italic;">
+      Nog geen opdrachten voldaan — de competentiedekking verschijnt hier automatisch.
+    </p>
+  {% endif %}
+</section>
+
+{# ============================================================ #}
+{# SECTIE 3: FORMEEL EINDOORDEEL PER WERKPROCES                #}
+{# De docent vult tussenevaluatie en eindbeoordeling in.       #}
+{# De cursist vult de zelfevaluatie in (open velden).          #}
+{# Dit vervangt het Excel-formulier.                           #}
+{# ============================================================ #}
+
+<section style="margin:2rem 0;">
+  <h2>Stap 3 — Formele beoordeling</h2>
+  <p style="color:#666; font-size:0.9rem;">
+    Vul het eindoordeel in per werkproces. Dit is het officiële beoordelingsformulier
+    dat de Excel vervangt. De zelfevaluatievelden kunnen ook door de cursist zelf
+    ingevuld worden tijdens een evaluatiegesprek.
+  </p>
+
+  <form method="POST">
+    <input type="hidden" name="actie" value="beoordeling">
+
+    {% for code in werkprocessen %}
+    {% set b = beoordelingen.get(code) %}
+
+    <div style="margin:1.5rem 0; padding:1.25rem; border:1px solid #ddd;
+                border-radius:8px; background:#fff;">
+
+      <h3 style="margin:0 0 1rem 0; font-size:1rem;">
+        Werkproces {{ code }}
+        {% if b and b.eindbeoordeling == "voldaan" %}
+          <span style="color:green; font-size:0.85rem;">✓ Voldaan</span>
+        {% elif b and b.eindbeoordeling == "niet_voldaan" %}
+          <span style="color:red; font-size:0.85rem;">✗ Niet voldaan</span>
+        {% endif %}
+      </h3>
+
+      {# Tussenevaluatie #}
+      <div style="display:flex; gap:2rem; flex-wrap:wrap; margin-bottom:1rem;">
+        <div>
+          <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:4px;">
+            Tussenevaluatie
+          </label>
+          <select name="tussen_{{ code }}"
+                  style="padding:4px 8px; border:1px solid #ddd; border-radius:4px;">
+            <option value="">— nog niet ingevuld —</option>
+            <option value="voldaan"
+              {% if b and b.tussenevaluatie == "voldaan" %}selected{% endif %}>
+              Voldaan
+            </option>
+            <option value="niet_voldaan"
+              {% if b and b.tussenevaluatie == "niet_voldaan" %}selected{% endif %}>
+              Niet voldaan
+            </option>
+          </select>
+        </div>
+
+        {# Eindbeoordeling #}
+        <div>
+          <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:4px;">
+            Eindbeoordeling
+          </label>
+          <select name="eind_{{ code }}"
+                  style="padding:4px 8px; border:1px solid #ddd; border-radius:4px;">
+            <option value="">— nog niet ingevuld —</option>
+            <option value="voldaan"
+              {% if b and b.eindbeoordeling == "voldaan" %}selected{% endif %}>
+              Voldaan
+            </option>
+            <option value="niet_voldaan"
+              {% if b and b.eindbeoordeling == "niet_voldaan" %}selected{% endif %}>
+              Niet voldaan
+            </option>
+          </select>
+        </div>
+      </div>
+
+      {# Notitie docent #}
+      <div style="margin-bottom:1rem;">
+        <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:4px;">
+          Observaties docent
+        </label>
+        <textarea name="notitie_{{ code }}" rows="2"
+                  placeholder="Hoe heeft de cursist aan dit werkproces gewerkt? Wat was sterk, wat kan beter?"
+                  style="width:100%; padding:6px 8px; border:1px solid #ddd;
+                         border-radius:4px; font-size:0.85rem; resize:vertical;">{{ b.notitie_docent if b and b.notitie_docent else '' }}</textarea>
+      </div>
+
+      {# Zelfevaluatie cursist #}
+      <details style="margin-top:0.5rem;">
+        <summary style="font-size:0.85rem; font-weight:600; cursor:pointer; color:#555;">
+          Zelfevaluatie cursist (uitklappen)
+        </summary>
+        <div style="margin-top:0.75rem; display:flex; flex-direction:column; gap:0.5rem;">
+          <div>
+            <label style="font-size:0.8rem; color:#666;">Wat ging goed?</label>
+            <textarea name="goed_{{ code }}" rows="2"
+                      style="width:100%; padding:4px 8px; border:1px solid #ddd;
+                             border-radius:4px; font-size:0.85rem; resize:vertical;">{{ b.zelfevaluatie_goed if b and b.zelfevaluatie_goed else '' }}</textarea>
+          </div>
+          <div>
+            <label style="font-size:0.8rem; color:#666;">Wat kan beter?</label>
+            <textarea name="beter_{{ code }}" rows="2"
+                      style="width:100%; padding:4px 8px; border:1px solid #ddd;
+                             border-radius:4px; font-size:0.85rem; resize:vertical;">{{ b.zelfevaluatie_beter if b and b.zelfevaluatie_beter else '' }}</textarea>
+          </div>
+          <div>
+            <label style="font-size:0.8rem; color:#666;">Wat heb je geleerd?</label>
+            <textarea name="geleerd_{{ code }}" rows="2"
+                      style="width:100%; padding:4px 8px; border:1px solid #ddd;
+                             border-radius:4px; font-size:0.85rem; resize:vertical;">{{ b.zelfevaluatie_geleerd if b and b.zelfevaluatie_geleerd else '' }}</textarea>
+          </div>
+        </div>
+      </details>
+    </div>
+    {% endfor %}
+
+    <button type="submit" style="margin-top:1rem; padding:0.6rem 1.4rem; cursor:pointer;">
+      💾 Beoordeling opslaan
+    </button>
+  </form>
+</section>
+
+{% endblock %}

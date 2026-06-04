@@ -1,0 +1,364 @@
+# =============================================================================
+# servicedesk_tickets.yaml — Koppeling tickets aan competenties
+# =============================================================================
+#
+# Dit bestand vormt de brug tussen de praktijk (TOPdesk tickets) en de
+# formele competentiebeoordeling (kwalificatiedossier Medewerker ICT, Crebonr. 25999).
+#
+# HOE HET WERKT:
+#   Als een docent een ticket markeert als "voldaan" in TestGarden,
+#   worden de bijbehorende gedragingen en vaardigheden automatisch
+#   geregistreerd als "aangetoond" voor die trainee.
+#
+#   De docent hoeft dan bij de formele praktijkbeoordeling niet meer te
+#   reconstrueren wat de trainee allemaal gedaan heeft — dat overzicht
+#   is er al. De docent beoordeelt alleen nog of de kwaliteit voldoende was.
+#
+# DRIE SOORTEN EVIDENCE:
+#   1. gedragingen  → zichtbaar gedrag tijdens uitvoering (docent observeert)
+#   2. vaardigheden → technische handelingen die aangetoond zijn
+#   3. kennis       → wordt gedekt door theorievragen in TestGarden modules
+#
+# WERKPROCESSEN (uit kwalificatiedossier):
+#   B1-K1-W1  Maakt devices gebruiksklaar
+#   B1-K1-W2  Installeert, configureert en onderhoudt software
+#   B1-K1-W3  Monteert en/of configureert netwerk- en infrastructuuronderdelen
+#   B1-K2-W1  Neemt ICT-meldingen aan en handelt deze af
+#   B1-K2-W2  Overlegt en stemt af met derden
+#
+# LET OP:
+#   Dit is een concept — de koppeling per ticket is een voorstel op basis
+#   van de ticketinhoud en het kwalificatiedossier. Docenten
+#   controleren of de gedragingen en vaardigheden per ticket kloppen.
+# =============================================================================
+
+niveau: basis
+track: servicedesk
+
+tickets:
+
+  - ticket_id: servicedesk.basis.t01
+    titel: Nieuwe gebruiker aanmaken (Entra) — volledig opgegeven
+    topdesk_onderwerp: MS365 Entra
+    omschrijving: >
+      Gebruikersaccount aanmaken voor Thomas de Vries, licentie Basic toekennen,
+      logingegevens terugkoppelen aan HR.
+    werkprocessen:
+      - code: B1-K1-W2
+        gedragingen:
+          - werkt precies, bedreven en accuraat bij het installeren en onderhouden van software
+          - houdt zich aan voorgeschreven procedures en geldende normen
+        vaardigheden:
+          - kan (software) updates uitvoeren
+          - kan regels, afspraken en procedures toepassen die betrekking hebben op veiligheid en privacy
+      - code: B1-K2-W1
+        gedragingen:
+          - registreert relevante werkgegevens nauwkeurig en volledig in het daarvoor bestemde systeem
+          - koppelt de oplossing op begrijpelijke wijze aan de gebruiker terug
+          - meldt tijdig en uit eigen beweging wanneer het werk afgerond is
+        vaardigheden:
+          - kan een gangbaar registratiesysteem gebruiken
+          - kan rapporteren met de gangbare communicatiemiddelen
+      - code: B1-K2-W2
+        gedragingen:
+          - is in diens communicatie klantvriendelijk, correct en volledig
+        vaardigheden:
+          - kan correcte omgangsvormen hanteren in contact met collega's en derden
+
+  - ticket_id: servicedesk.basis.t02
+    titel: Nieuwe gebruiker aanmaken (Entra) — onvolledige informatie
+    topdesk_onderwerp: MS365 Entra
+    omschrijving: >
+      Gebruikersaccount aanmaken voor Bobby Bakker. Licentie en e-mailformat
+      ontbreken — trainee moet zelf doorvragen bij de klant.
+    leerpunt: >
+      Dit ticket oefent specifiek het doorvragen bij onvolledige opdrachten,
+      een kernvaardigheid voor een servicedeskmedewerker.
+    werkprocessen:
+      - code: B1-K2-W1
+        gedragingen:
+          - achterhaalt snel de kern van het probleem, vat het geheel correct samen en controleert of de juiste informatie ingewonnen is
+          - registreert relevante werkgegevens nauwkeurig en volledig in het daarvoor bestemde systeem
+        vaardigheden:
+          - kan verschillende communicatievaardigheden inzetten zoals luisteren en doorvragen
+          - kan een gangbaar registratiesysteem gebruiken
+      - code: B1-K2-W2
+        gedragingen:
+          - overlegt en stemt tijdig, binnen de gestelde kaders en op begrijpelijke wijze af met derden
+          - denkt proactief mee aan een vlotte en werkbare oplossing
+          - is in diens communicatie klantvriendelijk, correct en volledig
+        vaardigheden:
+          - kan feedback geven en ontvangen
+
+  - ticket_id: servicedesk.basis.t03
+    titel: E-mail alias aanmaken (Exchange)
+    topdesk_onderwerp: MS365 Exchange
+    omschrijving: >
+      Alias aanmaken voor Thomas en Bobby zodat ze ook op voornaam bereikbaar zijn.
+    werkprocessen:
+      - code: B1-K1-W2
+        gedragingen:
+          - werkt precies, bedreven en accuraat bij het installeren en onderhouden van software
+          - werkt ordelijk en systematisch
+        vaardigheden:
+          - kan (software) updates uitvoeren
+          - kan regels, afspraken en procedures toepassen die betrekking hebben op privacy
+      - code: B1-K2-W1
+        gedragingen:
+          - registreert relevante werkgegevens nauwkeurig en volledig
+          - koppelt de oplossing op begrijpelijke wijze terug aan de gebruiker
+        vaardigheden:
+          - kan een gangbaar registratiesysteem gebruiken
+
+  - ticket_id: servicedesk.basis.t04
+    titel: Team aanmaken in MS365 Teams
+    topdesk_onderwerp: MS365 Teams
+    omschrijving: >
+      Team aanmaken "Project Innovatie 2026", Bobby als eigenaar, Thomas als lid.
+      Privacy-instellingen en Teams e-mailadres komen ter sprake.
+    leerpunt: >
+      Trainee leert dat niet alle instellingen expliciet gevraagd worden —
+      eigen initiatief tonen en klant informeren over gemaakte keuzes.
+    werkprocessen:
+      - code: B1-K1-W2
+        gedragingen:
+          - werkt precies, bedreven en accuraat bij het installeren en onderhouden van software
+          - is goed op de hoogte van de installatie- en onderhoudsprocedures
+        vaardigheden:
+          - kan (software) updates uitvoeren
+      - code: B1-K2-W1
+        gedragingen:
+          - achterhaalt snel de kern van het probleem
+          - koppelt de oplossing op begrijpelijke wijze terug aan de gebruiker
+        vaardigheden:
+          - kan een gangbaar registratiesysteem gebruiken
+      - code: B1-K2-W2
+        gedragingen:
+          - denkt proactief mee aan een vlotte en werkbare oplossing
+          - is in diens communicatie klantvriendelijk, correct en volledig
+          - stemt een gekozen of aangepaste werkvolgorde tijdig af
+
+  - ticket_id: servicedesk.basis.t05
+    titel: Wachtwoordreset (Entra)
+    topdesk_onderwerp: MS365 Entra
+    omschrijving: >
+      Wachtwoord resetten voor een gebruiker. Naam ontbreekt — trainee moet
+      doorvragen. Controleren of wachtwoord bij eerste login gewijzigd moet worden.
+    werkprocessen:
+      - code: B1-K2-W1
+        gedragingen:
+          - achterhaalt snel de kern van het probleem, vat het geheel correct samen en controleert of de juiste informatie ingewonnen is
+          - koppelt de oplossing op begrijpelijke wijze terug aan de gebruiker
+          - registreert relevante werkgegevens nauwkeurig en volledig
+        vaardigheden:
+          - kan verschillende communicatievaardigheden inzetten zoals luisteren en doorvragen
+          - kan regels, afspraken en procedures toepassen die betrekking hebben op veiligheid en privacy
+          - kan een gangbaar registratiesysteem gebruiken
+      - code: B1-K2-W2
+        gedragingen:
+          - overlegt en stemt tijdig en op begrijpelijke wijze af met derden
+          - is in diens communicatie klantvriendelijk, correct en volledig
+
+  - ticket_id: servicedesk.basis.t06
+    titel: Kanaal aanmaken in Teams (via Beheerpagina)
+    topdesk_onderwerp: MS365 Teams
+    omschrijving: >
+      Nieuw kanaal "Algemene Discussie" aanmaken binnen Team Project Innovatie 2026,
+      via de beheerpagina (niet via de Teams-app zelf).
+    leerpunt: >
+      Er zijn meerdere manieren — de trainee leert de beheerpagina als juiste
+      werkwijze kennen en toe te passen.
+    werkprocessen:
+      - code: B1-K1-W2
+        gedragingen:
+          - werkt ordelijk en systematisch volgens beproefde methoden
+          - is goed op de hoogte van de installatie- en onderhoudsprocedures
+        vaardigheden:
+          - kan (software) updates uitvoeren
+      - code: B1-K2-W1
+        gedragingen:
+          - registreert relevante werkgegevens nauwkeurig en volledig
+          - werkt ordelijk, systematisch en zorgvuldig
+        vaardigheden:
+          - kan een gangbaar registratiesysteem gebruiken
+
+  - ticket_id: servicedesk.basis.t07
+    titel: Map aanmaken op SharePoint met kleur
+    topdesk_onderwerp: MS365 SharePoint
+    omschrijving: >
+      Map "Communicatie" aanmaken op SharePoint-site Project Innovatie 2026,
+      groene kleur instellen.
+    werkprocessen:
+      - code: B1-K1-W2
+        gedragingen:
+          - werkt precies, bedreven en accuraat
+          - werkt ordelijk en systematisch
+        vaardigheden:
+          - kan (software) updates uitvoeren
+      - code: B1-K2-W1
+        gedragingen:
+          - registreert relevante werkgegevens nauwkeurig en volledig
+          - koppelt de oplossing op begrijpelijke wijze terug
+        vaardigheden:
+          - kan een gangbaar registratiesysteem gebruiken
+
+  - ticket_id: servicedesk.basis.t08
+    titel: Mapkleur aanpassen op SharePoint
+    topdesk_onderwerp: MS365 SharePoint
+    omschrijving: >
+      Kleur van de map "Communicatie" wijzigen van groen naar rood.
+      Eenvoudige opdracht gericht op vertrouwdheid met mapeigenschappen.
+    werkprocessen:
+      - code: B1-K2-W1
+        gedragingen:
+          - werkt ordelijk, systematisch en zorgvuldig
+          - koppelt de oplossing op begrijpelijke wijze terug
+          - registreert relevante werkgegevens nauwkeurig en volledig
+        vaardigheden:
+          - kan een gangbaar registratiesysteem gebruiken
+
+  - ticket_id: servicedesk.basis.t09
+    titel: Document uploaden naar SharePoint
+    topdesk_onderwerp: MS365 SharePoint
+    omschrijving: >
+      Document "Lesmateriaal.docx" uploaden naar SharePoint-site Project Innovatie 2026,
+      juiste machtigingen instellen zodat docenten kunnen bewerken.
+    werkprocessen:
+      - code: B1-K1-W2
+        gedragingen:
+          - werkt precies, bedreven en accuraat
+          - houdt zich aan voorgeschreven procedures — ook rond veiligheid en privacy
+        vaardigheden:
+          - kan regels, afspraken en procedures toepassen die betrekking hebben op veiligheid en privacy
+      - code: B1-K2-W1
+        gedragingen:
+          - registreert relevante werkgegevens nauwkeurig en volledig
+          - koppelt de oplossing op begrijpelijke wijze terug
+        vaardigheden:
+          - kan een gangbaar registratiesysteem gebruiken
+
+  - ticket_id: servicedesk.basis.t10
+    titel: Map delen met externe gebruiker (SharePoint)
+    topdesk_onderwerp: MS365 SharePoint
+    omschrijving: >
+      Map "Communicatie" delen met externe gebruiker dbroersma@ictvanafmorgen.nl.
+      Resultaat afhankelijk van eerder gekozen privacy-instellingen van het team.
+    leerpunt: >
+      Trainee ontdekt dat eerdere keuzes (ticket 4, privacy-instellingen Teams)
+      gevolgen hebben voor latere handelingen. Systeemdenken in de praktijk.
+    werkprocessen:
+      - code: B1-K1-W2
+        gedragingen:
+          - houdt zich aan voorgeschreven procedures — ook rond veiligheid en privacy
+          - is goed op de hoogte van de installatie- en onderhoudsprocedures
+        vaardigheden:
+          - kan regels, afspraken en procedures toepassen die betrekking hebben op veiligheid en privacy
+      - code: B1-K2-W1
+        gedragingen:
+          - achterhaalt snel de kern van het probleem
+          - escaleert indien nodig tijdig en correct
+          - registreert relevante werkgegevens nauwkeurig en volledig
+        vaardigheden:
+          - kan een gangbaar registratiesysteem gebruiken
+      - code: B1-K2-W2
+        gedragingen:
+          - informeert de leidinggevende of vakvolwassen collega tijdig over bijzonderheden
+
+  - ticket_id: servicedesk.basis.t11
+    titel: Gedeelde mailbox aanmaken (Exchange)
+    topdesk_onderwerp: MS365 Exchange
+    omschrijving: >
+      Gedeelde mailbox communicatie@uwclouddomein.nl aanmaken,
+      toegang verlenen aan Bobby en Thomas. Controleren of instelling correct is.
+    werkprocessen:
+      - code: B1-K1-W2
+        gedragingen:
+          - werkt precies, bedreven en accuraat
+          - werkt ordelijk en systematisch
+          - houdt zich aan voorgeschreven procedures
+        vaardigheden:
+          - kan (software) updates uitvoeren
+          - kan regels, afspraken en procedures toepassen die betrekking hebben op privacy
+      - code: B1-K2-W1
+        gedragingen:
+          - registreert relevante werkgegevens nauwkeurig en volledig
+          - koppelt de oplossing op begrijpelijke wijze terug
+          - meldt tijdig wanneer het werk afgerond is
+        vaardigheden:
+          - kan een gangbaar registratiesysteem gebruiken
+
+  - ticket_id: servicedesk.basis.t12
+    titel: Mailboxmachtigingen instellen (Exchange)
+    topdesk_onderwerp: MS365 Exchange
+    omschrijving: >
+      Bobby toegang geven tot mailbox van Thomas (vakantie), inclusief
+      "verzenden als" en "verzenden namens" rechten. Controleren of instelling correct is.
+    werkprocessen:
+      - code: B1-K1-W2
+        gedragingen:
+          - werkt precies, bedreven en accuraat
+          - houdt zich aan voorgeschreven procedures — ook rond veiligheid en privacy
+        vaardigheden:
+          - kan regels, afspraken en procedures toepassen die betrekking hebben op privacy
+      - code: B1-K2-W1
+        gedragingen:
+          - registreert relevante werkgegevens nauwkeurig en volledig
+          - koppelt de oplossing op begrijpelijke wijze terug
+        vaardigheden:
+          - kan een gangbaar registratiesysteem gebruiken
+      - code: B1-K2-W2
+        gedragingen:
+          - is in diens communicatie klantvriendelijk, correct en volledig
+
+  - ticket_id: servicedesk.basis.t13
+    titel: MFA resetten (Entra)
+    topdesk_onderwerp: MS365 Entra
+    omschrijving: >
+      MFA van Bobby resetten zodat hij het opnieuw kan instellen.
+      Controleren door in te loggen als Bobby.
+    werkprocessen:
+      - code: B1-K1-W2
+        gedragingen:
+          - werkt precies, bedreven en accuraat
+          - houdt zich aan voorgeschreven procedures — ook rond veiligheid en privacy
+        vaardigheden:
+          - kan regels, afspraken en procedures toepassen die betrekking hebben op veiligheid en privacy
+      - code: B1-K2-W1
+        gedragingen:
+          - achterhaalt snel de kern van het probleem
+          - koppelt de oplossing op begrijpelijke wijze terug
+          - registreert relevante werkgegevens nauwkeurig en volledig
+        vaardigheden:
+          - kan een gangbaar registratiesysteem gebruiken
+          - kan regels, afspraken en procedures toepassen die betrekking hebben op veiligheid en privacy
+
+  - ticket_id: servicedesk.basis.t14
+    titel: Gebruiker verwijderen (Entra)
+    topdesk_onderwerp: MS365 Entra
+    omschrijving: >
+      Thomas verwijderen uit het systeem. Controleren of verwijdering geslaagd is.
+      Nadenken over herstelperiode (30 dagen) en wat er met data/e-mail gebeurt.
+    leerpunt: >
+      Dit ticket sluit de leerlijn op basisniveau: de trainee heeft een gebruiker
+      aangemaakt (t01), bewerkt (t03, t05) en verwijdert nu diezelfde gebruiker.
+      De cirkel is rond — en de trainee denkt mee over consequenties.
+    werkprocessen:
+      - code: B1-K1-W2
+        gedragingen:
+          - houdt zich aan voorgeschreven procedures — ook rond veiligheid en privacy
+          - werkt ordelijk en systematisch
+        vaardigheden:
+          - kan regels, afspraken en procedures toepassen die betrekking hebben op veiligheid en privacy
+      - code: B1-K2-W1
+        gedragingen:
+          - achterhaalt snel de kern van het probleem
+          - escaleert indien nodig tijdig en correct
+          - koppelt de oplossing op begrijpelijke wijze terug inclusief relevante feedback
+          - registreert relevante werkgegevens nauwkeurig en volledig
+        vaardigheden:
+          - kan een gangbaar registratiesysteem gebruiken
+          - kan wensen en problemen in de werkuitvoering aan de orde stellen
+      - code: B1-K2-W2
+        gedragingen:
+          - denkt proactief mee aan een vlotte en werkbare oplossing
+          - informeert de leidinggevende of vakvolwassen collega tijdig over bijzonderheden

@@ -1,0 +1,13 @@
+from app import create_app
+from database.models import db, User
+
+app = create_app()
+app.app_context().push()
+
+u = User.query.filter_by(username="Peter").first()  # verander naam indien nodig
+print("Huidige rol:", u.role)
+
+u.role = "admin"
+db.session.commit()
+
+print("Nieuwe rol:", u.role)

@@ -1,0 +1,215 @@
+/* ═══════════════════════════════════════════════════
+   testronden.css
+   Stijlen voor de testronden-module van TestGarden.
+   Geladen via {% block extra_css %} in de testronden-templates.
+   ═══════════════════════════════════════════════════ */
+
+/* Legenda */
+.tr-legenda {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    font-size: 13px; color: var(--text-muted, #7a8099);
+    background: var(--card-bg, #f7f8fc);
+    padding: 10px 16px; border-radius: 8px;
+}
+
+/* Module met eigen claim — lichte blauwe rand */
+.tr-module-eigen {
+    border-left: 3px solid #4a7fc1 !important;
+    background: var(--card-bg, #fafbff);
+}
+
+/* Acties container */
+.tr-acties {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* Dropdown */
+.tr-dropdown {
+    position: relative;
+    display: inline-block;
+}
+.tr-dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 4px);
+    background: white;
+    border: 1px solid var(--border-color, #e0e3ef);
+    border-radius: 8px;
+    padding: 4px;
+    z-index: 200;
+    min-width: 220px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.tr-dropdown-item {
+    display: block;
+    padding: 8px 14px;
+    font-size: 13px;
+    color: var(--text-color, #1a1d2e);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.1s;
+}
+.tr-dropdown-item:hover {
+    background: var(--card-bg, #f0f1f5);
+    text-decoration: none;
+    color: var(--text-color, #1a1d2e);
+}
+
+/* ── Knoppen ─────────────────────────────────────── */
+/* Alle testronden-knoppen delen dezelfde basis */
+.tr-btn-claimen,
+.tr-btn-testen,
+.tr-btn-afsluiten,
+.tr-btn-vrijgeven {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.12s;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+/* Claimen — blauw */
+.tr-btn-claimen {
+    background: #e8f0fd;
+    color: #1a4a9c;
+    border-color: #a8c0e8;
+}
+.tr-btn-claimen:hover {
+    background: #d0e0fa;
+    border-color: #1a4a9c;
+    color: #1a4a9c;
+    text-decoration: none;
+}
+
+/* Testen — blauw (iets donkerder dan claimen) */
+.tr-btn-testen {
+    background: #dce8fc;
+    color: #1a4a9c;
+    border-color: #a8c0e8;
+}
+.tr-btn-testen:hover {
+    background: #c8d8f8;
+    border-color: #1a4a9c;
+    color: #1a4a9c;
+    text-decoration: none;
+}
+
+/* Afsluiten — groen */
+.tr-btn-afsluiten {
+    background: #e8f7ee;
+    color: #1a7a3c;
+    border-color: #a8dbb8;
+}
+.tr-btn-afsluiten:hover {
+    background: #d0f0dc;
+    border-color: #1a7a3c;
+    color: #1a7a3c;
+}
+
+/* Vrijgeven / Rapport — grijs */
+.tr-btn-vrijgeven {
+    background: var(--card-bg, #f0f1f5);
+    color: var(--text-muted, #5a6080);
+    border-color: var(--border-color, #d8dae8);
+}
+.tr-btn-vrijgeven:hover {
+    background: var(--border-color, #e0e3ef);
+    color: var(--text-color, #1a1d2e);
+    text-decoration: none;
+}
+
+/* ── Laad-overlay ─────────────────────────────────── */
+.tr-laad-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 9999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+.tr-laad-overlay.actief {
+    display: flex;
+}
+.tr-laad-spinner {
+    width: 48px; height: 48px;
+    border: 4px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: tr-spin 0.8s linear infinite;
+}
+.tr-laad-tekst {
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: var(--font-sans, sans-serif);
+}
+@keyframes tr-spin {
+    to { transform: rotate(360deg); }
+}
+
+
+/* ── Module tabel ─────────────────────────────────── */
+.tr-tabel-header,
+.tr-tabel-rij {
+    display: grid;
+    grid-template-columns: 36px 1fr 200px 280px;
+    gap: 0 16px;
+    align-items: center;
+    padding: 10px 14px;
+}
+.tr-tabel-header {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted, #9099b0);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--card-bg, #f7f8fc);
+    border-radius: 8px 8px 0 0;
+    border: 1px solid var(--border-color, #e8eaf0);
+    border-bottom: none;
+}
+.tr-tabel-rij {
+    border: 1px solid var(--border-color, #e8eaf0);
+    border-top: none;
+    background: var(--bg-color, white);
+    transition: background 0.1s;
+}
+.tr-tabel-rij:last-child {
+    border-radius: 0 0 8px 8px;
+}
+.tr-tabel-rij:hover {
+    background: var(--card-bg, #fafbff);
+}
+.tr-tabel {
+    border-radius: 8px;
+    overflow: hidden;
+}
+.tr-col-acties {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.tr-tester-naam {
+    font-size: 12px;
+    color: var(--text-muted, #7a8099);
+    margin-top: 2px;
+}
+.tr-klaar-tekst {
+    font-size: 13px;
+    color: var(--text-muted, #7a8099);
+}

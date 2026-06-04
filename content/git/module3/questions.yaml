@@ -1,0 +1,56 @@
+questions:
+
+  - id: git.m03.q01
+    type: mcq
+    prompt: Wat is een branch in Git, precies gezegd?
+    options:
+      - id: a
+        text: Een volledige kopie van alle bestanden op een apart moment
+      - id: b
+        text: Een naam die verwijst naar een commit in de graaf
+      - id: c
+        text: Een verborgen map met extra bestanden
+      - id: d
+        text: Een versie die alleen op GitHub bestaat
+    answer: b
+    hint: Een branch neemt bijna geen ruimte in. Hoe kan dat?
+    feedback:
+      correct: Precies. Een branch is alleen een label — geen kopie van bestanden.
+      incorrect: Een branch is veel eenvoudiger dan dat. Denk aan een sticker op een commit.
+    explanation: Een branch is in Git een pointer — een naam die naar een specifieke commit verwijst. Git hoeft geen bestanden te kopiëren; het beheert alleen de labels.
+
+  - id: git.m03.q02
+    type: mcq
+    prompt: Wat is een merge-commit?
+    options:
+      - id: a
+        text: Een commit die automatisch naar GitHub wordt gepusht
+      - id: b
+        text: De eerste commit van een nieuw project
+      - id: c
+        text: Een commit die twee branches samenbrengt en twee ouder-commits heeft
+      - id: d
+        text: Een commit die een conflict veroorzaakt
+    answer: c
+    hint: Een merge-commit heeft twee "parents" — van welke commits komt hij?
+    feedback:
+      correct: Goed. Dat is precies wat een merge-commit bijzonder maakt — hij heeft twee ouders.
+      incorrect: Een merge-commit is het resultaat van het samenvoegen, niet de oorzaak van problemen.
+    explanation: Na een merge maakt Git een speciale commit met twee parent-commits — één van elke branch. Zo is in de geschiedenis altijd zichtbaar dat er een merge heeft plaatsgevonden.
+
+  - id: git.m03.q03
+    type: truefalse
+    prompt: Als je in een "detached HEAD"-staat werkt en commits maakt zonder een nieuwe branch aan te maken, kunnen die commits verloren gaan.
+    answer: true
+    explanation: In detached HEAD-staat staat HEAD direct op een commit, niet op een branch. Als je dan commits maakt en daarna weggaat zonder een branch te maken, zijn die commits moeilijk terug te vinden en kunnen ze worden opgeruimd door Git.
+
+  - id: git.m03.q04
+    type: open
+    prompt: Teken (of beschrijf in tekst) een situatie met twee branches die allebei twee commits bevatten na het vertakpunt. Beschrijf ook wat er visueel gebeurt bij een merge.
+    sample_answer: De hoofdbranch heeft commits A-B-C-D. Bij C begint een zijtak met commits E-F. Na de merge ontstaat een merge-commit G op de hoofdbranch, die zowel D als F als ouders heeft. De zijtak is dan samengevoegd.
+    keywords:
+      - branch
+      - merge
+      - commit
+      - ouder
+      - vertakpunt

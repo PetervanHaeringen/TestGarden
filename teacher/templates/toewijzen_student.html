@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}Modules toewijzen — {{ student.username }}{% endblock %}
+
+{% block content %}
+<h1>📚 Modules toewijzen aan {{ student.username }}</h1>
+<p><a href="{{ url_for('teacher.toewijzen_overzicht') }}">← Terug naar overzicht</a></p>
+
+<form method="POST">
+
+  {# ------------------------------------------------------------------ #}
+  {# ZICHTBAARHEID                                                        #}
+  {# Bepaalt wat de student ziet in Mijn Tuin                            #}
+  {# ------------------------------------------------------------------ #}
+  <section style="margin: 2rem 0;">
+    <h2>Zichtbaarheid in Mijn Tuin</h2>
+    <p style="color: #666; font-size: 0.9rem;">
+      Dit bepaalt welke modules de cursist ziet op zijn/haar dashboard.
+    </p>
+
+    <label style="display:block; margin: 0.5rem 0;">
+      <input type="radio" name="module_visibility" value="alleen_toegewezen"
+        {% if student.module_visibility == "alleen_toegewezen" %}checked{% endif %}>
+      <strong>Alleen toegewezen</strong> — ziet uitsluitend de aangevinkte modules
+      <span style="color:#888;">(bijv. korte bezoeker)</span>
+    </label>
+
+    <label style="display:block; margin: 0.5rem 0;">
+      <input type="radio" name="module_visibility" value="vergrendeld"
+        {% if student.module_visibility == "vergrendeld" %}checked{% endif %}>
+      <strong>Vergrendeld</strong> — ziet alle modules, niet-toegewezen zijn grijs
+      <span style="color:#888;">(bijv. individueel traject)</span>
+    </label>
+
+    <label style="display:block; margin: 0.5rem 0;">
+      <input type="radio" name="module_visibility" value="alles"
+        {% if student.module_visibility == "alles" %}checked{% endif %}>
+      <strong>Alles</strong> — ziet en opent alles vrij
+      <span style="color:#888;">(bijv. vast traject)</span>
+    </label>
+  </section>
+
+  {# ------------------------------------------------------------------ #}
+  {# MODULES AANVINKEN                                                    #}
+  {# Gegroepeerd per systeem: template vs. content                       #}
+  {# ------------------------------------------------------------------ #}
+  <section style="margin: 2rem 0;">
+    <h2>Modules</h2>
+    <p style="color: #666; font-size: 0.9rem;">
+      Vink de modules aan die deze cursist krijgt toegewezen.
+    </p>
+
+    {# Groepeer modules per systeem #}
+    {% set template_modules = alle_modules | selectattr("system", "equalto", "template") | list %}
+    {% set content_modules  = alle_modules | selectattr("system", "equalto", "content")  | list %}
+
+    {% if template_modules %}
+    <h3 style="margin-top:1.5rem;">📄 Template-modules</h3>
+    <p style="color:#888; font-size:0.85rem;">Vaste instructies — weinig verandering</p>
+    {% for module in template_modules %}
+    <label style="display:block; margin: 0.4rem 0; padding: 0.4rem; border-radius: 4px;
+                  {% if module.slug in toegewezen_slugs %}background:#f0f8f0;{% endif %}">
+      <input type="checkbox" name="modules" value="{{ module.slug }}"
+        {% if module.slug in toegewezen_slugs %}checked{% endif %}>
+      {{ module.title }}
+      <span style="color:#aaa; font-size:0.8rem;">{{ module.slug }}</span>
+    </label>
+    {% endfor %}
+    {% endif %}
+
+    {% if content_modules %}
+    <h3 style="margin-top:1.5rem;">📝 Content-modules</h3>
+    <p style="color:#888; font-size:0.85rem;">Lessen met vragen — regelmatig bijgewerkt via GitHub</p>
+    {% for module in content_modules %}
+    <label style="display:block; margin: 0.4rem 0; padding: 0.4rem; border-radius: 4px;
+                  {% if module.slug in toegewezen_slugs %}background:#f0f8f0;{% endif %}">
+      <input type="checkbox" name="modules" value="{{ module.slug }}"
+        {% if module.slug in toegewezen_slugs %}checked{% endif %}>
+      {{ module.title }}
+      <span style="color:#aaa; font-size:0.8rem;">{{ module.slug }}</span>
+    </label>
+    {% endfor %}
+    {% endif %}
+  </section>
+
+  {# ------------------------------------------------------------------ #}
+  {# WEES-TOEWIJZINGEN                                                    #}
+  {# Modules die toegewezen zijn maar niet meer bestaan                  #}
+  {# ------------------------------------------------------------------ #}
+  {% if wees_toewijzingen %}
+  <section style="margin: 2rem 0; padding: 1rem; background:#fff8e6; border-left: 4px solid #f0a500; border-radius:4px;">
+    <h3>⚠️ Niet meer beschikbare modules</h3>
+    <p style="font-size:0.9rem;">
+      Deze modules zijn toegewezen maar bestaan niet meer in het systeem.
+      Je kunt ze hier handmatig verwijderen.
+    </p>
+    {% for t in wees_toewijzingen %}
+    <div style="display:flex; align-items:center; gap:1rem; margin: 0.5rem 0;">
+      <span style="color:#888;">{{ t.module_slug }}</span>
+      <form method="POST"
+            action="{{ url_for('teacher.toewijzing_verwijderen', user_id=student.id, toewijzing_id=t.id) }}"
+            style="display:inline;">
+        <button type="submit" style="color:red; background:none; border:none; cursor:pointer;">
+          🗑️ Verwijderen
+        </button>
+      </form>
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  {# ------------------------------------------------------------------ #}
+  {# OPSLAAN                                                              #}
+  {# ------------------------------------------------------------------ #}
+  <div style="margin: 2rem 0;">
+    <button type="submit" style="padding: 0.6rem 1.4rem; font-size:1rem; cursor:pointer;">
+      💾 Opslaan
+    </button>
+  </div>
+
+</form>
+{% endblock %}

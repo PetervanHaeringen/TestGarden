@@ -1,0 +1,55 @@
+questions:
+
+  - id: git.m01.q01
+    type: mcq
+    prompt: Waarom maakte Linus Torvalds Git in 2005?
+    options:
+      - id: a
+        text: Omdat hij een beter systeem wilde dan GitHub
+      - id: b
+        text: Omdat de licentie van het versiebeheersysteem dat ze gebruikten werd ingetrokken
+      - id: c
+        text: Omdat SVN te langzaam was voor zijn computer
+      - id: d
+        text: Omdat hij een opdracht had van zijn universiteit
+    answer: b
+    hint: Denk aan BitKeeper en wat er in 2005 veranderde.
+    feedback:
+      correct: Klopt. De intrekking van de BitKeeper-licentie was de directe aanleiding.
+      incorrect: Niet helemaal. Het ging om de licentie van een bestaand systeem — BitKeeper.
+    explanation: De makers van BitKeeper trokken de gratis licentie voor open-source projecten in. Daarna bouwde Linus in twee weken de basis van Git.
+
+  - id: git.m01.q02
+    type: mcq
+    prompt: Wat is het grootste verschil tussen gecentraliseerd en gedistribueerd versiebeheer?
+    options:
+      - id: a
+        text: Bij gedistribueerd versiebeheer heeft alleen de server de volledige geschiedenis
+      - id: b
+        text: Bij gecentraliseerd versiebeheer heeft iedereen een eigen kopie van de volledige geschiedenis
+      - id: c
+        text: Bij gedistribueerd versiebeheer heeft iedereen de volledige geschiedenis op de eigen computer
+      - id: d
+        text: Er is geen verschil, het zijn twee namen voor hetzelfde systeem
+    answer: c
+    hint: Denk aan wat er gebeurt als de centrale server uitvalt.
+    feedback:
+      correct: Precies. Dat is ook waarom Git minder kwetsbaar is voor serveruitval.
+      incorrect: Kijk nog eens naar sectie 2 en 4 van de les.
+    explanation: Bij gedistribueerd versiebeheer heeft elke deelnemer een volledige kopie van de repository. Er is geen enkel centraal punt dat alles regelt.
+
+  - id: git.m01.q03
+    type: truefalse
+    prompt: GitHub en Git zijn hetzelfde programma.
+    answer: false
+    explanation: Git is het versiebeheersysteem, ontwikkeld door Linus Torvalds. GitHub is een platform om Git-repositories online te bewaren en te delen.
+
+  - id: git.m01.q04
+    type: open
+    prompt: Beschrijf in je eigen woorden waarom Git ook nuttig is voor iemand die niet programmeert, zoals een tester.
+    sample_answer: Git geeft een tester inzicht in wie wat heeft gewijzigd, wanneer dat was, en maakt het mogelijk terug te gaan naar een eerdere versie. Het helpt ook bij het beheren van testscripts en bugrapporten.
+    keywords:
+      - geschiedenis
+      - wijzigingen
+      - samenwerken
+      - testscripts

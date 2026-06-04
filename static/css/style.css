@@ -1,0 +1,1473 @@
+/* ============================================================
+   WCAG TOEGANKELIJKHEID — basisverbeteringen
+   ============================================================ */
+
+/* Skip-to-content link (WCAG 2.4.1 Bypass Blocks)
+   Voeg toe aan base.html: <a href="#main-content" class="skip-link">Ga naar inhoud</a> */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    background: var(--nav-bg);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-weight: 700;
+    z-index: 9999;
+    text-decoration: none;
+    border-bottom-right-radius: 4px;
+    transition: top 0.2s;
+}
+.skip-link:focus-visible {
+    top: 0;
+}
+
+/* Zichtbare focus ring voor knoppen (WCAG 2.4.7) */
+.btn:focus-visible,
+.open-btn:focus-visible,
+.feedback-btn:focus-visible,
+.nav-link:focus-visible,
+.dropdown-toggle:focus-visible {
+    outline: 3px solid var(--accent-strong);
+    outline-offset: 3px;
+}
+
+/* Voorkeur voor minder beweging (WCAG 2.3.3 AAA / best practice) */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+
+/* ============================================================
+   TESTGARDEN – BASIS THEMA SYSTEEM (met verbeterde styling)
+   ============================================================ */
+
+/* Algemene font & layout basis */
+:root {
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-size-base: 14px;
+    --content-max-width: 1200px;
+    --border-radius: 4px;
+    --box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    --transition: all 0.3s ease;
+
+    /* fallback kleuren (neutraal — thema overschrijft dit) */
+    --bg: #f5f7fa;
+    --bg-alt: #eaecf0;
+    --nav-bg: #1B2A4A;
+    --card-bg: #ffffff;
+    --text: #1a1d2e;
+    --text-soft: #4b5563;           /* WCAG AA: 7.2:1 op wit */
+    --accent: #C94E0F;              /* WCAG AA groot: 3.5:1 op wit; gebruik voor knoppen/iconen */
+    --accent-soft: #fde8d8;
+    --accent-strong: #9c3a09;       /* WCAG AA normaal: 5.4:1 op wit */
+    --success-color: #1e7a3c;       /* WCAG AA: 5.1:1 op wit */
+    --warning-color: #b45309;       /* WCAG AA: 4.7:1 op wit */
+    --danger-color: #b91c1c;        /* WCAG AA: 5.2:1 op wit */
+    --border-subtle: #d1d5db;
+    --shadow-soft: 0 2px 10px rgba(27, 42, 74, 0.12);
+}
+
+/* -------- THEMA: IVM (ICT vanaf Morgen) -------- */
+/* Kleuren gebaseerd op ictvanafmorgen.nl huisstijl              */
+/* Primair: oranje #E8621A | Nav: donker navy #1B2A4A            */
+/* WCAG AA-compliant: wit op navy > 10:1, tekst op wit > 7:1     */
+html[data-theme="ivm"] {
+    --bg: #f5f7fa;
+    --bg-alt: #eaecf0;
+    --nav-bg: #1B2A4A;
+    --card-bg: #ffffff;
+    --text: #1a1d2e;
+    --text-soft: #4b5563;
+    --accent: #C94E0F;
+    --accent-soft: #fde8d8;
+    --accent-strong: #9c3a09;
+    --success-color: #1e7a3c;
+    --warning-color: #b45309;
+    --danger-color: #b91c1c;
+    --border-subtle: #d1d5db;
+    --shadow-soft: 0 2px 10px rgba(27, 42, 74, 0.12);
+}
+
+/* -------- THEMA: SAND (warm & rustig) -------- */
+html[data-theme="sand"] {
+    --bg: #fbf6ef;
+    --bg-alt: #f2e6d7;
+    --nav-bg: #8b7355;
+    --card-bg: #ffffff;
+    --text: #3f3428;
+    --text-soft: #7a6d5d;
+    --accent: #c28b4b;
+    --accent-soft: #f3dfc3;
+    --accent-strong: #9b6a32;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --border-subtle: #e1d2c1;
+    --shadow-soft: 0 2px 10px rgba(120, 100, 75, 0.16);
+}
+
+/* -------- THEMA: MODERN (licht & strak) -------- */
+html[data-theme="modern"] {
+    --bg: #f5f7fb;
+    --bg-alt: #e2e7f2;
+    --nav-bg: #151b26;
+    --card-bg: #ffffff;
+    --text: #151b26;
+    --text-soft: #697286;
+    --accent: #356fba;
+    --accent-soft: #d6e3fb;
+    --accent-strong: #234a80;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --border-subtle: #c9d3e6;
+    --shadow-soft: 0 2px 10px rgba(21, 27, 38, 0.12);
+}
+
+/* -------- THEMA: GARDEN NIGHT (donker groen) -------- */
+html[data-theme="garden-night"] {
+    --bg: #101a13;
+    --bg-alt: #14231a;
+    --nav-bg: #17271e;
+    --card-bg: #1a2a21;
+    --text: #e0f0e3;
+    --text-soft: #9ab7a5;
+    --accent: #5cbf7a;
+    --accent-soft: #234231;
+    --accent-strong: #8ce9a9;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --border-subtle: #2a3e31;
+    --shadow-soft: 0 4px 14px rgba(0, 0, 0, 0.6);
+}
+
+/* ============================================================
+   BASIS LAYOUT & TYPOGRAFIE (vernieuwde styling)
+   ============================================================ */
+
+html {
+    font-size: var(--font-size-base);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+main.content {
+    max-width: var(--content-max-width);
+    margin: 2.5rem auto 3.5rem;
+    padding: 0 1.5rem;
+    line-height: 1.7;
+}
+
+/* Verbeterde typografie */
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 1rem;
+    color: var(--text);
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+h1 {
+    font-size: 2.5rem;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 0.5rem;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-top: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+p {
+    margin: 0 0 1rem;
+}
+
+/* Verbeterde links */
+a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--accent-strong);
+}
+
+/* ============================================================
+   NAVIGATIEBALK (met verbeterde styling)
+   ============================================================ */
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--nav-bg);
+    padding: 0.75rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: var(--box-shadow);
+}
+
+.nav-left,
+.nav-center,
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.brand span {
+    color: var(--accent);
+}
+
+.nav-center .nav-link {
+    font-weight: 500;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent);
+}
+
+/* Desktop vs mobiel */
+.desktop-only {
+    display: flex;
+}
+
+.mobile-only {
+    display: none;
+}
+
+/* ============================================================
+   BUTTONS (nieuwe verbeterde styling)
+   ============================================================ */
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: var(--accent-strong);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+    background-color: var(--accent);
+}
+
+.btn-success {
+    background-color: var(--success-color);
+}
+
+.btn-warning {
+    background-color: var(--warning-color);
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+}
+
+.btn-outline:hover {
+    background-color: var(--accent);
+    color: white;
+}
+
+/* ============================================================
+   CARDS (nieuwe verbeterde styling)
+   ============================================================ */
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+
+/* ============================================================
+   TEST STATUS INDICATORS (nieuwe verbeterde styling)
+   ============================================================ */
+
+.status {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.status-passed {
+    background-color: rgba(39, 174, 96, 0.1);
+    color: var(--success-color);
+}
+
+.status-failed {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: var(--danger-color);
+}
+
+.status-running {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: var(--accent);
+}
+
+.status-pending {
+    background-color: rgba(243, 156, 18, 0.1);
+    color: var(--warning-color);
+}
+
+/* ============================================================
+   TEST RESULTS (nieuwe verbeterde styling)
+   ============================================================ */
+
+.test-result {
+    border-left: 4px solid;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.test-passed {
+    border-left-color: var(--success-color);
+}
+
+.test-failed {
+    border-left-color: var(--danger-color);
+}
+
+.test-warning {
+    border-left-color: var(--warning-color);
+}
+
+/* ============================================================
+   CODE BLOCKS (nieuwe verbeterde styling)
+   ============================================================ */
+
+.code-block {
+    background-color: #2d3748;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    font-family: 'Courier New', monospace;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+/* ============================================================
+   FORM ELEMENTS (verbeterde styling)
+   ============================================================ */
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+    background-color: var(--card-bg);
+    color: var(--text);
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+    /* WCAG 2.4.7 Focus Visible + 2.4.11 Focus Appearance (WCAG 2.2) */
+}
+
+/* ============================================================
+   DROPDOWN MENU'S (aangepast voor nieuwe styling)
+   ============================================================ */
+
+.dropdown {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.dropdown-toggle {
+    border: none;
+    background: transparent;
+    font: inherit;
+    cursor: pointer;
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--border-radius);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: var(--transition);
+}
+
+.dropdown-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 120%;
+    right: 0;
+    min-width: 210px;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border-subtle);
+    padding: 0.5rem;
+    z-index: 100;
+}
+
+.dropdown-menu li {
+    list-style: none;
+    margin: 0.25rem 0;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--border-radius);
+    background: transparent;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.96rem;
+    transition: var(--transition);
+}
+
+.dropdown-menu a:hover {
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+}
+
+.dropdown:hover > .dropdown-menu,
+.dropdown:focus-within > .dropdown-menu {
+    display: block;
+}
+
+/* ============================================================
+   THEMA SELECTOR & DARK/LIGHT KNOP (aangepast)
+   ============================================================ */
+
+.theme-select {
+    margin-left: 0.75rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-subtle);
+    background: var(--card-bg);
+    color: var(--text);
+    outline: none;
+    cursor: pointer;
+}
+
+.theme-btn {
+    margin-left: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    border: none;
+    background: var(--card-bg);
+    color: var(--text);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: var(--transition);
+}
+
+.theme-btn:hover {
+    background: var(--accent-soft);
+}
+
+/* ============================================================
+   MOBIEL MENU (aangepast voor nieuwe styling)
+   ============================================================ */
+
+.hamburger {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+}
+
+.mobile-menu {
+    display: none;
+    background: var(--nav-bg);
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.mobile-menu a {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.mobile-menu a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent);
+}
+
+.mobile-menu hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0.5rem 0;
+}
+
+.mobile-theme-select {
+    margin-top: 0.75rem;
+    width: 100%;
+    padding: 0.5rem;
+}
+
+/* Breakpoint */
+@media (max-width: 900px) {
+    .desktop-only {
+        display: none;
+    }
+    .mobile-only {
+        display: inline-flex;
+    }
+    .mobile-menu.open,
+    .mobile-menu.show {
+        display: block;
+    }
+}
+
+/* ============================================================
+   FLASH MESSAGES (verbeterde styling)
+   ============================================================ */
+
+.flash-messages {
+    max-width: var(--content-max-width);
+    margin: 1rem auto;
+    padding: 0;
+    list-style: none;
+}
+
+.flash-messages li {
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 0.75rem;
+    background: var(--accent-soft);
+    color: var(--text);
+    border-left: 4px solid var(--accent);
+}
+
+.flash-messages li.success {
+    background: rgba(39, 174, 96, 0.1);
+    border-left-color: var(--success-color);
+}
+
+.flash-messages li.error {
+    background: rgba(231, 76, 60, 0.1);
+    border-left-color: var(--danger-color);
+}
+
+.flash-messages li.warning {
+    background: rgba(243, 156, 18, 0.1);
+    border-left-color: var(--warning-color);
+}
+
+/* ============================================================
+   FOOTER (verbeterde styling)
+   ============================================================ */
+
+.footer {
+    border-top: 1px solid var(--border-subtle);
+    padding: 2rem 1rem;
+    text-align: center;
+    background: var(--nav-bg);
+    color: #e8edf5;          /* lichtblauw-wit — 11.2:1 op navy  */
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+/* Koppen erven var(--text) = bijna-zwart — dat is onzichtbaar op navy.
+   Expliciet overschrijven. WCAG AA: wit op #1B2A4A = 13.5:1           */
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h4 {
+    color: #ffffff;
+    border-bottom: none;     /* h1 heeft standaard een gekleurde border-bottom */
+}
+
+/* Links: var(--accent) oranje #C94E0F op navy = ~3.1:1 → te laag.
+   Lichtere tint #F4956A geeft 6.3:1 op navy — WCAG AA ruim gehaald. */
+.footer a {
+    color: #F4956A;
+}
+
+.footer a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* Credit regel onderaan de footer */
+.footer-credit {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.8rem;
+    color: #a8b4c8;          /* subtiel maar leesbaar: 4.6:1 op navy */
+}
+
+/* ============================================================
+   LEARNING PATH (vernieuwde styling)
+   ============================================================ */
+
+.learning-path {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 1rem 0;
+}
+
+.learning-path .lead {
+    color: var(--text-soft);
+    margin-bottom: 2rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.tile {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: var(--transition);
+}
+
+.tile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.step-number {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.tile h2 {
+    font-size: 1.25rem;
+    margin: 0.5rem 0;
+}
+
+.tile .status {
+    margin-top: 0.5rem;
+}
+
+.open-btn {
+    margin-top: auto;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--border-radius);
+    border: none;
+    background: var(--accent);
+    color: white;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.open-btn:hover {
+    background: var(--accent-strong);
+    transform: translateY(-2px);
+}
+
+/* ============================================================
+   FEEDBACK FORMULIER (vernieuwde styling)
+   ============================================================ */
+
+.feedback-container {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-subtle);
+    padding: 2rem;
+    box-shadow: var(--box-shadow);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.feedback-container h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+.feedback-form label {
+    display: block;
+    font-weight: 500;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.feedback-form textarea {
+    width: 100%;
+    min-height: 120px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-subtle);
+    padding: 0.75rem;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    background: var(--bg);
+    color: var(--text);
+    resize: vertical;
+    transition: var(--transition);
+}
+
+.feedback-form textarea:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.feedback-btn {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    border: none;
+    background: var(--accent);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.feedback-btn:hover {
+    background: var(--accent-strong);
+    transform: translateY(-2px);
+}
+
+/* ============================================================
+   UTILITY CLASSES (nieuwe nuttige classes)
+   ============================================================ */
+
+.text-center {
+    text-align: center;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
+
+/* --- Subtiele breadcrumb navigatie --- */
+.breadcrumb {
+    font-size: 0.85rem;
+    opacity: 0.65;
+    margin: 1rem 0 2rem 0;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
+}
+
+.breadcrumb a:hover {
+    opacity: 0.95;
+}
+
+.breadcrumb span {
+    opacity: 0.6;
+}
+
+
+.module-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.module-navigation a {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.module-navigation a:hover {
+    text-decoration: underline;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   TESTSCRIPTS — GitHub-integratie
+   ═══════════════════════════════════════════════════ */
+
+/* Module-kaarten op overzichtspagina */
+.ts-module-kaart {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+.ts-module-kaart:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Status badges */
+.ts-tellers { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ts-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+.ts-goed      { background: #e8f7ee; color: #1a7a3c; }
+.ts-fout      { background: #fde8e8; color: #b91c1c; }
+.ts-opmerking { background: #fef3cd; color: #92610a; }
+.ts-open      { background: #f0f1f5; color: #7a8099; }
+.ts-pct       { font-size: 12px; color: var(--text-muted, #7a8099); margin-left: auto; }
+
+/* Voortgangsbalk */
+.progress-bar-wrap {
+    width: 100%;
+    height: 6px;
+    background: var(--border-color, #e8eaf0);
+    border-radius: 3px;
+    overflow: hidden;
+}
+.progress-bar-inner {
+    height: 100%;
+    background: var(--accent-color, #4f6ef7);
+    border-radius: 3px;
+    transition: width 0.3s;
+}
+
+/* Meta blok */
+.ts-meta-blok {
+    background: var(--card-bg, #f7f8fc);
+    border-left: 3px solid var(--accent-color, #4f6ef7);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 16px;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* Testset filter tabs */
+.ts-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.ts-tab {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted, #5c6480);
+    background: var(--card-bg, #f0f1f5);
+    text-decoration: none;
+    transition: background 0.12s, color 0.12s;
+}
+.ts-tab:hover { background: var(--border-color, #e0e3ef); color: var(--text-color, #1a1d2e); text-decoration: none; }
+.ts-tab.actief { background: var(--accent-color, #4f6ef7); color: white; }
+
+/* Testset blok header */
+.ts-header { display: flex; align-items: center; gap: 12px; margin-bottom: 0; }
+.ts-id-badge {
+    font-family: monospace;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--accent-color, #4f6ef7);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 4px;
+}
+.ts-naam { font-size: 16px; font-weight: 600; }
+
+/* Stap grid */
+.stap-grid {
+    display: grid;
+    grid-template-columns: 44px 1fr 160px minmax(200px, 1fr);
+    gap: 0 12px;
+    align-items: start;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-color, #f0f1f5);
+}
+.stap-grid-header {
+    font-size: 12px;
+    color: var(--text-muted, #9099b0);
+    font-weight: 500;
+    background: var(--card-bg, #fafbfc);
+    border-radius: 8px 8px 0 0;
+    border: 1px solid var(--border-color, #e8eaf0);
+    border-bottom: none;
+}
+.stap-rij {
+    border: 1px solid var(--border-color, #e8eaf0);
+    border-top: none;
+    background: var(--bg-color, white);
+    color: var(--text-color, #1a1d2e);
+}
+.stap-rij:last-child { border-radius: 0 0 8px 8px; }
+.stap-rij:hover { background: var(--card-bg, #fafbff); }
+
+.stap-nr     { font-family: monospace; font-size: 13px; color: var(--text-muted, #9099b0); padding-top: 3px; }
+.stap-prec   { font-size: 12px; color: #e8a020; font-style: italic; margin-bottom: 4px; }
+.stap-actie  { font-size: 14px; line-height: 1.5; color: var(--text-color, #1a1d2e); }
+.stap-verwacht {
+    font-size: 13px;
+    color: var(--text-muted, #5c6480);
+    border-left: 2px solid var(--border-color, #e0e3ef);
+    padding-left: 8px;
+    margin-top: 4px;
+    line-height: 1.5;
+}
+.stap-meta-info { font-size: 11px; color: var(--text-muted, #b0b8cc); margin-top: 4px; font-style: italic; }
+.stap-inhoud { color: var(--text-color, #1a1d2e); }
+
+/* Status select */
+.ts-status-select {
+    width: 100%;
+    padding: 5px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color, #e0e3ef);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: var(--card-bg, white);
+}
+.ts-status-select.ts-status-goed               { background-color: #e8f7ee; color: #1a7a3c; border-color: #a8dbb8; }
+.ts-status-select.ts-status-fout               { background-color: #fde8e8; color: #b91c1c; border-color: #f5b5b5; }
+.ts-status-select.ts-status-goed_met_opmerking { background-color: #fef3cd; color: #92610a; border-color: #f5d980; }
+.ts-status-select.ts-status-niet_getest        { background-color: #f0f1f5; color: #7a8099; border-color: #d8dae8; }
+
+/* Notitie input */
+.ts-notitie-input {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid var(--border-color, #e0e3ef);
+    border-radius: 6px;
+    font-size: 13px;
+    background: var(--bg-color, white);
+    color: var(--text-color, #444);
+    resize: vertical;
+    min-height: 34px;
+    font-family: inherit;
+    overflow: auto;
+    box-sizing: border-box;
+}
+.ts-notitie-input:focus {
+    outline: none;
+    border-color: var(--accent-color, #4f6ef7);
+    box-shadow: 0 0 0 3px rgba(79,110,247,0.1);
+}
+
+/* Opslaan balk (sticky onderaan) */
+.ts-opslaan-balk {
+    position: sticky;
+    bottom: 0;
+    background: var(--bg-color, white);
+    border-top: 1px solid var(--border-color, #e8eaf0);
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 10;
+}
+
+/* Hulpklassen */
+.flex-grow-1 { flex: 1; }
+.gap-3 { gap: 12px; }
+.d-flex { display: flex; }
+.align-items-center { align-items: center; }
+.flex-wrap { flex-wrap: wrap; }
+.mb-1 { margin-bottom: 4px; }
+.mb-2 { margin-bottom: 8px; }
+.mb-3 { margin-bottom: 12px; }
+.mb-4 { margin-bottom: 20px; }
+.mb-5 { margin-bottom: 32px; }
+.py-4 { padding-top: 24px; padding-bottom: 24px; }
+.gap-3 { gap: 12px; }
+.container-wide { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+
+/* ═══════════════════════════════════════════════════
+   BEVINDINGEN
+   ═══════════════════════════════════════════════════ */
+
+/* Formulier header */
+.bev-form-header {
+    display: flex; align-items: flex-start; gap: 16px;
+}
+.bev-id-badge {
+    font-family: monospace; font-size: 13px; font-weight: 700;
+    background: var(--accent-color, #4f6ef7); color: white;
+    padding: 5px 12px; border-radius: 6px; white-space: nowrap;
+    flex-shrink: 0;
+}
+.bev-id-klein { font-size: 11px; padding: 2px 8px; }
+
+/* Veldlabels */
+.bev-label {
+    display: block; font-weight: 600; font-size: 14px;
+    margin-bottom: 6px; color: var(--text-color, #1a1d2e);
+}
+.bev-verplicht { color: #b91c1c; margin-left: 2px; }
+.bev-hint {
+    font-weight: 400; font-size: 12px;
+    color: var(--text-muted, #7a8099); margin-left: 6px;
+}
+.bev-veld { }
+.bev-input, .bev-textarea {
+    width: 100%; padding: 8px 12px;
+    border: 1px solid var(--border-color, #e0e3ef);
+    border-radius: 8px; font-size: 14px;
+    background: var(--bg-color, white);
+    color: var(--text-color, #1a1d2e);
+    font-family: inherit;
+}
+.bev-input:focus, .bev-textarea:focus {
+    outline: none; border-color: var(--accent-color, #4f6ef7);
+    box-shadow: 0 0 0 3px rgba(79,110,247,0.12);
+}
+.bev-textarea { resize: vertical; line-height: 1.6; }
+
+/* Prioriteit radio knoppen */
+.prioriteit-knoppen { display: flex; gap: 8px; flex-wrap: wrap; }
+.prio-optie {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 20px; cursor: pointer;
+    font-size: 13px; font-weight: 500;
+    border: 2px solid transparent;
+    transition: all 0.12s;
+}
+.prio-optie input[type=radio] { display: none; }
+.prio-kritiek  { background: #fde8e8; color: #b91c1c; }
+.prio-hoog     { background: #fef0e0; color: #c25d00; }
+.prio-gemiddeld{ background: #fefbcd; color: #92610a; }
+.prio-laag     { background: #e8f7ee; color: #1a7a3c; }
+.prio-optie:has(input:checked) { border-color: currentColor; box-shadow: 0 0 0 2px currentColor inset; }
+
+/* Screenshot upload */
+.screenshot-upload-zone {
+    border: 2px dashed var(--border-color, #d0d4e8);
+    border-radius: 10px; padding: 24px;
+    text-align: center; cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    position: relative;
+}
+.screenshot-upload-zone:hover, .screenshot-upload-zone.drag-over {
+    border-color: var(--accent-color, #4f6ef7);
+    background: rgba(79,110,247,0.04);
+}
+.screenshot-file-input {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+}
+.screenshot-upload-tekst {
+    display: flex; flex-direction: column; gap: 4px;
+    pointer-events: none;
+}
+.upload-icoon { font-size: 28px; }
+.screenshot-preview-grid {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px;
+}
+.screenshot-preview-item {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.screenshot-preview-item img {
+    width: 140px; height: 90px; object-fit: cover;
+    border-radius: 6px; border: 1px solid var(--border-color, #e0e3ef);
+}
+.screenshot-naam {
+    font-size: 11px; color: var(--text-muted, #9099b0);
+    max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* Bevinding aanmaken knop in teststap */
+.bev-aanmaken-btn {
+    display: inline-block; margin-top: 6px;
+    font-size: 11px; color: var(--text-muted, #9099b0);
+    text-decoration: none; padding: 2px 6px;
+    border: 1px solid var(--border-color, #e0e3ef);
+    border-radius: 4px; transition: all 0.12s;
+}
+.bev-aanmaken-btn:hover {
+    color: #b91c1c; border-color: #f5b5b5;
+    background: #fde8e8; text-decoration: none;
+}
+.bev-koppelingen { margin-top: 4px; display: flex; gap: 4px; flex-wrap: wrap; }
+.bev-koppeling-link {
+    font-size: 11px; font-family: monospace;
+    color: var(--accent-color, #4f6ef7);
+    text-decoration: none;
+}
+.bev-koppeling-link:hover { text-decoration: underline; }
+
+/* Bevindingen lijst */
+.bev-lijst { display: flex; flex-direction: column; gap: 0; }
+.bev-rij {
+    display: grid; grid-template-columns: 110px 1fr auto;
+    gap: 12px; align-items: center;
+    padding: 14px 16px;
+    border: 1px solid var(--border-color, #e8eaf0);
+    border-top: none; background: var(--bg-color, white);
+    text-decoration: none; color: inherit;
+    transition: background 0.1s;
+}
+.bev-rij:first-child { border-top: 1px solid var(--border-color, #e8eaf0); border-radius: 8px 8px 0 0; }
+.bev-rij:last-child { border-radius: 0 0 8px 8px; }
+.bev-rij:hover { background: var(--card-bg, #fafbff); text-decoration: none; color: inherit; }
+.bev-rij-id { display: flex; align-items: center; gap: 6px; }
+.bev-prio-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.prio-kritiek  .bev-prio-dot, .bev-prio-dot.prio-kritiek  { background: #b91c1c; }
+.prio-hoog     .bev-prio-dot, .bev-prio-dot.prio-hoog     { background: #c25d00; }
+.prio-gemiddeld.bev-prio-dot, .bev-prio-dot.prio-gemiddeld { background: #92610a; }
+.prio-laag     .bev-prio-dot, .bev-prio-dot.prio-laag     { background: #1a7a3c; }
+.bev-rij-titel { font-weight: 500; font-size: 14px; }
+.bev-rij-meta  { font-size: 12px; color: var(--text-muted, #7a8099); margin-top: 2px; }
+
+/* Status badges */
+.bev-status-badge {
+    display: inline-block; padding: 2px 10px; border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+}
+.status-open          { background: #fde8e8; color: #b91c1c; }
+.status-in_behandeling{ background: #fef0e0; color: #c25d00; }
+.status-opgelost      { background: #e8f7ee; color: #1a7a3c; }
+
+.bev-prio-badge {
+    display: inline-block; padding: 2px 10px; border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+}
+.prio-kritiek  { background: #fde8e8; color: #b91c1c; }
+.prio-hoog     { background: #fef0e0; color: #c25d00; }
+.prio-gemiddeld{ background: #fefbcd; color: #92610a; }
+.prio-laag     { background: #e8f7ee; color: #1a7a3c; }
+
+/* Detail pagina */
+.bev-detail-grid { display: flex; flex-direction: column; gap: 16px; }
+.bev-detail-veld {
+    background: var(--card-bg, #f7f8fc);
+    border-radius: 8px; padding: 14px 16px;
+}
+.bev-detail-fout { border-left: 3px solid #b91c1c; }
+.bev-detail-label {
+    font-size: 12px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--text-muted, #9099b0); margin-bottom: 6px;
+}
+.bev-detail-waarde { font-size: 14px; line-height: 1.6; white-space: pre-wrap; }
+
+/* Acties */
+.bev-acties { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.bev-leeg {
+    text-align: center; padding: 48px;
+    color: var(--text-muted, #7a8099);
+    background: var(--card-bg, #f7f8fc);
+    border-radius: 12px;
+}
+
+/* Rapport */
+.rapport-samenvatting {
+    background: var(--card-bg, #f7f8fc);
+    border-radius: 12px; padding: 20px;
+}
+.rapport-tellers { display: flex; gap: 16px; flex-wrap: wrap; }
+.rapport-teller {
+    flex: 1; min-width: 100px; text-align: center;
+    padding: 16px; border-radius: 8px;
+}
+.rapport-teller-kritiek  { background: #fde8e8; }
+.rapport-teller-hoog     { background: #fef0e0; }
+.rapport-teller-gemiddeld{ background: #fefbcd; }
+.rapport-teller-laag     { background: #e8f7ee; }
+.rapport-teller-nr    { font-size: 28px; font-weight: 700; }
+.rapport-teller-label { font-size: 13px; margin-top: 4px; }
+.rapport-sectie-header {
+    font-size: 16px; font-weight: 600; padding: 8px 14px;
+    border-radius: 6px; margin-bottom: 12px;
+}
+.prio-kritiek-header  { background: #fde8e8; color: #b91c1c; }
+.prio-hoog-header     { background: #fef0e0; color: #c25d00; }
+.prio-gemiddeld-header{ background: #fefbcd; color: #92610a; }
+.prio-laag-header     { background: #e8f7ee; color: #1a7a3c; }
+.rapport-bevinding {
+    border: 1px solid var(--border-color, #e8eaf0);
+    border-radius: 10px; padding: 16px; margin-bottom: 12px;
+    background: var(--bg-color, white);
+}
+.rapport-bev-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+.rapport-bev-meta   { font-size: 12px; color: var(--text-muted, #9099b0); margin-bottom: 12px; }
+.rapport-bev-grid   { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.rapport-bev-tekst  { font-size: 13px; line-height: 1.6; white-space: pre-wrap; }
+.rapport-bev-fout   { color: #b91c1c; }
+.rapport-screenshots{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.rapport-screenshot { max-width: 200px; max-height: 140px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border-color, #e0e3ef); }
+.ms-auto { margin-left: auto; }
+
+
+.question-card {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.question-option {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 0.4rem 0;
+}
+
+.question-feedback {
+    font-weight: bold;
+    margin-top: 0.6rem;
+}
+
+.question-feedback.correct {
+    color: green;
+}
+
+.question-feedback.incorrect {
+    color: darkred;
+}
+
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 30px;
+}
+
+.module-card {
+    background: white;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    min-height: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.step-label {
+    color: #3498db;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.module-card h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.status {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.module-button {
+    display: block;
+    text-align: center;
+    background: #3498db;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.module-button:hover {
+    background: #2980b9;
+}
+
+.question-card {
+    scroll-margin-top: 120px;
+}
+
+
+/* ── Scripts overzicht met testset snelkoppelingen ── */
+.ts-overzicht-lijst {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border-color, #e8eaf0);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.ts-overzicht-rij {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border-color, #e8eaf0);
+    background: var(--bg-color, white);
+    transition: background 0.1s;
+}
+.ts-overzicht-rij:last-child { border-bottom: none; }
+.ts-overzicht-rij:hover { background: var(--card-bg, #fafbff); }
+
+.ts-overzicht-tc {
+    padding: 14px 16px;
+    border-right: 1px solid var(--border-color, #e8eaf0);
+    display: flex;
+    align-items: center;
+    background: var(--card-bg, #f7f8fc);
+}
+.ts-overzicht-tc-link {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-color, #1a1d2e);
+    text-decoration: none;
+}
+.ts-overzicht-tc-link:hover {
+    color: var(--accent-color, #c94e0f);
+    text-decoration: none;
+}
+
+.ts-overzicht-sets {
+    padding: 10px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+.ts-overzicht-set-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--card-bg, #f0f1f5);
+    border: 1px solid var(--border-color, #e0e3ef);
+    text-decoration: none;
+    transition: all 0.12s;
+    font-size: 12px;
+    color: var(--text-color, #1a1d2e);
+}
+.ts-overzicht-set-link:hover {
+    background: var(--accent-soft, #fde8d8);
+    border-color: var(--accent-color, #c94e0f);
+    color: var(--accent-color, #c94e0f);
+    text-decoration: none;
+}
+.ts-overzicht-set-id {
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent-color, #c94e0f);
+}
+.ts-overzicht-set-naam {
+    font-size: 12px;
+}

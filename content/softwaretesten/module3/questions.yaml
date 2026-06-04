@@ -1,0 +1,27 @@
+questions:
+  - id: softwaretesten.m03.q01
+    type: mcq
+    prompt: "Wat is een belangrijk doel van een testplan?"
+    options:
+      - id: a
+        text: "Alle bugs vooraf oplossen"
+      - id: b
+        text: "Vastleggen wat, hoe en wanneer er getest wordt"
+      - id: c
+        text: "De software automatisch verbeteren"
+      - id: d
+        text: "Ontwikkelaars vervangen"
+    answer: b
+    explanation: "Een testplan beschrijft de aanpak: wat je test, hoe je dat doet, wanneer en met welke prioriteiten."
+
+  - id: softwaretesten.m03.q02
+    type: truefalse
+    prompt: "Risicogericht testen betekent dat je meer aandacht geeft aan onderdelen waar fouten de meeste impact hebben."
+    answer: true
+    explanation: "Bij risicogericht testen geef je prioriteit aan onderdelen met hoge kans op fouten of grote impact."
+
+  - id: softwaretesten.m03.q03
+    type: open
+    prompt: "Noem één voorbeeld van een onderdeel met hoog risico in een applicatie."
+    sample_answer: "Bijvoorbeeld inloggen, betalingen, privacygevoelige gegevens of databasebewerkingen."
+    explanation: "Een onderdeel heeft hoog risico als een fout daarin grote gevolgen kan hebben voor gebruiker, organisatie of gegevens."

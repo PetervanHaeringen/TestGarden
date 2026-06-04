@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Cursisten volgen — Overzicht{% endblock %}
+
+{% block content %}
+<h1>👀 Cursisten volgen</h1>
+<p>Klik op een cursist om te zien aan welke modules is gewerkt en welke antwoorden zijn gegeven.
+   De cursisten waaraan het laatst is gewerkt staan bovenaan.</p>
+
+<table style="width:100%; border-collapse: collapse; margin-top: 1rem;">
+  <thead>
+    <tr>
+      <th style="text-align:left; border-bottom:2px solid #ccc; padding:8px;">Cursist</th>
+      <th style="text-align:left; border-bottom:2px solid #ccc; padding:8px;">Rol</th>
+      <th style="text-align:left; border-bottom:2px solid #ccc; padding:8px;">Modules actief</th>
+      <th style="text-align:left; border-bottom:2px solid #ccc; padding:8px;">Laatst actief</th>
+      <th style="text-align:left; border-bottom:2px solid #ccc; padding:8px;">Actie</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in overzicht %}
+    <tr>
+      <td style="padding:8px; border-bottom:1px solid #eee;">{{ r.student.username }}</td>
+      <td style="padding:8px; border-bottom:1px solid #eee;">{{ r.student.role }}</td>
+      <td style="padding:8px; border-bottom:1px solid #eee;">
+        {% if r.modules_actief %}{{ r.modules_actief }}{% else %}—{% endif %}
+      </td>
+      <td style="padding:8px; border-bottom:1px solid #eee;">
+        {% if r.laatst_actief %}
+          {{ r.laatst_actief.strftime('%d-%m-%Y %H:%M') }}
+        {% else %}
+          <span style="color:#999;">nog niet begonnen</span>
+        {% endif %}
+      </td>
+      <td style="padding:8px; border-bottom:1px solid #eee;">
+        <a href="{{ url_for('teacher.cursist_detail', user_id=r.student.id) }}">🔎 Bekijken</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

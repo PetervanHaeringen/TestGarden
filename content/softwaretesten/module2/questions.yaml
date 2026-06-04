@@ -1,0 +1,27 @@
+questions:
+  - id: softwaretesten.m02.q01
+    type: mcq
+    prompt: Wat test je bij een unit test?
+    options:
+      - id: a
+        text: Het hele systeem
+      - id: b
+        text: Een klein stuk code, bijvoorbeeld een functie
+      - id: c
+        text: De database connectie
+      - id: d
+        text: De gebruikersinterface
+    answer: b
+    explanation: Een unit test test één klein onderdeel van de code, meestal een functie of methode.
+
+  - id: softwaretesten.m02.q02
+    type: truefalse
+    prompt: Een integratietest controleert of verschillende onderdelen goed samenwerken.
+    answer: true
+    explanation: Integratietesten richten zich op de samenwerking tussen componenten.
+
+  - id: softwaretesten.m02.q03
+    type: open
+    prompt: Noem één voorbeeld van een systeemtest.
+    sample_answer: Een systeemtest kan bijvoorbeeld controleren of een gebruiker van inloggen tot bestellen de volledige flow kan doorlopen.
+    explanation: Een systeemtest controleert het volledige systeem als geheel.

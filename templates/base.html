@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="nl" data-theme="ivm">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="TestGarden is een modulaire leeromgeving waar studenten stap voor stap leren testen, programmeren en samenwerken. Praktische opdrachten, directe feedback en ruimte om te groeien.">
+    <title>{% block title %}TestGarden - Leren Softwaretesten{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+    <script defer src="{{ url_for('static', filename='js/theme.js') }}"></script>
+    <link rel="icon" href="{{ url_for('static', filename='favicons/favicon.ico') }}" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicons/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicons/favicon-16x16.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicons/apple-touch-icon.png') }}">
+</head>
+<body class="fade-in">
+
+{% if breadcrumb %}
+<nav class="breadcrumb">
+    {% for label, link in breadcrumb %}
+        {% if link %}
+            <a href="{{ link }}">{{ label }}</a> →
+        {% else %}
+            <span class="current">{{ label }}</span>
+        {% endif %}
+    {% endfor %}
+</nav>
+{% endif %}
+
+<header class="navbar">
+    <div class="nav-left">
+        <a class="brand" href="{{ url_for('core.index') }}">
+            <img src="{{ url_for('static', filename='favicons/favicon-48x48.png') }}"
+                 alt="" height="32" style="vertical-align: middle; margin-right: 8px;">
+            Test<span>Garden</span>
+        </a>
+    </div>
+
+    
+
+    <nav class="nav-center desktop-only">
+        {% for item in menus["main"] %}
+            <a class="nav-link" href="{{ url_for(item["endpoint"]) }}">{{ item["name"] }}</a>
+        {% endfor %}
+
+        {% if current_role == "admin" %}
+            <a class="nav-link" href="{{ url_for('users.admin_panel') }}">Admin</a>
+        {% endif %}
+    </nav>
+
+    <div class="nav-right desktop-only">
+
+        {% if current_role in ["teacher", "admin"] %}
+        <div class="dropdown">
+            <button class="dropdown-toggle">Oefeningen ▼</button>
+            <ul class="dropdown-menu">
+                {% for item in menus["exercises"] %}
+                    <li>
+                        <a href="{{ url_for(item["endpoint"]) }}">
+                            {{ item.get("icon", "") }} {{ item["name"] }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+<!--     <div class="dropdown">
+            <button class="dropdown-toggle">Uitleg ▼</button>
+            <ul class="dropdown-menu">
+                {% for item in menus["instructions"] %}
+                    <li>
+                        <a href="{{ url_for(item["endpoint"]) }}">
+                            {{ item.get("icon", "") }} {{ item["name"] }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+-->
+        <div class="dropdown">
+            <button class="dropdown-toggle">Uitleg ▼</button>
+            <ul class="dropdown-menu">
+                {% for item in menus["content"] %}
+                    <li>
+                        <a href="{{ url_for(item["endpoint"]) }}">
+                            {{ item.get("icon", "") }} {{ item["name"] }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+
+        <!-- NIEUW: Teacher dropdown -->
+
+        {% if current_role in ["teacher", "admin"] %}
+        <div class="dropdown">
+            <button class="dropdown-toggle">Teacher ▼</button>
+            <ul class="dropdown-menu">
+                {% for item in menus["teacher"] %}
+                    <li>
+                        <a href="{{ url_for(item["endpoint"]) }}">
+                            {{ item["name"] }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+
+
+
+        <!-- NIEUW: Tools dropdown -->
+        <div class="dropdown">
+            <button class="dropdown-toggle">Tools ▼</button>
+            <ul class="dropdown-menu">
+                {% for item in menus["tools"] %}
+                    <li>
+                        <a href="{{ url_for(item["endpoint"]) }}">
+                            {{ item.get("icon", "") }} {{ item["name"] }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% if current_role in ["admin", "tester"] %}
+        <div class="dropdown">
+            <button class="dropdown-toggle">Scripts ▼</button>
+            <ul class="dropdown-menu">
+                {% for item in menus["scripts"] %}
+                    <li>
+                        <a href="{{ url_for(item["endpoint"]) }}">{{ item["name"] }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+
+
+        <select id="themeSelect" class="theme-select">
+            <option value="ivm">🌿 IVM</option>
+            <option value="sand">🏖️ Botanical</option>
+            <option value="modern">💎 Modern</option>
+            <option value="garden-night">🌲 Dark Mode</option>
+        </select>
+
+    </div>
+
+    <button class="hamburger mobile-only" id="hamburgerBtn" aria-label="Menu">☰</button>
+</header>
+
+<nav class="mobile-menu" id="mobileMenu">
+    {% for item in menus["main"] %}
+        <a href="{{ url_for(item["endpoint"]) }}">{{ item["name"] }}</a>
+    {% endfor %}
+
+    {% if current_role == "admin" %}
+        <a href="{{ url_for('users.admin_panel') }}">Admin</a>
+    {% endif %}
+
+    <hr>
+
+    {% for item in menus["exercises"] %}
+        <a href="{{ url_for(item["endpoint"]) }}">{{ item["name"] }}</a>
+    {% endfor %}
+
+    <hr>
+
+<!--    {% for item in menus["instructions"] %}
+        <a href="{{ url_for(item["endpoint"]) }}">{{ item["name"] }}</a>
+    {% endfor %}
+
+    <hr>
+-->
+    {% for item in menus["content"] %}
+        <a href="{{ url_for(item["endpoint"]) }}">{{ item["name"] }}</a>
+    {% endfor %}
+
+    <!-- NIEUW: Tools sectie mobiel -->
+    {% for item in menus["tools"] %}
+        <a href="{{ url_for(item["endpoint"]) }}">{{ item["name"] }}</a>
+    {% endfor %}
+
+
+    <!-- NIEUW: Scripts sectie mobiel -->
+    {% if current_role in ["admin", "tester"] %}
+    <hr>
+    {% for item in menus["scripts"] %}
+        <a href="{{ url_for(item["endpoint"]) }}">{{ item["name"] }}</a>
+    {% endfor %}
+    {% endif %}
+
+    {% if current_role in ["teacher", "admin"] %}
+    <hr>
+    {% for item in menus["teacher"] %}
+        <a href="{{ url_for(item["endpoint"]) }}">{{ item["name"] }}</a>
+    {% endfor %}
+    {% endif %}
+
+    <select id="themeSelectMobile" class="theme-select mobile-theme-select">
+        <option value="ivm">🌿 IVM</option>
+        <option value="sand">🏖️ Botanical</option>
+        <option value="modern">💎 Modern</option>
+        <option value="garden-night">🌲 Forest</option>
+    </select>
+
+</nav>
+
+<main class="content content-wide">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }} slide-up">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>TestGarden</h3>
+            <p>Een veilige leeromgeving waar testers hun vaardigheden kunnen ontwikkelen en oefenen. Leren door ontdekken, groeien door te doen.</p>
+            <p>Initiatief van Peter van Haeringen</p>
+        </div>
+
+        <div class="footer-section">
+            <h3>Ons Partnerschap</h3>
+            <p>💡 Visie & Pedagogiek: Peter van Haeringen<br>
+               🎨 Design & Styling: Lao<br>
+               🏗️ Architectuur & Themas: ChatGPT</p>
+               <div class="footer-credit">
+                  Met dank aan <a href="https://claude.ai" target="_blank" rel="noopener">Claude AI</a> — architectuurpartner & bouwmaatje
+               </div>
+
+            <div class="partnership-badge">Samenwerking in Onderwijs</div>
+        </div>
+
+        <div class="footer-section">
+            <h3>Verbinden</h3>
+            <p>
+                <a href="{{ url_for('feedback.feedback_form') }}">💬 Geef feedback of suggesties</a><br>
+                <a href="#">📚 Bekijk de broncode</a><br>
+                <a href="#">🌐 Deel met collega's</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; {{ year }} TestGarden – Partners in Onderwijs<br>
+        Dit lesmateriaal is vrij beschikbaar onder een Creative Commons licentie.<br>
+        Samen maken we onderwijs toegankelijker, elke dag een beetje beter. 🌱</p>
+    </div>
+</footer>
+
+<script>
+    // Mobiel menu toggle
+    document.getElementById('hamburgerBtn')?.addEventListener('click', function() {
+        document.getElementById('mobileMenu').classList.toggle('open');
+    });
+
+    // Fade-in animatie voor content
+    document.addEventListener('DOMContentLoaded', function() {
+        const content = document.querySelector('main.content');
+        if (content) {
+            content.style.opacity = '0';
+            content.style.transform = 'translateY(10px)';
+
+            setTimeout(() => {
+                content.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                content.style.opacity = '1';
+                content.style.transform = 'translateY(0)';
+            }, 100);
+        }
+    });
+</script>
+
+</body>
+</html>

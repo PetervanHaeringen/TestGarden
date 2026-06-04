@@ -1,0 +1,28 @@
+# TestGarden v11 — Python dependencies
+# Gegenereerd op basis van alle imports in de codebase
+# Python 3.13 (PythonAnywhere)
+
+# Web framework
+Flask>=3.0
+
+# Database ORM
+Flask-SQLAlchemy>=3.1
+
+# Authenticatie helpers (UserMixin)
+Flask-Login>=0.6
+
+# Markdown → HTML rendering (core/content_loader, instructions)
+Markdown>=3.6
+
+# QR-code generatie (tools/routes.py)
+qrcode[pil]>=7.4
+
+# GitHub API calls (github_service.py)
+requests>=2.31
+
+# YAML parsing (content, praktijk_loader, github_service)
+PyYAML>=6.0
+
+# Werkzeug — wachtwoord hashing; wordt meegeleverd met Flask,
+# expliciet vermeld voor de zekerheid
+Werkzeug>=3.0

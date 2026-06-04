@@ -1,0 +1,29 @@
+id: git.m03
+track_id: git
+slug: module3
+
+title: Versiebeheer in beeld
+description: Git visueel begrijpen — tijdlijnen, branches en merges zonder commando's.
+
+order: 3
+level: beginner
+status: active
+version: 1.0.0
+estimated_minutes: 20
+
+learning_objectives:
+  - Een commit-tijdlijn kunnen lezen en tekenen
+  - Begrijpen hoe een branch visueel werkt
+  - Een merge kunnen visualiseren voordat je hem uitvoert
+
+prerequisites:
+  - module2
+
+tags:
+  - git
+  - visueel
+  - branches
+  - tijdlijn
+
+next_module: module4
+template_type: lesson

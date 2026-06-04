@@ -1,0 +1,55 @@
+questions:
+
+  - id: git.m04.q01
+    type: open
+    prompt: Wat was voor jou het meest verrassende moment in het Git Spel? Wat begreep je daarna beter?
+    sample_answer: Het conflict in ronde 3 was verrassend — je ziet direct waarom Git niet automatisch kan kiezen als twee mensen dezelfde regel anders hebben aangepast. Daarna begreep ik dat een merge conflict geen fout is, maar een vraag aan het team.
+    keywords:
+      - conflict
+      - branch
+      - merge
+      - samenwerken
+
+  - id: git.m04.q02
+    type: mcq
+    prompt: In het spel ontstaat een conflict. Wanneer is dat precies?
+    options:
+      - id: a
+        text: Als twee developers tegelijk een commit maken
+      - id: b
+        text: Als twee branches dezelfde regel op een andere manier hebben gewijzigd
+      - id: c
+        text: Als de Maintainer een branch verwijdert
+      - id: d
+        text: Als een commit-message te kort is
+    answer: b
+    hint: Conflict gaat niet over timing, maar over inhoud.
+    feedback:
+      correct: Klopt. Git kan alleen automatisch samenvoegen als de wijzigingen elkaar niet overlappen.
+      incorrect: Een conflict ontstaat niet door timing, maar door overlappende wijzigingen in dezelfde regels.
+    explanation: Een merge conflict treedt op wanneer twee branches dezelfde regel(s) op een andere manier hebben gewijzigd. Git weet dan niet welke versie de juiste is en vraagt het mensen om te beslissen.
+
+  - id: git.m04.q03
+    type: truefalse
+    prompt: In het Git Spel vertegenwoordigt elke post-it een commit — een momentopname van het project op dat moment.
+    answer: true
+    explanation: Elke post-it bevat de staat van het bestand op dat moment, wie de wijziging maakte, en een beschrijving. Dat is precies wat een commit in Git doet.
+
+  - id: git.m04.q04
+    type: mcq
+    prompt: Waarom kun je in het spel altijd terugkijken naar een eerdere post-it (commit)?
+    options:
+      - id: a
+        text: Omdat de post-its zijn opgeslagen in de cloud
+      - id: b
+        text: Omdat elke commit de volledige staat van het project bevat, niet alleen de wijziging
+      - id: c
+        text: Omdat commits worden doorgestuurd naar de Maintainer
+      - id: d
+        text: Alleen de laatste commit is beschikbaar
+    answer: b
+    hint: Denk aan "snapshot" vs "diff" uit module 2.
+    feedback:
+      correct: Precies. Git bewaart snapshots, geen diffs — daardoor kun je altijd terug.
+      incorrect: Git bewaart de volledige staat bij elke commit. Dat maakt terugkijken altijd mogelijk.
+    explanation: Elke commit is een volledige momentopname. Je hoeft niet de hele keten terug te berekenen — de toestand op elk moment is direct beschikbaar.

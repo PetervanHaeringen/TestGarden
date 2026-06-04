@@ -1,0 +1,62 @@
+{
+  "tools.statuscode.title": {
+    "text": "Statuscode Checker",
+    "used_in": "tools/statuscode.html"
+  },
+  "tools.statuscode.placeholder": {
+    "text": "bijv. 404",
+    "used_in": "tools/statuscode.html"
+  },
+  "tools.statuscode.button": {
+    "text": "Check",
+    "used_in": "tools/statuscode.html"
+  },
+  "tools.statuscode.group": {
+    "text": "Groep",
+    "used_in": "tools/statuscode.html"
+  },
+  "tools.statuscode.meaning": {
+    "text": "Betekenis",
+    "used_in": "tools/statuscode.html"
+  },
+  "tools.statuscode.group_explanation": {
+    "text": "Uitleg groep",
+    "used_in": "tools/statuscode.html"
+  },
+  "tools.statuscode.google": {
+    "text": "Hoe Google hiermee omgaat",
+    "used_in": "tools/statuscode.html"
+  },
+  "tools.statuscode.testing": {
+    "text": "Wat test je hierbij?",
+    "used_in": "tools/statuscode.html"
+  },
+  "language.label": {
+    "text": "Taal",
+    "used_in": "base.html"
+  },
+  "language.nl": {
+    "text": "Nederlands",
+    "used_in": "base.html"
+  },
+  "language.en": {
+    "text": "English",
+    "used_in": "base.html"
+  },
+  "language.zh": {
+    "text": "Chinees",
+    "used_in": "base.html"
+  },
+  "language.es": {
+    "text": "Español",
+    "used_in": "tools/statuscode.html, base.html"
+  },
+  "language.ar": {
+    "text": "العربية",
+    "used_in": "tools/statuscode.html, base.html"
+  },
+  "language.ru": {
+    "text": "Русский",
+    "used_in": "tools/statuscode.html, base.html"
+  }
+}

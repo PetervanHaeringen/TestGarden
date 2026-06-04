@@ -1,0 +1,51 @@
+id: git
+title: Git & GitHub
+description: Van geen idee wat Git is tot professioneel werken in een team.
+status: active
+icon: 🌿
+
+modules:
+  - order: 1
+    system: content
+    slug: git.m01
+    title: Oorsprong & filosofie
+
+  - order: 2
+    system: content
+    slug: git.m02
+    title: Onder de motorkap
+
+  - order: 3
+    system: content
+    slug: git.m03
+    title: Versiebeheer in beeld
+
+  - order: 4
+    system: content
+    slug: git.m04
+    title: Het Git Spel
+
+  - order: 5
+    system: content
+    slug: git.m05
+    title: Lokaal werken
+
+  - order: 6
+    system: content
+    slug: git.m06
+    title: Branches & samenwerken
+
+  - order: 7
+    system: content
+    slug: git.m07
+    title: Conflicten & kwaliteit
+
+  - order: 8
+    system: content
+    slug: git.m08
+    title: Git voor testers
+
+  - order: 9
+    system: content
+    slug: git.eindopdracht
+    title: Eindopdracht

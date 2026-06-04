@@ -1,0 +1,75 @@
+questions:
+
+  - id: git.m06.q01
+    type: mcq
+    prompt: Wat doet `git switch -c nieuwe-branch`?
+    options:
+      - id: a
+        text: Wisselt naar een bestaande branch genaamd nieuwe-branch
+      - id: b
+        text: Maakt een nieuwe branch aan en wisselt er direct naartoe
+      - id: c
+        text: Verwijdert de huidige branch en maakt een nieuwe aan
+      - id: d
+        text: Pusht de huidige branch naar GitHub met de naam nieuwe-branch
+    answer: b
+    hint: De -c staat voor "create".
+    feedback:
+      correct: Goed. -c maakt de branch aan, switch gaat er direct naartoe.
+      incorrect: -c staat voor create — het combineert aanmaken en wisselen in één stap.
+    explanation: git switch -c maakt een nieuwe branch aan en schakelt er tegelijk naartoe over. Het is een afkorting van git branch naam gevolgd door git switch naam.
+
+  - id: git.m06.q02
+    type: mcq
+    prompt: Wat is het verschil tussen `git fetch` en `git pull`?
+    options:
+      - id: a
+        text: git fetch haalt bestanden op, git pull alleen metadata
+      - id: b
+        text: git fetch downloadt informatie maar past je bestanden niet aan; git pull doet dat wel
+      - id: c
+        text: git pull werkt alleen voor main; git fetch voor andere branches
+      - id: d
+        text: Er is geen verschil — ze doen hetzelfde
+    answer: b
+    hint: Welk commando is veiliger als je eerst wilt kijken wat er veranderd is?
+    feedback:
+      correct: Precies. fetch is veilig kijken, pull is ook daadwerkelijk samenvoegen.
+      incorrect: fetch en pull zijn niet hetzelfde. fetch laat je eerst zien wat er veranderd is.
+    explanation: git fetch haalt de laatste informatie op van GitHub maar past je lokale bestanden nog niet aan. git pull doet dat in één stap — het is eigenlijk een fetch gevolgd door een merge.
+
+  - id: git.m06.q03
+    type: truefalse
+    prompt: Het is een goede gewoonte om direct op de main-branch te committen in plaats van een aparte branch aan te maken.
+    answer: false
+    explanation: Direct committen op main is een slechte gewoonte in een team. Main is de stabiele versie. Wijzigingen horen op een branch te worden gemaakt, beoordeeld via een pull request, en pas daarna gemerged in main.
+
+  - id: git.m06.q04
+    type: mcq
+    prompt: Wat is het doel van een pull request (PR)?
+    options:
+      - id: a
+        text: Alle commits van een branch verwijderen
+      - id: b
+        text: Een voorstel indienen om een branch samen te voegen met een andere branch, inclusief de mogelijkheid tot review en discussie
+      - id: c
+        text: Een back-up maken van de repository op GitHub
+      - id: d
+        text: De rechten van andere developers beperken
+    answer: b
+    hint: Een PR is meer dan technisch samenvoegen — het is een gesprek.
+    feedback:
+      correct: Goed. Een PR is een voorstel én een gesprek — code review, feedback, discussie.
+      incorrect: Een PR is niet alleen een technische handeling maar ook een kwaliteitscontrole.
+    explanation: Een pull request stelt anderen in staat om je wijzigingen te bekijken, feedback te geven en goed te keuren voordat ze in main terechtkomen. Het is de basis van professionele samenwerking.
+
+  - id: git.m06.q05
+    type: open
+    prompt: Je hebt een pull request geopend. Een teamlid vraagt in de review om een kleine aanpassing. Beschrijf stap voor stap wat je doet.
+    sample_answer: Ik ga terug naar mijn lokale branch (git switch mijn-branch), maak de gevraagde aanpassing, doe git add en git commit met een duidelijke boodschap, en dan git push origin mijn-branch. De nieuwe commit verschijnt automatisch in het al bestaande pull request op GitHub.
+    keywords:
+      - branch
+      - commit
+      - push
+      - pull request
+      - aanpassing

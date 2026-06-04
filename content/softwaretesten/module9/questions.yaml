@@ -1,0 +1,27 @@
+questions:
+  - id: softwaretesten.m09.q01
+    type: mcq
+    prompt: "Welke combinatie hoort het best bij een compleet testtraject?"
+    options:
+      - id: a
+        text: "Alleen exploratory testing"
+      - id: b
+        text: "Alleen automatisering"
+      - id: c
+        text: "Testplan, testcases, exploratory testing, bugreports en evaluatie"
+      - id: d
+        text: "Alleen API-testing"
+    answer: c
+    explanation: "Een professioneel testtraject combineert meerdere technieken en documentatievormen."
+
+  - id: softwaretesten.m09.q02
+    type: truefalse
+    prompt: "Softwarekwaliteit gaat niet alleen over technische correctheid."
+    answer: true
+    explanation: "Kwaliteit omvat ook gebruikservaring, veiligheid, toegankelijkheid en betrouwbaarheid."
+
+  - id: softwaretesten.m09.q03
+    type: open
+    prompt: "Welke vaardigheid of inzicht uit deze leerlijn vond jij het belangrijkst voor een tester?"
+    sample_answer: "Bijvoorbeeld kritisch denken, exploratory testing, communicatie, risicoanalyse of samenwerken."
+    explanation: "Professioneel testen combineert techniek, observatie, communicatie en kritisch denken."

@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/testronden.css') }}">
+{% endblock %}
+{% block title %}{{ meta.id }} — TestGarden{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+  <nav class="breadcrumb mb-3">
+    <a href="{{ url_for('testronden.overzicht') }}">Testronden</a> →
+    <span class="current">{{ meta.id }}</span>
+  </nav>
+
+  {# ── Header ── #}
+  <div class="mb-4">
+    <div class="d-flex align-items-center gap-3 mb-2">
+      <span class="bev-id-badge">{{ meta.id }}</span>
+      <h1 class="mb-0">{{ meta.naam }}</h1>
+      <span class="bev-status-badge status-{% if meta.status == 'actief' %}in_behandeling{% elif meta.status == 'afgesloten' %}opgelost{% else %}opgelost{% endif %}">
+        {{ meta.status }}
+      </span>
+    </div>
+    <div class="text-muted small mb-3">
+      Versie {{ meta.versie }} &nbsp;·&nbsp;
+      {{ meta.type }} &nbsp;·&nbsp;
+      {{ meta.datum_start }}
+      {% if meta.datum_einde %} → {{ meta.datum_einde }}{% endif %}
+      &nbsp;·&nbsp; aangemaakt door {{ meta.aangemaakt_door }}
+    </div>
+    <div class="d-flex gap-2">
+      <a href="{{ url_for('bevindingen.rapport', ronde=ronde_id) }}"
+         class="tr-btn-vrijgeven">📄 Rapport</a>
+      {% if meta.status == 'actief' %}
+      <form method="POST"
+            action="{{ url_for('testronden.afsluiten_ronde', ronde_id=ronde_id) }}">
+        <button type="submit" class="tr-btn-afsluiten"
+                onclick="if(confirm('Testronde afsluiten?')){toonLaad('Testronde afsluiten...');return true;}return false;">
+          ✅ Ronde afsluiten
+        </button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+
+  {# ── Legenda ── #}
+  <div class="tr-legenda mb-3">
+    <span>🟢 Vrij</span>
+    <span>🟡 In behandeling door collega</span>
+    <span>🔵 Jouw module</span>
+    <span>✅ Afgesloten</span>
+  </div>
+
+  {# ── Tabel header ── #}
+  <div class="tr-tabel-header">
+    <div class="tr-col-status"></div>
+    <div class="tr-col-naam">Testcase</div>
+    <div class="tr-col-tellers">Resultaten</div>
+    <div class="tr-col-acties">Acties</div>
+  </div>
+
+  {# ── Modules ── #}
+  <div class="tr-tabel">
+    {% for mod in module_info %}
+    <div class="tr-tabel-rij{% if mod.is_eigen and mod.status == 'in_behandeling' %} tr-module-eigen{% endif %}">
+
+      {# Status indicator #}
+      <div class="tr-col-status">
+        {% if mod.status == 'open' %}<span title="Vrij">🟢</span>
+        {% elif mod.status == 'in_behandeling' %}
+          <span>{% if mod.is_eigen %}🔵{% else %}🟡{% endif %}</span>
+        {% else %}<span title="Afgesloten">✅</span>{% endif %}
+      </div>
+
+      {# Naam + tester #}
+      <div class="tr-col-naam">
+        <strong>{{ mod.label }}</strong>
+        {% if mod.tester %}
+        <div class="tr-tester-naam">{{ mod.tester }}</div>
+        {% endif %}
+      </div>
+
+      {# Tellers #}
+      <div class="tr-col-tellers">
+        <span class="ts-badge ts-goed">✓ {{ mod.tellers.goed }}</span>
+        <span class="ts-badge ts-fout">✗ {{ mod.tellers.fout }}</span>
+        <span class="ts-badge ts-opmerking">~ {{ mod.tellers.goed_met_opmerking }}</span>
+        <span class="ts-badge ts-open">— {{ mod.tellers.niet_getest }}</span>
+      </div>
+
+      {# Acties #}
+      <div class="tr-col-acties">
+        {% if mod.status == 'open' and meta.status == 'actief' %}
+          <form method="POST"
+                action="{{ url_for('testronden.claim_module', ronde_id=ronde_id, map_naam=mod.map) }}">
+            <button class="tr-btn-claimen"
+                    onclick="toonLaad('Module claimen...');this.disabled=true;this.form.submit()">
+              Claimen
+            </button>
+          </form>
+
+        {% elif mod.is_eigen and mod.status == 'in_behandeling' %}
+          {% set bestanden = bestanden_per_map[mod.map] %}
+          {% if bestanden|length == 1 %}
+            <a href="{{ url_for('testronden.script_detail', ronde_id=ronde_id, map_naam=mod.map, bestand=bestanden[0]) }}"
+               class="tr-btn-testen">
+              🧪 Testen
+            </a>
+          {% else %}
+          <div class="tr-dropdown">
+            <button class="tr-btn-testen"
+                    onclick="toggleDropdown('dd-{{ mod.map }}')">
+              🧪 Testen ▾
+            </button>
+            <div id="dd-{{ mod.map }}" class="tr-dropdown-menu">
+              {% for bestand in bestanden %}
+              <a href="{{ url_for('testronden.script_detail', ronde_id=ronde_id, map_naam=mod.map, bestand=bestand) }}"
+                 class="tr-dropdown-item">
+                {{ bestand.replace('.yaml','').replace('_',' ').title() }}
+              </a>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+          <form method="POST"
+                action="{{ url_for('testronden.afsluiten_module', ronde_id=ronde_id, map_naam=mod.map) }}">
+            <button class="tr-btn-afsluiten"
+                    onclick="if(confirm('Module afsluiten?')){toonLaad('Module afsluiten...');return true;}return false;">
+              ✅ Afsluiten
+            </button>
+          </form>
+          <form method="POST"
+                action="{{ url_for('testronden.vrijgeven_module', ronde_id=ronde_id, map_naam=mod.map) }}">
+            <button class="tr-btn-vrijgeven"
+                    onclick="toonLaad('Module vrijgeven...')">
+              ↩ Vrijgeven
+            </button>
+          </form>
+
+        {% elif mod.status == 'afgesloten' %}
+          <span class="tr-klaar-tekst">Klaar</span>
+        {% else %}
+          {% if mod.tester %}
+          <span class="tr-klaar-tekst">{{ mod.tester }} is bezig</span>
+          {% endif %}
+        {% endif %}
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+<!-- Laad-overlay -->
+<div class="tr-laad-overlay" id="laadOverlay">
+    <div class="tr-laad-spinner"></div>
+    <div class="tr-laad-tekst" id="laadTekst">Even geduld...</div>
+</div>
+
+<script>
+function toonLaad(tekst) {
+    document.getElementById('laadTekst').textContent = tekst || 'Even geduld...';
+    document.getElementById('laadOverlay').classList.add('actief');
+}
+function toggleDropdown(id) {
+    const menu = document.getElementById(id);
+    document.querySelectorAll('.tr-dropdown-menu').forEach(m => {
+        if (m.id !== id) m.style.display = 'none';
+    });
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.tr-dropdown')) {
+        document.querySelectorAll('.tr-dropdown-menu').forEach(m => m.style.display = 'none');
+    }
+});
+</script>
+{% endblock %}

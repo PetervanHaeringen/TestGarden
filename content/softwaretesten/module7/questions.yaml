@@ -1,0 +1,27 @@
+questions:
+  - id: softwaretesten.m07.q01
+    type: mcq
+    prompt: "Wat betekent HTTP-statuscode 404?"
+    options:
+      - id: a
+        text: "Unauthorized"
+      - id: b
+        text: "Server Error"
+      - id: c
+        text: "Not Found"
+      - id: d
+        text: "Created"
+    answer: c
+    explanation: "404 betekent dat het endpoint of de pagina niet gevonden werd."
+
+  - id: softwaretesten.m07.q02
+    type: truefalse
+    prompt: "JSON wordt vaak gebruikt om data tussen API’s uit te wisselen."
+    answer: true
+    explanation: "JSON is één van de meest gebruikte dataformaten voor API-communicatie."
+
+  - id: softwaretesten.m07.q03
+    type: open
+    prompt: "Waarom zijn negatieve API-tests belangrijk?"
+    sample_answer: "Omdat je wilt controleren hoe een API reageert op foutieve of onverwachte input."
+    explanation: "Negatieve tests controleren foutafhandeling, validatie en stabiliteit."

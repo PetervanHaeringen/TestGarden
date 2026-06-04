@@ -1,0 +1,29 @@
+id: softwaretesten.m01
+track_id: softwaretesten
+slug: module1
+
+title: Wat is Softwaretesten?
+description: Introductie tot softwaretesten en leren kijken naar gedrag.
+
+order: 1
+level: beginner
+status: active
+version: 0.1.0
+legacy_slug: testen_m1
+estimated_minutes: 30
+
+learning_objectives:
+  - Begrijpen wat softwaretesten is
+  - Weten waarom testen belangrijk is
+  - Eerste bugs leren herkennen
+
+prerequisites: []
+
+tags:
+  - softwaretesten
+  - observatie
+  - kwaliteit
+
+legacy_slug: testen_m1
+next_module: module2
+template_type: lesson

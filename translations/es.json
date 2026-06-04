@@ -1,0 +1,50 @@
+{
+  "language.nl": {
+    "text": "Holandés"
+  },
+  "language.en": {
+    "text": "Inglés"
+  },
+  "language.label": {
+    "text": "Idioma"
+  },
+  "language.zh": {
+    "text": "Chino"
+  },
+  "tools.statuscode.button": {
+    "text": "Controlar"
+  },
+  "tools.statuscode.google": {
+    "text": "Cómo gestiona Google esto"
+  },
+  "tools.statuscode.group": {
+    "text": "Grupo"
+  },
+  "tools.statuscode.group_explanation": {
+    "text": "Grupo de explicación"
+  },
+  "tools.statuscode.meaning": {
+    "text": "Significado"
+  },
+  "tools.statuscode.placeholder": {
+    "text": "Por ejemplo, 404"
+  },
+  "tools.statuscode.testing": {
+    "text": "¿Qué se prueba con esto?"
+  },
+  "tools.statuscode.title": {
+    "text": "Comprobador de código de estado"
+  },
+  "language.es": {
+    "text": "Español",
+    "used_in": "tools/statuscode.html, base.html"
+  },
+  "language.ar": {
+    "text": "العربية",
+    "used_in": "tools/statuscode.html, base.html"
+  },
+  "language.ru": {
+    "text": "Русский",
+    "used_in": "tools/statuscode.html, base.html"
+  }
+}

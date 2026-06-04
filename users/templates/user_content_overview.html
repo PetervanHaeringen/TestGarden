@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>🌿 Leerpad – Softwaretesten (Content)</h1>
+
+<p>Kies een module:</p>
+
+{% for module in modules %}
+    <div class="module-card">
+        <h3>{{ module.title }}</h3>
+
+        {% if module.level %}
+            <p class="status">
+                {% if module.level == "beginner" %}🌱 Beginner{% endif %}
+                {% if module.level == "intermediate" %}🌿 Gevorderd{% endif %}
+                {% if module.level == "advanced" %}🌳 Expert{% endif %}
+            </p>
+        {% endif %}
+
+        <a href="{{ url_for('instructions.testen_content_module', module_name=module.folder) }}">
+            Open module
+        </a>
+    </div>
+{% endfor %}
+
+{% endblock %}

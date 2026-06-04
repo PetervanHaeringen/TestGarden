@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Omgeving Van der Valk — TestGarden{% endblock %}
+
+{% block content %}
+<div class="container py-4" style="max-width: 860px;">
+
+  <nav class="breadcrumb mb-3">
+    <a href="{{ url_for('scripts.overzicht') }}">Testscripts</a> →
+    <span class="current">Omgeving Van der Valk</span>
+  </nav>
+
+  <h1 class="mb-4">🏨 Omgeving Van der Valk</h1>
+
+  {% if fout %}
+  <div class="alert alert-danger">
+    <strong>Bestand niet gevonden.</strong><br>
+    Zorg dat <code>instance/van_der_valk.md</code> op de server staat.<br>
+    <small>{{ fout }}</small>
+  </div>
+  {% elif inhoud %}
+  <div class="omgeving-inhoud card">
+    <div class="card-body">
+      {{ inhoud | safe }}
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+
+<style>
+.omgeving-inhoud h1 { font-size: 1.5rem; margin-top: 1.5rem; }
+.omgeving-inhoud h2 { font-size: 1.2rem; margin-top: 1.5rem; color: var(--accent-color); border-bottom: 1px solid var(--border-color, #e8eaf0); padding-bottom: 4px; }
+.omgeving-inhoud h3 { font-size: 1rem; margin-top: 1rem; font-weight: 600; }
+.omgeving-inhoud table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+.omgeving-inhoud th { background: var(--card-bg, #f7f8fc); padding: 8px 12px; text-align: left; border: 1px solid var(--border-color, #e8eaf0); font-weight: 600; }
+.omgeving-inhoud td { padding: 8px 12px; border: 1px solid var(--border-color, #e8eaf0); }
+.omgeving-inhoud tr:hover td { background: var(--card-bg, #fafbff); }
+.omgeving-inhoud code { background: var(--card-bg, #f0f1f5); padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+.omgeving-inhoud p { line-height: 1.7; }
+.omgeving-inhoud ul, .omgeving-inhoud ol { padding-left: 20px; line-height: 1.8; }
+</style>
+{% endblock %}

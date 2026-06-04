@@ -1,0 +1,27 @@
+questions:
+  - id: softwaretesten.m08.q01
+    type: mcq
+    prompt: "Wat is een belangrijk verschil tussen klassieke software en veel AI-systemen?"
+    options:
+      - id: a
+        text: "AI-systemen gebruiken geen data"
+      - id: b
+        text: "AI-systemen geven altijd exact dezelfde output"
+      - id: c
+        text: "AI-systemen kunnen probabilistisch gedrag vertonen"
+      - id: d
+        text: "AI-systemen hebben geen fouten"
+    answer: c
+    explanation: "Veel AI-systemen reageren probabilistisch: dezelfde input kan verschillende outputs geven."
+
+  - id: softwaretesten.m08.q02
+    type: truefalse
+    prompt: "Een AI-output die overtuigend klinkt is niet automatisch correct."
+    answer: true
+    explanation: "AI-systemen kunnen hallucineren of onjuiste informatie genereren."
+
+  - id: softwaretesten.m08.q03
+    type: open
+    prompt: "Waarom vraagt AI-testing om een andere manier van denken dan traditioneel testen?"
+    sample_answer: "Omdat AI-systemen minder voorspelbaar zijn en je vaker kwaliteit, veiligheid, bias en consistentie moet beoordelen in plaats van alleen exacte uitkomsten."
+    explanation: "AI-testing draait vaak om evaluatie, interpretatie en observatie in plaats van alleen vaste goed/fout controles."

@@ -1,0 +1,31 @@
+id: git.m02
+track_id: git
+slug: module2
+
+title: Onder de motorkap
+description: Hoe werkt Git van binnen? Objecten, hashes, snapshots en de commit-graaf uitgelegd.
+
+order: 2
+level: beginner
+status: active
+version: 1.0.0
+estimated_minutes: 30
+
+learning_objectives:
+  - De .git-folder begrijpen als het geheugen van het project
+  - Weten wat een hash is en waarom Git die gebruikt
+  - Het verschil begrijpen tussen een snapshot en een diff
+  - De commit-graaf (DAG) kunnen visualiseren
+
+prerequisites:
+  - module1
+
+tags:
+  - git
+  - intern
+  - hashes
+  - commits
+  - objecten
+
+next_module: module3
+template_type: lesson

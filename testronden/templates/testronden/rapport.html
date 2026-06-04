@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/testronden.css') }}">
+
+<!-- Laad-overlay -->
+<div class="tr-laad-overlay" id="laadOverlay">
+    <div class="tr-laad-spinner"></div>
+    <div class="tr-laad-tekst" id="laadTekst">Even geduld...</div>
+</div>
+
+{% endblock %}
+{% block title %}Rapport {{ ronde_id }} — TestGarden{% endblock %}
+
+{% block content %}
+<div class="container py-4" style="max-width: 960px;">
+
+  <nav class="breadcrumb mb-3">
+    <a href="{{ url_for('testronden.overzicht') }}">Testronden</a> →
+    <a href="{{ url_for('testronden.detail', ronde_id=ronde_id) }}">{{ ronde_id }}</a> →
+    <span class="current">Rapport</span>
+  </nav>
+
+  <div class="d-flex align-items-start justify-content-between mb-4">
+    <div>
+      <h1>📄 Testrapport</h1>
+      <p class="text-muted">
+        {{ meta.naam }} &nbsp;·&nbsp; Versie {{ meta.versie }}
+        &nbsp;·&nbsp; {{ meta.type }}
+        &nbsp;·&nbsp; {{ meta.datum_start }}
+        {% if meta.datum_einde %} → {{ meta.datum_einde }}{% endif %}
+        &nbsp;·&nbsp; Gegenereerd op {{ datum }}
+      </p>
+    </div>
+    <button onclick="window.print()" class="btn btn-secondary">🖨️ Afdrukken / PDF</button>
+  </div>
+
+  {# Samenvatting #}
+  {% set totaal_g = modules_rapport | sum(attribute='tellers.goed') %}
+  {% set totaal_f = modules_rapport | sum(attribute='tellers.fout') %}
+  {% set totaal_o = modules_rapport | sum(attribute='tellers.goed_met_opmerking') %}
+  {% set totaal_n = modules_rapport | sum(attribute='tellers.niet_getest') %}
+  {% set totaal   = totaal_g + totaal_f + totaal_o + totaal_n %}
+  {% set pct = ((totaal_g + totaal_f + totaal_o) / totaal * 100) | int if totaal > 0 else 0 %}
+
+  <div class="rapport-samenvatting mb-5">
+    <h2 class="h5 mb-3">Samenvatting</h2>
+    <div class="progress-bar-wrap mb-3">
+      <div class="progress-bar-inner" style="width:{{ pct }}%"></div>
+    </div>
+    <div class="rapport-tellers">
+      <div class="rapport-teller rapport-teller-goed">
+        <div class="rapport-teller-nr">{{ totaal_g }}</div>
+        <div class="rapport-teller-label">✓ Goed</div>
+      </div>
+      <div class="rapport-teller rapport-teller-fout">
+        <div class="rapport-teller-nr">{{ totaal_f }}</div>
+        <div class="rapport-teller-label">✗ Fout</div>
+      </div>
+      <div class="rapport-teller rapport-teller-opmerking">
+        <div class="rapport-teller-nr">{{ totaal_o }}</div>
+        <div class="rapport-teller-label">~ Opmerking</div>
+      </div>
+      <div class="rapport-teller rapport-teller-open">
+        <div class="rapport-teller-nr">{{ totaal_n }}</div>
+        <div class="rapport-teller-label">— Niet getest</div>
+      </div>
+      <div class="rapport-teller" style="background:#f0f1f5">
+        <div class="rapport-teller-nr">{{ pct }}%</div>
+        <div class="rapport-teller-label">Getest</div>
+      </div>
+    </div>
+  </div>
+
+  {# Per module #}
+  {% for mod in modules_rapport %}
+  {% set t = mod.tellers %}
+  {% set m_totaal = t.goed + t.fout + t.goed_met_opmerking + t.niet_getest %}
+  {% set m_pct = ((t.goed + t.fout + t.goed_met_opmerking) / m_totaal * 100) | int if m_totaal > 0 else 0 %}
+
+  <div class="rapport-sectie mb-4">
+    <div class="rapport-module-header">
+      <strong>{{ mod.module }}</strong>
+      <div class="ts-tellers">
+        <span class="ts-badge ts-goed">✓ {{ t.goed }}</span>
+        <span class="ts-badge ts-fout">✗ {{ t.fout }}</span>
+        <span class="ts-badge ts-opmerking">~ {{ t.goed_met_opmerking }}</span>
+        <span class="ts-badge ts-open">— {{ t.niet_getest }}</span>
+        <span class="ts-pct">{{ m_pct }}%</span>
+      </div>
+    </div>
+
+    {# Alleen fouten en opmerkingen tonen in rapport #}
+    {% set res_per_ts = {} %}
+    {% for ts in mod.resultaten.get('testsets', []) %}
+      {% set _ = res_per_ts.update({ts.id: ts}) %}
+    {% endfor %}
+
+    {% set heeft_fouten = namespace(val=false) %}
+    {% for ts in mod.script.get('testsets', []) %}
+      {% set res_ts = res_per_ts.get(ts.id, {}) %}
+      {% set res_stappen = {} %}
+      {% for s in res_ts.get('stappen', []) %}
+        {% set _ = res_stappen.update({s.nr: s}) %}
+      {% endfor %}
+      {% for stap in ts.stappen %}
+        {% set res = res_stappen.get(stap.nr, {}) %}
+        {% if res.get('status') in ['fout', 'goed_met_opmerking'] %}
+          {% set heeft_fouten.val = true %}
+          <div class="rapport-bevinding" style="margin-left:0">
+            <div class="rapport-bev-header">
+              <span class="ts-id-badge" style="font-size:11px">{{ ts.id }}</span>
+              <span>stap {{ stap.nr }}</span>
+              <span class="bev-status-badge status-{% if res.status == 'fout' %}open{% else %}in_behandeling{% endif %}">
+                {{ res.status }}
+              </span>
+            </div>
+            <div class="rapport-bev-grid" style="grid-template-columns:1fr 1fr">
+              <div>
+                <div class="bev-detail-label">Actie</div>
+                <div class="rapport-bev-tekst">{{ stap.actie }}</div>
+              </div>
+              <div>
+                <div class="bev-detail-label">Verwacht</div>
+                <div class="rapport-bev-tekst">{{ stap.verwacht }}</div>
+              </div>
+            </div>
+            {% if res.notitie %}
+            <div class="mt-2">
+              <div class="bev-detail-label">Notitie</div>
+              <div class="rapport-bev-tekst rapport-bev-fout">{{ res.notitie }}</div>
+            </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+
+    {% if not heeft_fouten.val %}
+    <div class="text-muted small" style="padding:8px 0">Geen fouten gevonden.</div>
+    {% endif %}
+
+  </div>
+  {% endfor %}
+
+</div>
+
+<style>
+.rapport-module-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px; background: var(--card-bg, #f7f8fc);
+  border-radius: 8px; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;
+}
+.rapport-teller-goed      { background: #e8f7ee; }
+.rapport-teller-fout      { background: #fde8e8; }
+.rapport-teller-opmerking { background: #fef3cd; }
+.rapport-teller-open      { background: #f0f1f5; }
+@media print {
+  .navbar, .footer, .breadcrumb, button { display: none !important; }
+  .rapport-bevinding { break-inside: avoid; }
+}
+</style>
+{% endblock %}

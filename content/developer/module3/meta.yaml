@@ -1,0 +1,30 @@
+id: developer.m03
+track_id: developer
+slug: module3
+
+title: Talen en abstractie
+description: Van nullen en enen naar leesbare code — hoe programmeertalen lagen van abstractie toevoegen.
+
+order: 3
+level: beginner
+status: active
+version: 1.0.0
+estimated_minutes: 30
+
+learning_objectives:
+  - De lagen van abstractie in programmeertalen begrijpen
+  - Uitleggen waarom hogere programmeertalen zijn ontstaan
+  - Het verschil kennen tussen machinetaal, assembly en hoge-niveautalen
+
+prerequisites:
+  - module2
+
+tags:
+  - abstractie
+  - machinetaal
+  - assembly
+  - hoge-niveautaal
+  - compiler
+
+next_module: module4
+template_type: lesson

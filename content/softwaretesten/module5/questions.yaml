@@ -1,0 +1,27 @@
+questions:
+  - id: softwaretesten.m05.q01
+    type: mcq
+    prompt: "Wat is een belangrijk kenmerk van exploratory testing?"
+    options:
+      - id: a
+        text: "Alle stappen liggen vooraf volledig vast"
+      - id: b
+        text: "De tester ontdekt en leert tijdens het testen"
+      - id: c
+        text: "Alleen developers voeren het uit"
+      - id: d
+        text: "Het wordt alleen automatisch uitgevoerd"
+    answer: b
+    explanation: "Bij exploratory testing ontdekt, leert en test je tegelijk."
+
+  - id: softwaretesten.m05.q02
+    type: truefalse
+    prompt: "Een exploratory session heeft vaak een charter en een tijdsduur."
+    answer: true
+    explanation: "Bij Session-Based Testing werk je met een doel en een afgebakende tijd."
+
+  - id: softwaretesten.m05.q03
+    type: open
+    prompt: "Waarom kan exploratory testing bugs vinden die scripted testing mist?"
+    sample_answer: "Omdat je vrij onderzoekt, onverwachte situaties volgt en denkt als een echte gebruiker."
+    explanation: "Exploratory testing laat ruimte voor intuïtie, creativiteit en onverwachte scenario’s."

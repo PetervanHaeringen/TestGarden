@@ -1,0 +1,28 @@
+id: git.eindopdracht
+track_id: git
+slug: eindopdracht
+
+title: Eindopdracht — Volledige Git-workflow
+description: Voer een complete professionele Git-workflow uit op de oefenrepository, van issue tot gemerged pull request.
+
+order: 9
+level: intermediate
+status: active
+version: 1.0.0
+estimated_minutes: 60
+
+learning_objectives:
+  - Een volledige Git-workflow zelfstandig uitvoeren
+  - Issues, branches, commits, reviews en merges combineren
+  - Professioneel communiceren via commit-messages en PR-beschrijvingen
+
+prerequisites:
+  - module8
+
+tags:
+  - git
+  - eindopdracht
+  - workflow
+  - praktijk
+
+template_type: lesson

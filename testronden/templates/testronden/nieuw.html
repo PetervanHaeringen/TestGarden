@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/testronden.css') }}">
+
+<!-- Laad-overlay -->
+<div class="tr-laad-overlay" id="laadOverlay">
+    <div class="tr-laad-spinner"></div>
+    <div class="tr-laad-tekst" id="laadTekst">Even geduld...</div>
+</div>
+
+{% endblock %}
+{% block title %}Nieuwe testronde — TestGarden{% endblock %}
+
+{% block content %}
+<div class="container py-4" style="max-width: 620px;">
+
+  <nav class="breadcrumb mb-3">
+    <a href="{{ url_for('testronden.overzicht') }}">Testronden</a> →
+    <span class="current">Nieuwe ronde</span>
+  </nav>
+
+  <h1 class="mb-4">Nieuwe testronde aanmaken</h1>
+
+  <form method="POST" action="{{ url_for('testronden.nieuw') }}">
+
+    <div class="bev-veld mb-3">
+      <label class="bev-label" for="naam">
+        Naam <span class="bev-verplicht">*</span>
+      </label>
+      <input type="text" id="naam" name="naam" class="bev-input"
+             placeholder="bijv. Release 3.2 acceptatietest" required>
+    </div>
+
+    <div class="bev-veld mb-3">
+      <label class="bev-label" for="versie">
+        Versie / Release <span class="bev-verplicht">*</span>
+      </label>
+      <input type="text" id="versie" name="versie" class="bev-input"
+             placeholder="bijv. 3.2 of sprint-42" required>
+    </div>
+
+    <div class="bev-veld mb-4">
+      <label class="bev-label">Type testronde</label>
+      <div class="prioriteit-knoppen">
+        {% for waarde, label in [('regressie','🔁 Regressie'),('training','🎓 Training'),('ticket','🎫 Ticket')] %}
+        <label class="prio-optie prio-{% if waarde == 'regressie' %}hoog{% elif waarde == 'training' %}laag{% else %}gemiddeld{% endif %}">
+          <input type="radio" name="type" value="{{ waarde }}"
+                 {% if waarde == 'regressie' %}checked{% endif %}>
+          {{ label }}
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="bev-acties">
+      <button type="submit" class="btn btn-primary"
+              onclick="toonLaad('Testronde aanmaken...');this.disabled=true;this.form.submit()">
+        ✅ Testronde aanmaken
+      </button>
+      <a href="{{ url_for('testronden.overzicht') }}" class="btn btn-secondary">
+        Annuleren
+      </a>
+    </div>
+
+  </form>
+</div>
+{% endblock %}

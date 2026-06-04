@@ -1,0 +1,27 @@
+questions:
+  - id: softwaretesten.m06.q01
+    type: mcq
+    prompt: "Wat betekent reproduceerbaar bij een bugreport?"
+    options:
+      - id: a
+        text: "Dat de bug automatisch opgelost wordt"
+      - id: b
+        text: "Dat andere mensen dezelfde fout opnieuw kunnen veroorzaken"
+      - id: c
+        text: "Dat alleen testers de fout zien"
+      - id: d
+        text: "Dat de fout niet belangrijk is"
+    answer: b
+    explanation: "Een reproduceerbare bug kan door anderen opnieuw uitgevoerd en waargenomen worden."
+
+  - id: softwaretesten.m06.q02
+    type: truefalse
+    prompt: "Severity beschrijft hoe ernstig een probleem is voor het systeem."
+    answer: true
+    explanation: "Severity geeft aan hoeveel impact de fout heeft op de werking van het systeem."
+
+  - id: softwaretesten.m06.q03
+    type: open
+    prompt: "Waarom zijn duidelijke stappen belangrijk in een bugreport?"
+    sample_answer: "Omdat ontwikkelaars de fout anders mogelijk niet kunnen reproduceren of begrijpen."
+    explanation: "Duidelijke stappen helpen anderen exact hetzelfde probleem opnieuw te veroorzaken."

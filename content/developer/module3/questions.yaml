@@ -1,0 +1,75 @@
+questions:
+
+  - id: developer.m03.q01
+    type: mcq
+    prompt: Wat is abstractie in de context van programmeertalen?
+    options:
+      - id: a
+        text: Code die moeilijk te begrijpen is
+      - id: b
+        text: Het verbergen van complexiteit zodat je op een hoger niveau kunt werken
+      - id: c
+        text: Een stijl van programmeren waarbij je weinig regels schrijft
+      - id: d
+        text: Een manier om code te versnellen
+    answer: b
+    hint: Abstractie maakt het mogelijk om te bouwen op wat anderen al hebben gebouwd.
+    feedback:
+      correct: Precies. Abstractie verbergt de onderliggende complexiteit zodat jij je kunt richten op het probleem dat je wil oplossen.
+      incorrect: Abstractie gaat over het verbergen van complexiteit, niet over moeilijkheid of stijl.
+    explanation: Abstractie in programmeertalen betekent dat elke laag de complexiteit van de laag eronder verbergt. Python verbergt hoe C werkt; C verbergt hoe assembly werkt; assembly verbergt hoe de processor werkt.
+
+  - id: developer.m03.q02
+    type: mcq
+    prompt: Wat is het verschil tussen een compiler en een interpreter?
+    options:
+      - id: a
+        text: Een compiler is sneller te schrijven dan een interpreter
+      - id: b
+        text: Een compiler vertaalt de hele code vooraf; een interpreter vertaalt regel voor regel tijdens uitvoering
+      - id: c
+        text: Een interpreter werkt alleen voor Python; een compiler voor alle andere talen
+      - id: d
+        text: Er is geen praktisch verschil
+    answer: b
+    hint: Denk aan wanneer de vertaling naar machinetaal plaatsvindt.
+    feedback:
+      correct: Goed. De compiler vertaalt alles vooraf; de interpreter doet het stap voor stap tijdens het draaien.
+      incorrect: Het gaat om het moment van vertaling — vooraf of tijdens uitvoering.
+    explanation: Een compiler vertaalt de volledige broncode naar machinetaal voordat het programma start. Een interpreter vertaalt en voert de code regel voor regel uit. Beide hebben voor- en nadelen afhankelijk van de toepassing.
+
+  - id: developer.m03.q03
+    type: truefalse
+    prompt: Python-code wordt rechtstreeks door de processor uitgevoerd, zonder tussenliggende stappen.
+    answer: false
+    explanation: Python-code wordt eerst door een interpreter verwerkt, die het omzet naar bytecode, die vervolgens door een virtuele machine wordt uitgevoerd. Er zijn altijd tussenliggende lagen tussen de code die je schrijft en de processor die het uitvoert.
+
+  - id: developer.m03.q04
+    type: mcq
+    prompt: Waarom zijn hoge-niveautalen zoals Python uitgevonden?
+    options:
+      - id: a
+        text: Omdat machinetaal te langzaam was
+      - id: b
+        text: Omdat programmeurs code wilden schrijven die meer leest als menselijke taal en minder fouten oplevert
+      - id: c
+        text: Omdat computers te duur werden
+      - id: d
+        text: Omdat assembly niet op alle computers werkte
+    answer: b
+    hint: Denk aan de leesbaarheid van code en het gemak voor de programmeur.
+    feedback:
+      correct: Precies. Leesbaarheid en productiviteit waren de drijvende krachten achter hogere programmeertalen.
+      incorrect: Het ging primair om leesbaarheid en het verminderen van fouten — niet om snelheid of kosten.
+    explanation: Hogere programmeertalen zijn ontwikkeld zodat programmeurs zich kunnen richten op het oplossen van problemen in plaats van op de details van de hardware. Code die leest als menselijke taal is makkelijker te schrijven, te lezen en te onderhouden.
+
+  - id: developer.m03.q05
+    type: open
+    prompt: Noem een situatie waarin je juist NIET wil kiezen voor een hoge abstractielaag zoals Python, maar liever voor een lagere laag zoals C. Leg uit waarom.
+    sample_answer: Bij het programmeren van een besturingssysteem of een spelengine waarbij elke milliseconde telt. In C heb je directe controle over geheugengebruik en processorsnelheid. Python delegeert dat aan de interpreter, wat extra tijd kost.
+    keywords:
+      - controle
+      - snelheid
+      - geheugen
+      - hardware
+      - performance

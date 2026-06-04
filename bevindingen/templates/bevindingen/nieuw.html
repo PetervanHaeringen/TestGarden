@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% block title %}Nieuwe bevinding {{ bev_id }} — TestGarden{% endblock %}
+
+{% block content %}
+<div class="container py-4" style="max-width: 780px;">
+
+  <nav class="breadcrumb mb-3">
+    <a href="{{ url_for('scripts.overzicht') }}">Testscripts</a> →
+    {% if map_naam and bestand %}
+    <a href="{{ url_for('scripts.map_overzicht', map_naam=map_naam) }}">
+      {{ map_naam.replace('_',' ').title() }}
+    </a> →
+    <a href="{{ url_for('scripts.script_detail', map_naam=map_naam, bestand=bestand, ts=ts_id) }}">
+      {{ voorinvulling.module_naam or bestand }}
+    </a> →
+    {% endif %}
+    <span class="current">Nieuwe bevinding</span>
+  </nav>
+
+  <div class="bev-form-header mb-4">
+    <div class="bev-id-badge">{{ bev_id }}</div>
+    <div>
+      <h1 class="mb-0">Bevinding aanmaken</h1>
+      {% if ts_id and stap_nr %}
+      <p class="text-muted small mb-0">
+        {{ ts_id }} · stap {{ stap_nr }}
+        {% if voorinvulling.module_naam %}· {{ voorinvulling.module_naam }}{% endif %}
+      </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <form method="POST"
+        action="{{ url_for('bevindingen.opslaan') }}"
+        enctype="multipart/form-data">
+
+    {# Verborgen contextvelden #}
+    <input type="hidden" name="bev_id"   value="{{ bev_id }}">
+    <input type="hidden" name="map_naam" value="{{ map_naam }}">
+    <input type="hidden" name="bestand"  value="{{ bestand }}">
+    <input type="hidden" name="ts_id"    value="{{ ts_id }}">
+    <input type="hidden" name="stap_nr"  value="{{ stap_nr }}">
+    <input type="hidden" name="ronde_id" value="{{ ronde_id or '' }}">
+
+    {# ── Prioriteit ── #}
+    <div class="bev-veld mb-4">
+      <label class="bev-label">Prioriteit</label>
+      <div class="prioriteit-knoppen">
+        {% for p, label, kleur in [
+            ('kritiek', '🔴 Kritiek', 'kritiek'),
+            ('hoog',    '🟠 Hoog',    'hoog'),
+            ('gemiddeld','🟡 Gemiddeld','gemiddeld'),
+            ('laag',    '🟢 Laag',    'laag'),
+        ] %}
+        <label class="prio-optie prio-{{ kleur }}">
+          <input type="radio" name="prioriteit" value="{{ p }}"
+                 {% if p == 'hoog' %}checked{% endif %}>
+          {{ label }}
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    {# ── Omschrijving ── #}
+    <div class="bev-veld mb-3">
+      <label class="bev-label" for="omschrijving">
+        Omschrijving
+        <span class="bev-verplicht">*</span>
+      </label>
+      <input type="text"
+             id="omschrijving"
+             name="omschrijving"
+             class="bev-input"
+             placeholder="Korte, duidelijke samenvatting van de fout"
+             required>
+    </div>
+
+    {# ── Stappen ter reproductie ── #}
+    <div class="bev-veld mb-3">
+      <label class="bev-label" for="stappen">
+        Stappen ter reproductie
+        <span class="bev-hint">vooringevuld vanuit testscript — aanpasbaar</span>
+      </label>
+      <textarea id="stappen"
+                name="stappen"
+                class="bev-textarea"
+                rows="4"
+                placeholder="Beschrijf de stappen om de fout te reproduceren">{{ voorinvulling.stappen or '' }}</textarea>
+    </div>
+
+    {# ── Verwacht resultaat ── #}
+    <div class="bev-veld mb-3">
+      <label class="bev-label" for="verwacht">
+        Verwacht resultaat
+        <span class="bev-hint">vooringevuld vanuit testscript — aanpasbaar</span>
+      </label>
+      <textarea id="verwacht"
+                name="verwacht"
+                class="bev-textarea"
+                rows="3"
+                placeholder="Wat had er moeten gebeuren?">{{ voorinvulling.verwacht or '' }}</textarea>
+    </div>
+
+    {# ── Daadwerkelijk resultaat ── #}
+    <div class="bev-veld mb-3">
+      <label class="bev-label" for="daadwerkelijk">
+        Daadwerkelijk resultaat
+        <span class="bev-verplicht">*</span>
+      </label>
+      <textarea id="daadwerkelijk"
+                name="daadwerkelijk"
+                class="bev-textarea"
+                rows="3"
+                placeholder="Wat gebeurde er werkelijk?"
+                required></textarea>
+    </div>
+
+    {# ── Screenshots ── #}
+    <div class="bev-veld mb-4">
+      <label class="bev-label">
+        Screenshots
+        <span class="bev-hint">meerdere bestanden mogelijk</span>
+      </label>
+      <div class="screenshot-upload-zone" id="uploadZone">
+        <input type="file"
+               name="screenshots"
+               id="screenshotInput"
+               accept="image/*"
+               multiple
+               class="screenshot-file-input">
+        <div class="screenshot-upload-tekst">
+          <span class="upload-icoon">📎</span>
+          <span>Klik om screenshots te kiezen</span>
+          <span class="bev-hint">PNG, JPG, GIF — meerdere tegelijk mogelijk</span>
+        </div>
+      </div>
+      <div id="screenshotPreview" class="screenshot-preview-grid"></div>
+    </div>
+
+    {# ── Acties ── #}
+    <div class="bev-acties">
+      <button type="submit" class="btn btn-primary">
+        💾 Bevinding opslaan
+      </button>
+      {% if map_naam and bestand %}
+      <a href="{{ url_for('scripts.script_detail', map_naam=map_naam, bestand=bestand, ts=ts_id) }}"
+         class="btn btn-secondary">
+        Annuleren
+      </a>
+      {% endif %}
+      <span class="text-muted small">
+        Wordt opgeslagen als <code>bevindingen/{{ bev_id }}.yaml</code>
+      </span>
+    </div>
+
+  </form>
+</div>
+
+<script>
+// Screenshot preview
+const input = document.getElementById('screenshotInput');
+const preview = document.getElementById('screenshotPreview');
+const zone = document.getElementById('uploadZone');
+
+input.addEventListener('change', function() {
+  preview.innerHTML = '';
+  Array.from(this.files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const wrap = document.createElement('div');
+      wrap.className = 'screenshot-preview-item';
+      wrap.innerHTML = `
+        <img src="${e.target.result}" alt="${file.name}">
+        <span class="screenshot-naam">${file.name}</span>
+      `;
+      preview.appendChild(wrap);
+    };
+    reader.readAsDataURL(file);
+  });
+});
+
+// Drag-and-drop
+zone.addEventListener('dragover', e => {
+  e.preventDefault();
+  zone.classList.add('drag-over');
+});
+zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+zone.addEventListener('drop', e => {
+  e.preventDefault();
+  zone.classList.remove('drag-over');
+  input.files = e.dataTransfer.files;
+  input.dispatchEvent(new Event('change'));
+});
+</script>
+{% endblock %}

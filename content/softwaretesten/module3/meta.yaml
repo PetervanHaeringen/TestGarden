@@ -1,0 +1,32 @@
+id: softwaretesten.m03
+track_id: softwaretesten
+slug: module3
+module_slug: testen_m3
+
+title: Testplan & Risicoanalyse
+description: Introductie tot een lichtgewicht testplan en risicogestuurd testen.
+
+order: 3
+level: beginner
+status: active
+version: 0.1.0
+estimated_minutes: 30
+
+learning_objectives:
+  - Begrijpen wat een testplan is
+  - Uitleggen wat risicogestuurd testen betekent
+  - Een eenvoudige risicoanalyse maken
+  - Een mini-testplan opstellen
+
+prerequisites:
+  - softwaretesten.m02
+
+tags:
+  - softwaretesten
+  - testplan
+  - risicoanalyse
+  - risicogestuurd-testen
+
+legacy_slug: testen_m3
+next_module: module4
+template_type: lesson

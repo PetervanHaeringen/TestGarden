@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="language-switcher" style="margin-bottom: 1rem;">
+    <span>{{ t("language.label") }}:</span>
+    <a href="{{ url_for('core.set_language', lang='nl', next=request.path) }}">{{ t("language.nl") }}</a> ·
+    <a href="{{ url_for('core.set_language', lang='en', next=request.path) }}">{{ t("language.en") }}</a> ·
+    <a href="{{ url_for('core.set_language', lang='zh', next=request.path) }}">{{ t("language.zh") }}</a> ·
+    <a href="{{ url_for('core.set_language', lang='es', next=request.path) }}">{{ t("language.es") }}</a> ·
+    <a href="{{ url_for('core.set_language', lang='ar', next=request.path) }}">{{ t("language.ar") }}</a> ·
+    <a href="{{ url_for('core.set_language', lang='ru', next=request.path) }}">{{ t("language.ru") }}</a>
+</div>
+
+<h1>{{ t("tools.statuscode.title") }}</h1>
+
+<form method="POST">
+    <input type="text" name="code" placeholder="{{ t('tools.statuscode.placeholder') }}">
+    <button type="submit">{{ t("tools.statuscode.button") }}</button>
+    
+</form>
+
+{% if result %}
+    {% if result.found %}
+        <div class="card mt-3">
+            <h2>{{ result.code }} — {{ result.title }}</h2>
+            <p><strong>{{ t("tools.statuscode.group") }}:</strong> {{ result.group }} — {{ result.group_title }}</p>
+            <p><strong>{{ t("tools.statuscode.meaning") }}:</strong> {{ result.meaning }}</p>
+            <p><strong>{{ t("tools.statuscode.group_explanation") }}:</strong> {{ result.group_description }}</p>
+
+            {% if result.google_note %}
+                <p><strong>{{ t("tools.statuscode.google") }}:</strong> {{ result.google_note }}</p>
+            {% endif %}
+            {% if result.testing_tips %}
+                <h3>{{ t("tools.statuscode.testing") }}</h3>
+                <ul>
+                    {% for tip in result.testing_tips %}
+                        <li>{{ tip }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="card mt-3">
+            <p>{{ result.message }}</p>
+        </div>
+    {% endif %}
+{% endif %}
+{% endblock %}

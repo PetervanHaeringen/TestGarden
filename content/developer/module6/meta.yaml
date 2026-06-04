@@ -1,0 +1,30 @@
+id: developer.m06
+track_id: developer
+slug: module6
+
+title: Bouwstenen van een programma
+description: Variabelen, condities, loops en functies — eerst als idee, dan in de browser.
+
+order: 6
+level: beginner
+status: active
+version: 1.0.0
+estimated_minutes: 50
+
+learning_objectives:
+  - Variabelen, condities, loops en functies kunnen toepassen
+  - Eenvoudige programma's schrijven in JavaScript via de browserconsole
+  - Het verschil begrijpen tussen een functie definiëren en aanroepen
+
+prerequisites:
+  - module5
+
+tags:
+  - javascript
+  - variabelen
+  - condities
+  - loops
+  - functies
+
+next_module: module7
+template_type: lesson

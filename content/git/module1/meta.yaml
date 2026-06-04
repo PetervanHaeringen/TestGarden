@@ -1,0 +1,28 @@
+id: git.m01
+track_id: git
+slug: module1
+
+title: Oorsprong & filosofie
+description: Waarom bestaat Git? Het verhaal van Linus Torvalds en het probleem dat Git oploste.
+
+order: 1
+level: beginner
+status: active
+version: 1.0.0
+estimated_minutes: 25
+
+learning_objectives:
+  - Begrijpen waarom Git is ontstaan
+  - Het verschil kennen tussen gecentraliseerd en gedistribueerd versiebeheer
+  - De kernfilosofie van Git kunnen verwoorden
+
+prerequisites: []
+
+tags:
+  - git
+  - versiebeheer
+  - geschiedenis
+  - filosofie
+
+next_module: module2
+template_type: lesson

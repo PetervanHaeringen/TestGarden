@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Cursist — {{ student.username }}{% endblock %}
+
+{% block content %}
+<p><a href="{{ url_for('teacher.cursisten_overzicht') }}">← Terug naar overzicht</a></p>
+
+<h1>🔎 {{ student.username }}</h1>
+{% if laatst_actief %}
+  <p>Laatst actief: <strong>{{ laatst_actief.strftime('%d-%m-%Y %H:%M') }}</strong>
+     — de module waaraan het laatst is gewerkt staat bovenaan.</p>
+{% else %}
+  <p>Deze cursist heeft nog geen vragen beantwoord.</p>
+{% endif %}
+
+{% for blok in module_blokken %}
+<div style="border:1px solid #ddd; border-radius:8px; padding:1rem 1.25rem; margin:1.25rem 0;">
+  <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:.5rem;">
+    <h2 style="margin:0;">{{ blok.titel }}</h2>
+    <div style="font-size:.9rem; color:#555;">
+      {% if blok.laatst %}laatst: {{ blok.laatst.strftime('%d-%m-%Y %H:%M') }}{% endif %}
+    </div>
+  </div>
+
+  <p style="margin:.4rem 0 1rem;">
+    Voortgang: <strong>{{ blok.goed }}</strong> / {{ blok.totaal }} goed
+    {% if blok.totaal and blok.goed >= blok.totaal %}
+      <span style="color:green;">✔ afgerond</span>
+    {% else %}
+      <span style="color:#c08000;">🟡 bezig</span>
+    {% endif %}
+  </p>
+
+  <table style="width:100%; border-collapse:collapse;">
+    <thead>
+      <tr>
+        <th style="text-align:left; border-bottom:1px solid #ccc; padding:6px;">Vraag</th>
+        <th style="text-align:left; border-bottom:1px solid #ccc; padding:6px;">Antwoord cursist</th>
+        <th style="text-align:left; border-bottom:1px solid #ccc; padding:6px;">Pog.</th>
+        <th style="text-align:left; border-bottom:1px solid #ccc; padding:6px;">Oordeel</th>
+        <th style="text-align:left; border-bottom:1px solid #ccc; padding:6px;">Aanpassen</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for a in blok.antwoorden %}
+      <tr>
+        <td style="padding:6px; border-bottom:1px solid #f0f0f0; vertical-align:top;">{{ a.vraag }}</td>
+        <td style="padding:6px; border-bottom:1px solid #f0f0f0; vertical-align:top; white-space:pre-wrap;">
+          {{ a.antwoord }}
+          {% if a.juist_tekst and not a.is_correct %}
+            <div style="color:#666; font-size:.85rem; margin-top:.25rem;">
+              juist antwoord: {{ a.juist_tekst }}
+            </div>
+          {% endif %}
+        </td>
+        <td style="padding:6px; border-bottom:1px solid #f0f0f0; vertical-align:top;">{{ a.attempts }}</td>
+        <td style="padding:6px; border-bottom:1px solid #f0f0f0; vertical-align:top;">
+          {% if a.is_correct %}
+            <span style="color:green;">✔ goed</span>
+          {% else %}
+            <span style="color:#c0392b;">✘ fout</span>
+          {% endif %}
+        </td>
+        <td style="padding:6px; border-bottom:1px solid #f0f0f0; vertical-align:top;">
+          <form method="post" style="display:inline;">
+            <input type="hidden" name="answer_id" value="{{ a.id }}">
+            {% if a.is_correct %}
+              <button type="submit" name="oordeel" value="fout"
+                      style="cursor:pointer;">→ op fout</button>
+            {% else %}
+              <button type="submit" name="oordeel" value="goed"
+                      style="cursor:pointer;">→ op goed</button>
+            {% endif %}
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+  <p style="color:#999;">Nog geen antwoorden om te tonen.</p>
+{% endfor %}
+{% endblock %}

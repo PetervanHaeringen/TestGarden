@@ -1,0 +1,35 @@
+id: softwaretesten.m07
+track_id: softwaretesten
+slug: module7
+module_slug: testen_m7
+
+title: API Testing
+description: Introductie tot API testing, HTTP-statuscodes, JSON en testen met Postman.
+
+order: 7
+level: beginner
+status: active
+version: 0.1.0
+estimated_minutes: 40
+
+learning_objectives:
+  - Begrijpen wat een API is
+  - HTTP-statuscodes interpreteren
+  - JSON lezen en controleren
+  - Basis API-tests uitvoeren met Postman
+  - Positieve en negatieve API-tests ontwerpen
+
+prerequisites:
+  - softwaretesten.m06
+
+tags:
+  - softwaretesten
+  - api-testing
+  - postman
+  - json
+  - http
+  - testen
+
+legacy_slug: testen_m7
+next_module: module8
+template_type: lesson

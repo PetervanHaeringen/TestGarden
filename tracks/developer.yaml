@@ -1,0 +1,51 @@
+id: developer
+title: Programmeren
+description: Waar software begon en hoe je duidelijke instructies schrijft en begint te programmeren.
+status: active
+icon: 🌿
+
+modules:
+  - order: 1
+    system: content
+    slug: developer.m01
+    title: De mens als programmeur
+
+  - order: 2
+    system: content
+    slug: developer.m02
+    title: Van Lovelace tot Turing
+
+  - order: 3
+    system: content
+    slug: developer.m03
+    title: Talen en abstractie
+
+  - order: 4
+    system: content
+    slug: developer.m04
+    title: Talen vergeleken
+
+  - order: 5
+    system: content
+    slug: developer.m05
+    title: Programmeren zonder computer
+
+  - order: 6
+    system: content
+    slug: developer.m06
+    title: Bouwstenen van een programma
+
+  - order: 7
+    system: content
+    slug: developer.m07
+    title: Fouten maken en lezen
+
+  - order: 8
+    system: content
+    slug: developer.m08
+    title: Iets echts bouwen
+
+  - order: 9
+    system: content
+    slug: developer.eindopdracht
+    title: Eindopdracht

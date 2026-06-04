@@ -1,0 +1,29 @@
+id: developer.m01
+track_id: developer
+slug: module1
+
+title: De mens als programmeur
+description: Programmeren begon lang voor computers. Recepten, muziek, wetten — de mens stuurt gedrag met taal.
+
+order: 1
+level: beginner
+status: active
+version: 1.0.0
+estimated_minutes: 30
+
+learning_objectives:
+  - Begrijpen dat programmeren een menselijke activiteit is, ouder dan computers
+  - Het verschil ervaren tussen vage en precieze instructies
+  - De kloof tussen bedoeling en uitvoering kunnen benoemen
+
+prerequisites: []
+
+tags:
+  - programmeren
+  - instructies
+  - taal
+  - algoritme
+  - geschiedenis
+
+next_module: module2
+template_type: lesson

@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/testronden.css') }}">
+<script>
+function slaOpEnNavigeer(url) {
+    // Auto-save voor tab-navigatie
+    const form = document.getElementById('testform');
+    if (!form) { window.location.href = url; return; }
+    const balk = document.querySelector('.ts-opslaan-balk span');
+    if (balk) balk.innerHTML = '⏳ Stappen opslaan...';
+    const data = new FormData(form);
+    const autosaveUrl = '{{ url_for("testronden.autosave", ronde_id=ronde_id, map_naam=map_naam, bestand=bestand) }}';
+    fetch(autosaveUrl, { method: 'POST', body: data })
+        .then(() => { window.location.href = url; })
+        .catch(() => { window.location.href = url; });
+}
+
+function slaOpEnOpenBevinding(bevindingUrl) {
+    const form = document.getElementById('testform');
+    if (!form) {
+        window.location.href = bevindingUrl;
+        return;
+    }
+
+    // Toon korte melding in de opslaan-balk
+    const balk = document.querySelector('.ts-opslaan-balk span');
+    if (balk) balk.innerHTML = '⏳ Stappen opslaan...';
+
+    const data = new FormData(form);
+    const autosaveUrl = '{{ url_for("testronden.autosave", ronde_id=ronde_id, map_naam=map_naam, bestand=bestand) }}';
+
+    fetch(autosaveUrl, {
+        method: 'POST',
+        body: data,
+    })
+    .then(r => r.json())
+    .then(json => {
+        verbergLaad();
+        window.location.href = bevindingUrl;
+    })
+    .catch(() => {
+        // Bij fout toch doorgaan — bevinding is altijd mogelijk
+        window.location.href = bevindingUrl;
+    });
+}
+</script>
+
+<!-- Laad-overlay -->
+<div class="tr-laad-overlay" id="laadOverlay">
+    <div class="tr-laad-spinner"></div>
+    <div class="tr-laad-tekst" id="laadTekst">Even geduld...</div>
+</div>
+
+{% endblock %}
+{% block title %}{{ data.module }} — {{ ronde_id }}{% endblock %}
+
+{% block content %}
+<div class="container-wide py-4">
+
+  <nav class="breadcrumb mb-3">
+    <a href="{{ url_for('testronden.overzicht') }}">Testronden</a> →
+    <a href="{{ url_for('testronden.detail', ronde_id=ronde_id) }}">{{ ronde_id }}</a> →
+    <span class="current">{{ data.module }}</span>
+  </nav>
+
+  <div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-3">
+    <div>
+      <div class="d-flex gap-3 align-items-center mb-1">
+        <span class="bev-id-badge">{{ ronde_id }}</span>
+        <h1 class="mb-0">{{ data.module }}</h1>
+      </div>
+      <p class="text-muted small mb-0">
+        Versie {{ meta.versie }}
+        {% if data.datum %} &nbsp;·&nbsp; {{ data.datum }}{% endif %}
+        {% if data.omgevingen %} &nbsp;·&nbsp; {{ data.omgevingen }}{% endif %}
+      </p>
+    </div>
+  </div>
+
+  {% if data.precondities_module or data.accounts %}
+  <div class="ts-meta-blok mb-3">
+    {% if data.precondities_module %}<strong>Precondities:</strong> {{ data.precondities_module }}<br>{% endif %}
+    {% if data.accounts %}<strong>Accounts:</strong> {{ data.accounts }}{% endif %}
+  </div>
+  {% endif %}
+
+  {# Voortgang #}
+  {% set totaal = tellers.goed + tellers.fout + tellers.goed_met_opmerking + tellers.niet_getest %}
+  {% set gedaan = tellers.goed + tellers.fout + tellers.goed_met_opmerking %}
+  {% set pct = ((gedaan / totaal * 100) | int) if totaal > 0 else 0 %}
+
+  <div class="d-flex align-items-center gap-3 mb-4">
+    <div class="progress-bar-wrap flex-grow-1">
+      <div class="progress-bar-inner" style="width:{{ pct }}%"></div>
+    </div>
+    <div class="ts-tellers">
+      <span class="ts-badge ts-goed">✓ {{ tellers.goed }}</span>
+      <span class="ts-badge ts-fout">✗ {{ tellers.fout }}</span>
+      <span class="ts-badge ts-opmerking">~ {{ tellers.goed_met_opmerking }}</span>
+      <span class="ts-badge ts-open">— {{ tellers.niet_getest }}</span>
+      <span class="ts-pct">{{ pct }}%</span>
+    </div>
+  </div>
+
+  {# Testset-filter tabs — auto-save voor navigatie #}
+  <div class="ts-tabs mb-4">
+    <button onclick="slaOpEnNavigeer('?ts=alle')"
+            class="ts-tab {% if gekozen_ts == 'alle' %}actief{% endif %}">Alle</button>
+    {% for ts in alle_testsets %}
+    <button onclick="slaOpEnNavigeer('?ts={{ ts.id }}')"
+            class="ts-tab {% if gekozen_ts == ts.id %}actief{% endif %}">{{ ts.id }}</button>
+    {% endfor %}
+  </div>
+
+  {# Formulier #}
+  <form method="POST" id="testform"
+        action="{{ url_for('testronden.opslaan', ronde_id=ronde_id, map_naam=map_naam, bestand=bestand) }}">
+    <input type="hidden" name="gekozen_ts" value="{{ gekozen_ts }}">
+
+    {% for ts in testsets %}
+    <div class="ts-blok mb-5">
+      <div class="ts-header">
+        <span class="ts-id-badge">{{ ts.id }}</span>
+        <span class="ts-naam">{{ ts.naam or '' }}</span>
+      </div>
+
+      <div class="stap-grid stap-grid-header">
+        <div>Nr</div>
+        <div>Actie / Verwacht resultaat</div>
+        <div>Status</div>
+        <div>Notitie</div>
+      </div>
+
+      {% for stap in ts.stappen %}
+      {% set key = ts.id ~ '_' ~ stap.nr %}
+      {% set res = res_index.get((ts.id, stap.nr), {}) %}
+      <div class="stap-grid stap-rij">
+
+        <div class="stap-nr">{{ stap.nr }}</div>
+
+        <div class="stap-inhoud">
+          {% if stap.precondities %}
+          <div class="stap-prec">⚡ {{ stap.precondities }}</div>
+          {% endif %}
+          <div class="stap-actie">{{ stap.actie or '' }}</div>
+          {% if stap.verwacht %}
+          <div class="stap-verwacht">{{ stap.verwacht }}</div>
+          {% endif %}
+          {% if res.getest_door %}
+          <div class="stap-meta-info">
+            getest door {{ res.getest_door }}{% if res.getest_op %} · {{ res.getest_op }}{% endif %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div>
+          {% set huidige_status = res.get('status', 'niet_getest') if res else 'niet_getest' %}
+          <select name="status_{{ key }}"
+                  class="ts-status-select ts-status-{{ huidige_status }}"
+                  onchange="this.className='ts-status-select ts-status-'+this.value">
+            <option value="goed"               {% if huidige_status == 'goed' %}selected{% endif %}>✓ Goed</option>
+            <option value="fout"               {% if huidige_status == 'fout' %}selected{% endif %}>✗ Fout</option>
+            <option value="goed_met_opmerking" {% if huidige_status == 'goed_met_opmerking' %}selected{% endif %}>~ Opmerking</option>
+            <option value="niet_getest"        {% if huidige_status == 'niet_getest' %}selected{% endif %}>— Niet getest</option>
+          </select>
+
+          <button type="button"
+                  class="bev-aanmaken-btn"
+                  title="Sla huidige stappen op en maak een bevinding aan"
+                  onclick="slaOpEnOpenBevinding('{{ url_for('bevindingen.nieuw', map=map_naam, bestand=bestand, ts=ts.id, stap=stap.nr, ronde=ronde_id) }}')">
+            🐛 Bevinding
+          </button>
+          {% if res.bevindingen %}
+          <div class="bev-koppelingen">
+            {% for bev_id in res.bevindingen %}
+            <a href="{{ url_for('bevindingen.detail', bev_id=bev_id) }}"
+               class="bev-koppeling-link">{{ bev_id }}</a>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <div>
+          <textarea name="notitie_{{ key }}"
+                    placeholder="Optionele toelichting..."
+                    class="ts-notitie-input"
+                    rows="2"
+                    style="width:100%;min-width:0;resize:vertical;font-family:inherit;font-size:13px">{{ res.get('notitie', '') if res else '' }}</textarea>
+        </div>
+
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+
+    <div class="ts-opslaan-balk">
+      <button type="submit" class="btn btn-primary"
+              >💾 Opslaan naar GitHub
+      </button>
+      <span class="text-muted small">
+        Ingelogd als <strong>{{ tester }}</strong>
+        &nbsp;·&nbsp; resultaten opgeslagen in {{ ronde_id }}
+        &nbsp;·&nbsp; testscript blijft ongewijzigd
+      </span>
+    </div>
+
+  </form>
+</div>
+{% endblock %}
